@@ -34,6 +34,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MappingsConfiguration.cs" />
     <Compile Include="QueryMapping.cs" />
     <Compile Include="QueryMappings.cs" />
     <Compile Include="IMappingsStorage.cs" />
