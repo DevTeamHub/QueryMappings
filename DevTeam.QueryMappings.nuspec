@@ -4,6 +4,7 @@
     <id>DevTeam.QueryMappings</id>
     <version>1.0.4</version>
     <title>DevTeam.QueryMappings</title>
+    <iconUrl>http://dev-team.com/img/devteam.png</iconUrl>
     <authors>Dev Team Inc.</authors>
     <owners>Dev Team Inc.</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
