@@ -1,5 +1,5 @@
 ﻿
-namespace DevTeam.QueryMappings
+namespace DevTeam.QueryMappings.Base
 {
     public interface IMappingsStorage
     {

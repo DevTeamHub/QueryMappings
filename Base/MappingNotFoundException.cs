@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace DevTeam.QueryMappings
+namespace DevTeam.QueryMappings.Base
 {
     [Serializable]
     public class MappingNotFoundException: ApplicationException

@@ -34,17 +34,20 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MappingsConfiguration.cs" />
-    <Compile Include="QueryMapping.cs" />
-    <Compile Include="QueryMappings.cs" />
-    <Compile Include="IMappingsStorage.cs" />
-    <Compile Include="MappingNotFoundException.cs" />
-    <Compile Include="QueryMappingsExtensions.cs" />
+    <Compile Include="Base\BaseMapping.cs" />
+    <Compile Include="Helpers\MappingsConfiguration.cs" />
+    <Compile Include="Mappings\ExpressionMapping.cs" />
+    <Compile Include="Mappings\QueryMapping.cs" />
+    <Compile Include="Helpers\MappingsList.cs" />
+    <Compile Include="Base\IMappingsStorage.cs" />
+    <Compile Include="Base\MappingNotFoundException.cs" />
+    <Compile Include="Helpers\MappingsExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DevTeam.QueryMappings.nuspec" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
