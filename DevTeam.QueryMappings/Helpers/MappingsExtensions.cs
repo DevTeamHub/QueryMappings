@@ -1,0 +1,36 @@
+﻿using DevTeam.QueryMappings.Mappings;
+using System;
+using System.Linq;
+
+namespace DevTeam.QueryMappings.Helpers
+{
+    public static class QueryMappingsExtensions
+    {
+        public static IQueryable<TModel> AsQuery<TEntity, TModel>(this IQueryable<TEntity> query, string name = null)
+        {
+            var mapping = (ExpressionMapping<TEntity, TModel>) MappingsList.Get<TEntity, TModel>(name);
+            return mapping.Apply(query);
+        }
+
+        public static IQueryable<TModel> AsQuery<TEntity, TModel, TArgs>(this IQueryable<TEntity> query, TArgs args, string name = null)
+            where TArgs : class
+        {
+            var mapping = (ParameterizedMapping<TEntity, TModel, TArgs>) MappingsList.Get<TEntity, TModel>(name);
+            return mapping.Apply(query, args);
+        }
+
+        public static IQueryable<TModel> AsQuery<TEntity, TModel, TContext>(this IQueryable<TEntity> query, Type contextType, string name = null)
+        {
+            var context = ContextResolver.Resolve<TContext>(contextType);
+            var mapping = (QueryMapping<TEntity, TModel, TContext>) MappingsList.Get<TEntity, TModel>(name);
+            return mapping.Apply(query, context);
+        }
+
+        public static IQueryable<TModel> AsQuery<TEntity, TModel, TArgs, TContext>(this IQueryable<TEntity> query, TArgs args, Type contextType, string name = null)
+        {
+            var context = ContextResolver.Resolve<TContext>(contextType);
+            var mapping = (ParameterizedQueryMapping<TEntity, TModel, TArgs, TContext>)MappingsList.Get<TEntity, TModel>(name);
+            return mapping.Apply(query, args, context);
+        }
+    }
+}

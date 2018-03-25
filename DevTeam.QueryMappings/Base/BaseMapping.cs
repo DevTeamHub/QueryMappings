@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace DevTeam.QueryMappings.Base
 {
-    public interface IMapping<in TFrom, out TTo>
-    {
-        IQueryable<TTo> Apply(IQueryable<TFrom> query);
-    }
-
     public abstract class Mapping
     {
         public Type From { get; protected set; }
@@ -24,7 +20,7 @@ namespace DevTeam.QueryMappings.Base
 
         public bool Is<TFirst, TSecond>(string name = null)
         {
-            return Is(typeof(TFirst), typeof(TSecond));
+            return Is(typeof(TFirst), typeof(TSecond), name);
         }
 
         public bool Is(Type from, Type to, string name = null)

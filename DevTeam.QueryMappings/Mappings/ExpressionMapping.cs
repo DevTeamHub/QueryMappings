@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace DevTeam.QueryMappings.Mappings
 {
-    public class ExpressionMapping<TFrom, TTo> : Mapping, IMapping<TFrom, TTo>
+    public class ExpressionMapping<TFrom, TTo> : Mapping
     {
         public ExpressionMapping(Expression<Func<TFrom, TTo>> mapping, string name = null)
             : base(typeof(TFrom), typeof(TTo), name)
