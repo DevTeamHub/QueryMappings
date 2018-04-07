@@ -1,5 +1,6 @@
 ﻿using DevTeam.EntityFrameworkExtensions.DbContext;
 using DevTeam.QueryMappings.Tests.Context.SecurityContext.Entities;
+using DevTeam.QueryMappings.Tests.Tests;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -9,7 +10,7 @@ namespace DevTeam.QueryMappings.Tests.Mappings
 {
     public class SecurityContext : IDbContext
     {
-        public IEnumerable<User> Users { get; set; }
+        public IEnumerable<User> Users => TestData.Users;
 
         public Database Database => throw new NotImplementedException();
 

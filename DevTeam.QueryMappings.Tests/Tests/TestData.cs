@@ -1,11 +1,14 @@
-﻿using DevTeam.QueryMappings.Tests.Context.RentalContext.Entities;
+﻿using DevTeam.QueryMappings.Tests.Context.RentalContext;
+using DevTeam.QueryMappings.Tests.Context.RentalContext.Entities;
+using DevTeam.QueryMappings.Tests.Context.SecurityContext.Entities;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DevTeam.QueryMappings.Tests.Tests
 {
-    public class TestData
+    public static class TestData
     {
-        public List<Address> Addresses => new List<Address>
+        public static List<Address> Addresses => new List<Address>
         {
             new Address
             {
@@ -16,7 +19,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
                 City = "New York",
                 State = "NY",
                 ZipCode = "10012",
-                Country = 1
+                Country = (int) Countries.USA
             },
             new Address
             {
@@ -27,11 +30,11 @@ namespace DevTeam.QueryMappings.Tests.Tests
                 City = "Santa Monica",
                 State = "CA",
                 ZipCode = "90402",
-                Country = 1
+                Country = (int) Countries.USA
             }
         };
 
-        public List<Building> Buildings => new List<Building>
+        public static List<Building> Buildings => new List<Building>
         {
             new Building
             {
@@ -51,7 +54,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
             }
         };
 
-        public List<Appartment> Appartments => new List<Appartment>
+        public static List<Appartment> Appartments => new List<Appartment>
         {
             new Appartment
             {
@@ -132,9 +135,262 @@ namespace DevTeam.QueryMappings.Tests.Tests
             }
         };
 
-        public List<Person> People => new List<Person>
+        public static List<Person> People => new List<Person>
         {
+            new Person
+            {
+                Id = 1,
+                AppartmentId = 1,
+                FirstName = "Matthew",
+                LastName = "Anderson",
+                Gender = (int) Gender.Male,
+                Age = 25,
+                Email = "matt@gmail.com",
+                Phone = "+14256542323"
+            },
+            new Person
+            {
+                Id = 2,
+                AppartmentId = 4,
+                FirstName = "Chris",
+                LastName = "Jackson",
+                Gender = (int) Gender.Male,
+                Age = 32,
+                Email = "chrisjackson@outlook.com",
+                Phone = "+14257651212"
+            },
+            new Person
+            {
+                Id = 3,
+                AppartmentId = 4,
+                FirstName = "Lisa",
+                LastName = "Jackson",
+                Gender = (int) Gender.Female,
+                Age = 27,
+                Email = "lisajackson@outlook.com",
+                Phone = "+14259875656"
+            },
+            new Person
+            {
+                Id = 4,
+                AppartmentId = 5,
+                FirstName = "John",
+                LastName = "Doe",
+                Gender = (int) Gender.Male,
+                Age = 43,
+                Email = "johndoe@yahoo.com",
+                Phone = "+13235321416"
+            },
+            new Person
+            {
+                Id = 5,
+                AppartmentId = 5,
+                FirstName = "Anna",
+                LastName = "Doe",
+                Gender = (int) Gender.Female,
+                Age = 36,
+                Email = "annadoe@yahoo.com",
+                Phone = "+13235321416"
+            },
+            new Person
+            {
+                Id = 6,
+                AppartmentId = 5,
+                FirstName = "Katty",
+                LastName = "Doe",
+                Gender = (int) Gender.Female,
+                Age = 17,
+                Email = "kattydoe@yahoo.com",
+                Phone = "+13234453232"
+            },
+            new Person
+            {
+                Id = 7,
+                AppartmentId = 5,
+                FirstName = "Jack",
+                LastName = "Doe",
+                Gender = (int) Gender.Male,
+                Age = 3,
+                Email = null,
+                Phone = null
+            },
+            new Person
+            {
+                Id = 7,
+                AppartmentId = 6,
+                FirstName = "Albert",
+                LastName = "Einstein",
+                Gender = (int) Gender.Male,
+                Age = 139,
+                Email = null,
+                Phone = null
+            }
+        };
 
+        public static List<Review> Reviews => new List<Review>
+        {
+            new Review
+            {
+                Id = 1,
+                EntityId = 1,
+                EntityTypeId = (int) EntityType.Building,
+                Rating = 4,
+                Comments = "Some test comment"
+            },
+            new Review
+            {
+                Id = 2,
+                EntityId = 1,
+                EntityTypeId = (int) EntityType.Building,
+                Rating = 5,
+                Comments = "Some another test comment"
+            },
+            new Review
+            {
+                Id = 3,
+                EntityId = 2,
+                EntityTypeId = (int) EntityType.Building,
+                Rating = 5,
+                Comments = null
+            },
+            new Review
+            {
+                Id = 4,
+                EntityId = 1,
+                EntityTypeId = (int) EntityType.Appartment,
+                Rating = 5,
+                Comments = null
+            },
+            new Review
+            {
+                Id = 5,
+                EntityId = 1,
+                EntityTypeId = (int) EntityType.Appartment,
+                Rating = 3,
+                Comments = "some isn't really good opinion"
+            },
+            new Review
+            {
+                Id = 6,
+                EntityId = 2,
+                EntityTypeId = (int) EntityType.Appartment,
+                Rating = 5,
+                Comments = "Very good review of appartment"
+            },
+            new Review
+            {
+                Id = 7,
+                EntityId = 3,
+                EntityTypeId = (int) EntityType.Appartment,
+                Rating = 1,
+                Comments = "no comments..."
+            },
+            new Review
+            {
+                Id = 8,
+                EntityId = 3,
+                EntityTypeId = (int) EntityType.Appartment,
+                Rating = 2,
+                Comments = "aweful..."
+            },
+            new Review
+            {
+                Id = 9,
+                EntityId = 4,
+                EntityTypeId = (int) EntityType.Appartment,
+                Rating = 3,
+                Comments = null
+            },
+            new Review
+            {
+                Id = 10,
+                EntityId = 4,
+                EntityTypeId = (int) EntityType.Appartment,
+                Rating = 3,
+                Comments = null
+            },
+            new Review
+            {
+                Id = 11,
+                EntityId = 4,
+                EntityTypeId = (int) EntityType.Appartment,
+                Rating = 4,
+                Comments = null
+            },
+            new Review
+            {
+                Id = 12,
+                EntityId = 5,
+                EntityTypeId = (int) EntityType.Appartment,
+                Rating = 4,
+                Comments = "good review"
+            },
+            new Review
+            {
+                Id = 13,
+                EntityId = 6,
+                EntityTypeId = (int) EntityType.Appartment,
+                Rating = 5,
+                Comments = "amazing review"
+            },
+            new Review
+            {
+                Id = 14,
+                EntityId = 6,
+                EntityTypeId = (int) EntityType.Appartment,
+                Rating = 3,
+                Comments = "average review"
+            }
+        };
+
+        public static List<User> Users => new List<User>
+        {
+            new User
+            {
+                Id = 1,
+                UserName = "User1",
+                Password = "asdasdasdas",
+                IsAdmin = false
+            },
+            new User
+            {
+                Id = 2,
+                UserName = "User2",
+                Password = "erterterte",
+                IsAdmin = true
+            },
+            new User
+            {
+                Id = 3,
+                UserName = "User3",
+                Password = "ghjghjgjhjgh",
+                IsAdmin = false
+            }
+        };
+
+        static TestData()
+        {
+            Buildings.ForEach(building =>
+            {
+                building.Address = Addresses.SingleOrDefault(x => x.BuildingId == building.Id);
+                building.Appartments = Appartments.Where(x => x.BuildingId == building.Id).ToList();
+            });
+
+            Addresses.ForEach(address =>
+            {
+                address.Building = Buildings.SingleOrDefault(x => x.Id == address.BuildingId);
+            });
+
+            Appartments.ForEach(appartment =>
+            {
+                appartment.Building = Buildings.SingleOrDefault(x => x.Id == appartment.BuildingId);
+                appartment.Residents = People.Where(x => x.AppartmentId == appartment.Id).ToList();
+            });
+
+            People.ForEach(person =>
+            {
+                person.Appartment = Appartments.SingleOrDefault(x => x.Id == person.AppartmentId);
+            });
         }
     }
 }

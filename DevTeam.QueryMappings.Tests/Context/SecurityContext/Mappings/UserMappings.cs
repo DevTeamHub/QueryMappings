@@ -1,29 +1,20 @@
 ﻿using DevTeam.QueryMappings.Base;
 using DevTeam.QueryMappings.Helpers;
-using System.Linq;
+using DevTeam.QueryMappings.Tests.Context.RentalContext.Models;
+using DevTeam.QueryMappings.Tests.Context.SecurityContext.Entities;
 
 namespace DevTeam.QueryMappings.Tests.Context.SecurityContext.Mappings
 {
-    public class CarMappings: IMappingsStorage
+    public class UserMappings: IMappingsStorage
     {
         public void Setup()
         {
-            MappingsList.Add<Car, CarModel>(x => new CarModel
+            MappingsList.Add<User, UserModel>(x => new UserModel
             {
-                Make = x.Make,
-                Wheels = x.Wheels.Select(w => new WheelModel
-                {
-                    Size = w.Size
-                }).ToList()
-            });
-
-            MappingsList.Add<Car, CarModel, >(x => new CarModel
-            {
-                Make = x.Make,
-                Wheels = x.Wheels.Select(w => new WheelModel
-                {
-                    Size = w.Size
-                }).ToList()
+                Id = x.Id,
+                UserName = x.UserName,
+                Password = x.Password,
+                IsAdmin = x.IsAdmin
             });
         }
     }

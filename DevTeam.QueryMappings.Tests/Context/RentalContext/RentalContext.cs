@@ -1,5 +1,6 @@
 ﻿using DevTeam.EntityFrameworkExtensions.DbContext;
 using DevTeam.QueryMappings.Tests.Context.RentalContext.Entities;
+using DevTeam.QueryMappings.Tests.Tests;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -9,11 +10,11 @@ namespace DevTeam.QueryMappings.Tests.Context.RentalContext
 {
     public class RentalContext : IDbContext
     {
-        public IEnumerable<Building> Buildings { get; set; }
-        public IEnumerable<Appartment> Appartments { get; set; }
-        public IEnumerable<Address> Addresses { get; set; }
-        public IEnumerable<Person> People { get; set; }
-        public IEnumerable<Review> Reviews { get; set; }
+        public IEnumerable<Building> Buildings => TestData.Buildings;
+        public IEnumerable<Appartment> Appartments => TestData.Appartments;
+        public IEnumerable<Address> Addresses => TestData.Addresses;
+        public IEnumerable<Person> People => TestData.People;
+        public IEnumerable<Review> Reviews => TestData.Reviews;
 
         public Database Database => throw new NotImplementedException();
 
@@ -36,6 +37,4 @@ namespace DevTeam.QueryMappings.Tests.Context.RentalContext
             throw new NotImplementedException();
         }
     }
-
-    public class SecondContextMock: FirstContextMock { }
 }

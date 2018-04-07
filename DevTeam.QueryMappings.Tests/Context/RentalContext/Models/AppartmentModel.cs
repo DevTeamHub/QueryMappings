@@ -13,6 +13,7 @@ namespace DevTeam.QueryMappings.Tests.Context.RentalContext.Models
         public int Floor { get; set; }
         public bool IsLodge { get; set; }
 
+        public BuildingModel Building { get; set; }
         public List<PersonModel> Residents { get; set; }
         public List<ReviewModel> Reviews { get; set; }
 
