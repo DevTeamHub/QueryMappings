@@ -4,16 +4,16 @@ namespace DevTeam.QueryMappings.Helpers
 {
     public static class ContextResolver<TContext>
     {
-        private static Func<Type, TContext> _contextResolver;
+        private static Func<object, TContext> _contextResolver;
 
-        public static void RegisterResolver(Func<Type, TContext> contextResolver)
+        public static void RegisterResolver(Func<object, TContext> contextResolver)
         {
             _contextResolver = contextResolver;
         }
 
-        public static TContext Resolve(Type contextType)
+        public static TContext Resolve(object contextKey = null)
         {
-            return _contextResolver.Invoke(contextType);
+            return _contextResolver.Invoke(contextKey);
         }
     }
 }
