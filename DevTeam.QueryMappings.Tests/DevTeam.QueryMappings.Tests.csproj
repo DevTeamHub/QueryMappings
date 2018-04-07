@@ -77,10 +77,14 @@
     <Compile Include="Context\RentalContext\Enums.cs" />
     <Compile Include="Context\RentalContext\Entities\Person.cs" />
     <Compile Include="Context\RentalContext\Entities\Review.cs" />
+    <Compile Include="Context\RentalContext\MappingsNames.cs" />
     <Compile Include="Context\RentalContext\Mappings\AddressMappings.cs" />
     <Compile Include="Context\RentalContext\Mappings\AppartmentMappings.cs" />
+    <Compile Include="Context\RentalContext\Mappings\Arguments\AppartmentsArguments.cs" />
     <Compile Include="Context\RentalContext\Models\AddressModel.cs" />
+    <Compile Include="Context\RentalContext\Models\AddressSummaryModel.cs" />
     <Compile Include="Context\RentalContext\Models\AppartmentModel.cs" />
+    <Compile Include="Context\RentalContext\Models\AppartmentsShortModel.cs" />
     <Compile Include="Context\RentalContext\Models\BuildingModel.cs" />
     <Compile Include="Context\RentalContext\Models\BuildingStatistics.cs" />
     <Compile Include="Context\RentalContext\RentalContext.cs" />

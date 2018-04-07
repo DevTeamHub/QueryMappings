@@ -22,6 +22,18 @@ namespace DevTeam.QueryMappings.Tests.Context.RentalContext.Mappings
                 Street = x.Street,
                 ZipCode = x.ZipCode
             });
+
+            MappingsList.Add<Address, AddressSummaryModel>(MappingsNames.ExtendedAddressFormat, x => new AddressSummaryModel
+            {
+                Id = x.Id,
+                Address = x.BuildingNumber + " " + x.Street + ", " + x.City + ", " + x.State + ", " + x.Country + ", " + x.ZipCode
+            });
+
+            MappingsList.Add<Address, AddressSummaryModel>(MappingsNames.ShortAddressFormat, x => new AddressSummaryModel
+            {
+                Id = x.Id,
+                Address = x.BuildingNumber + " " + x.Street + ", " + x.City 
+            });
         }
     }
 }

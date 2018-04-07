@@ -6,6 +6,11 @@ using DevTeam.QueryMappings.Tests.Mappings;
 using System.Collections.Generic;
 using DevTeam.QueryMappings.Mappings;
 using System.Linq;
+using DevTeam.QueryMappings.Tests.Context;
+using DevTeam.QueryMappings.Tests.Context.RentalContext;
+using DevTeam.QueryMappings.Tests.Context.RentalContext.Mappings;
+using DevTeam.QueryMappings.Tests.Context.RentalContext.Entities;
+using DevTeam.QueryMappings.Tests.Context.RentalContext.Models;
 
 namespace DevTeam.QueryMappings.Tests.Tests
 {
@@ -20,12 +25,12 @@ namespace DevTeam.QueryMappings.Tests.Tests
         {
             var builder = new ContainerBuilder();
 
-            builder.RegisterType<FirstContextMock>().As<IDbContext>().Keyed<IDbContext>(ContextType.First).SingleInstance();
-            builder.RegisterType<SecondContextMock>().Keyed<IDbContext>(ContextType.Second).SingleInstance();
+            builder.RegisterType<RentalContext>().As<IDbContext>().Keyed<IDbContext>(ContextType.Rental).SingleInstance();
+            builder.RegisterType<SecurityContext>().Keyed<IDbContext>(ContextType.Security).SingleInstance();
 
             _container = builder.Build();
 
-            MappingsConfiguration.Register(typeof(PersonMappings).Assembly);
+            MappingsConfiguration.Register(typeof(AddressMappings).Assembly);
 
             ContextResolver<IDbContext>.RegisterResolver(type => 
             {
@@ -41,7 +46,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
         [Test]
         public void Mappings_Shound_Be_Loaded_Into_Storage()
         {
-            var carMapping = MappingsList.Get<Car, CarModel>();
+            var carMapping = MappingsList.Get<Address, AddressModel>();
             var personMapping = MappingsList.Get<Person, PersonModel>();
 
             Assert.IsNotNull(carMapping);

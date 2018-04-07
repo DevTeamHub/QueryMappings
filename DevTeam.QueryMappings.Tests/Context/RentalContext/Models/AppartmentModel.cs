@@ -7,7 +7,7 @@ namespace DevTeam.QueryMappings.Tests.Context.RentalContext.Models
         public int Id { get; set; }
         public int BuildingId { get; set; }
         public string Number { get; set; }
-        public int Size { get; set; }
+        public string Size { get; set; }
         public int Badrooms { get; set; }
         public int Bathrooms { get; set; }
         public int Floor { get; set; }
