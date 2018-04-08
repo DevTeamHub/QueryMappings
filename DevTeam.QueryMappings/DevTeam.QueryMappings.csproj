@@ -42,7 +42,8 @@
   <ItemGroup>
     <Compile Include="Base\BaseMapping.cs" />
     <Compile Include="Base\IMappingsStorage.cs" />
-    <Compile Include="Base\MappingNotFoundException.cs" />
+    <Compile Include="Base\MappingException.cs" />
+    <Compile Include="Base\MappingExceptionMessages.cs" />
     <Compile Include="Helpers\ContextResolver.cs" />
     <Compile Include="Helpers\MappingsConfiguration.cs" />
     <Compile Include="Helpers\MappingsExtensions.cs" />

@@ -34,6 +34,28 @@ namespace DevTeam.QueryMappings.Tests.Context.RentalContext.Mappings
                 Id = x.Id,
                 Address = x.BuildingNumber + " " + x.Street + ", " + x.City 
             });
+
+            MappingsList.Add<Address, InvalidAddressMapping>(x => new InvalidAddressMapping
+            {
+                Id = x.Id,
+                BuildingNumber = x.BuildingNumber,
+                City = x.City,
+                State = x.State,
+                Country = (Countries)x.Country,
+                Street = x.Street,
+                ZipCode = x.ZipCode
+            });
+
+            MappingsList.Add<Address, InvalidAddressMapping>(x => new InvalidAddressMapping
+            {
+                Id = x.Id,
+                BuildingNumber = x.BuildingNumber,
+                City = x.City,
+                State = x.State,
+                Country = (Countries)x.Country,
+                Street = x.Street,
+                ZipCode = x.ZipCode
+            });
         }
     }
 }

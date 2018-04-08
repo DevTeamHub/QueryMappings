@@ -18,7 +18,34 @@ namespace DevTeam.QueryMappings.Helpers
 
         public static Mapping Get<TFrom, TTo>(string name = null)
         {
-            return Mappings.FirstOrDefault(m => m.Is<TFrom, TTo>(name));
+            try
+            {
+                var mapping = Mappings.SingleOrDefault(m => m.Is<TFrom, TTo>(name));
+
+                if (mapping == null)
+                {
+                    var exceptionMessage = string.Format(MappingExceptionMessages.MappingNotFoundException, typeof(TFrom).Name, typeof(TTo).Name);
+                    throw new MappingException(exceptionMessage);
+                }
+
+                return mapping;
+            }
+            catch (InvalidOperationException ioeException)
+            {
+                var exceptionMessage = string.Empty;
+                var namedMappings = Mappings.Where(m => m.Is<TFrom, TTo>() && !string.IsNullOrEmpty(m.Name)).ToList();
+
+                if (namedMappings.Count > 0 && string.IsNullOrEmpty(name))
+                {
+                    exceptionMessage = string.Format(MappingExceptionMessages.NameIsNullWhenSearchForNamedMappingException, typeof(TFrom).Name, typeof(TTo).Name);
+                }
+                else if (namedMappings.Count == 0)
+                {
+                    exceptionMessage = string.Format(MappingExceptionMessages.MoreThanOneMappingFoundException, typeof(TFrom).Name, typeof(TTo).Name);
+                }
+
+                throw new MappingException(exceptionMessage, ioeException);
+            }
         }
 
         private static void Add(Mapping mapping)
@@ -70,6 +97,11 @@ namespace DevTeam.QueryMappings.Helpers
         {
             var mapping = new ParameterizedQueryMapping<TFrom, TTo, TArgs, TContext>(expression, name);
             Add(mapping);
+        }
+
+        public static void Clear()
+        {
+            Mappings.Clear();
         }
     }
 }

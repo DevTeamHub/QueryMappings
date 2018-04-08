@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevTeam.QueryMappings.Base;
+using System;
 
 namespace DevTeam.QueryMappings.Helpers
 {
@@ -13,6 +14,9 @@ namespace DevTeam.QueryMappings.Helpers
 
         public static TContext Resolve(object contextKey = null)
         {
+            if (_contextResolver == null)
+                throw new MappingException("Context Resolver wasn't registered. To use Query Mappings you need to register context resolver function.");
+
             return _contextResolver.Invoke(contextKey);
         }
     }

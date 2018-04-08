@@ -3,14 +3,15 @@ using DevTeam.EntityFrameworkExtensions.DbContext;
 using Autofac;
 using NUnit.Framework;
 using DevTeam.QueryMappings.Tests.Mappings;
-using System.Collections.Generic;
 using DevTeam.QueryMappings.Mappings;
-using System.Linq;
 using DevTeam.QueryMappings.Tests.Context;
 using DevTeam.QueryMappings.Tests.Context.RentalContext;
 using DevTeam.QueryMappings.Tests.Context.RentalContext.Mappings;
 using DevTeam.QueryMappings.Tests.Context.RentalContext.Entities;
 using DevTeam.QueryMappings.Tests.Context.RentalContext.Models;
+using DevTeam.QueryMappings.Base;
+using DevTeam.QueryMappings.Tests.Context.RentalContext.Mappings.Arguments;
+using System.Linq;
 
 namespace DevTeam.QueryMappings.Tests.Tests
 {
@@ -19,8 +20,9 @@ namespace DevTeam.QueryMappings.Tests.Tests
     public class MappingTests
     {
         private IContainer _container;
+        private RentalContext _context;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void Init()
         {
             var builder = new ContainerBuilder();
@@ -29,6 +31,8 @@ namespace DevTeam.QueryMappings.Tests.Tests
             builder.RegisterType<SecurityContext>().Keyed<IDbContext>(ContextType.Security).SingleInstance();
 
             _container = builder.Build();
+
+            _context = (RentalContext) _container.Resolve<IDbContext>();
 
             MappingsConfiguration.Register(typeof(AddressMappings).Assembly);
 
@@ -43,182 +47,186 @@ namespace DevTeam.QueryMappings.Tests.Tests
             });
         }
 
-        [Test]
-        public void Mappings_Shound_Be_Loaded_Into_Storage()
+        [OneTimeTearDown]
+        public void Clear()
         {
-            var carMapping = MappingsList.Get<Address, AddressModel>();
-            var personMapping = MappingsList.Get<Person, PersonModel>();
-
-            Assert.IsNotNull(carMapping);
-            Assert.IsNotNull(personMapping);
+            _container = null;
+            MappingsList.Clear();
         }
 
         [Test]
         public void Entity_Framework_Context_Should_Be_Available()
         {
             var defaultContext = _container.Resolve<IDbContext>();
-            var firstContext = _container.ResolveKeyed<IDbContext>(ContextType.First);
-            var secondContext = _container.ResolveKeyed<IDbContext>(ContextType.Second);
+            var firstContext = _container.ResolveKeyed<IDbContext>(ContextType.Rental);
+            var secondContext = _container.ResolveKeyed<IDbContext>(ContextType.Security);
 
             Assert.IsNotNull(defaultContext);
-            Assert.IsInstanceOf<FirstContextMock>(defaultContext);
+            Assert.IsInstanceOf<RentalContext>(defaultContext);
 
             Assert.IsNotNull(firstContext);
-            Assert.IsInstanceOf<FirstContextMock>(firstContext);
+            Assert.IsInstanceOf<RentalContext>(firstContext);
 
             Assert.IsNotNull(secondContext);
-            Assert.IsInstanceOf<SecondContextMock>(secondContext);
+            Assert.IsInstanceOf<SecurityContext>(secondContext);
         }
 
         [Test]
         public void Context_Resolver_Should_Work()
         {
             var defaultContext = ContextResolver<IDbContext>.Resolve();
-            var firstContext = ContextResolver<IDbContext>.Resolve(ContextType.First);
-            var secondContext = ContextResolver<IDbContext>.Resolve(ContextType.Second);
+            var firstContext = ContextResolver<IDbContext>.Resolve(ContextType.Rental);
+            var secondContext = ContextResolver<IDbContext>.Resolve(ContextType.Security);
 
             Assert.IsNotNull(defaultContext);
-            Assert.IsInstanceOf<FirstContextMock>(defaultContext);
+            Assert.IsInstanceOf<RentalContext>(defaultContext);
 
             Assert.IsNotNull(firstContext);
-            Assert.IsInstanceOf<FirstContextMock>(firstContext);
+            Assert.IsInstanceOf<RentalContext>(firstContext);
 
             Assert.IsNotNull(secondContext);
-            Assert.IsInstanceOf<SecondContextMock>(secondContext);
+            Assert.IsInstanceOf<SecurityContext>(secondContext);
         }
 
         [Test]
-        public void Should_Convert_Car_Into_Model()
+        public void Shound_Find_Address_Expression_Mapping_In_Storage()
         {
-            var car = new Car
-            {
-                Make = "Opel",
-                Year = 2000,
-                Wheels = new List<Wheel>
-                {
-                    new Wheel
-                    {
-                        Position = "Front Left",
-                        Size = 21
-                    },
-                    new Wheel
-                    {
-                        Position = "Front Right",
-                        Size = 21
-                    },
-                    new Wheel
-                    {
-                        Position = "Back Left",
-                        Size = 21
-                    },
-                    new Wheel
-                    {
-                        Position = "Back Right",
-                        Size = 21
-                    }
-                }
-            };
+            var mapping = MappingsList.Get<Address, AddressModel>();
 
-            var list = new List<Car> { car };
-            var query = list.AsQueryable();
-
-            var carMapping = MappingsList.Get<Car, CarModel>();
-
-            Assert.IsNotNull(carMapping);
-            Assert.IsInstanceOf<ExpressionMapping<Car, CarModel>>(carMapping);
-
-            var expressionMapping = (ExpressionMapping<Car, CarModel>)carMapping;
-
-            var carModelQuery = expressionMapping.Apply(query);
-
-            Assert.IsNotNull(carModelQuery);
-            Assert.IsInstanceOf<IQueryable<CarModel>>(carModelQuery);
-
-            var carModelList = carModelQuery.ToList();
-
-            CollectionAssert.IsNotEmpty(carModelList);
-            Assert.AreEqual(carModelList.Count, list.Count);
-
-            var carModel = carModelList.First();
-
-            Assert.AreEqual(carModel.Make, car.Make);
-            CollectionAssert.IsNotEmpty(carModel.Wheels);
-            Assert.AreEqual(carModel.Wheels.Count, car.Wheels.Count);
-
-            for (var i = 0; i < carModel.Wheels.Count; i++)
-            {
-                var wheelModel = carModel.Wheels[i];
-                var wheel = car.Wheels[i];
-
-                Assert.AreEqual(wheelModel.Size, wheel.Size);
-            }
+            Assert.IsNotNull(mapping);
+            Assert.IsInstanceOf<ExpressionMapping<Address, AddressModel>>(mapping);
+            Assert.AreEqual(mapping.From, typeof(Address));
+            Assert.AreEqual(mapping.To, typeof(AddressModel));
+            Assert.IsNull(mapping.Name);
         }
 
         [Test]
-        public void Should_Convert_Car_Into_Model()
+        public void Shound_Throw_Exception_If_Mapping_Doesnt_Exist()
         {
-            var car = new Car
-            {
-                Make = "Opel",
-                Year = 2000,
-                Wheels = new List<Wheel>
-                {
-                    new Wheel
-                    {
-                        Position = "Front Left",
-                        Size = 21
-                    },
-                    new Wheel
-                    {
-                        Position = "Front Right",
-                        Size = 21
-                    },
-                    new Wheel
-                    {
-                        Position = "Back Left",
-                        Size = 21
-                    },
-                    new Wheel
-                    {
-                        Position = "Back Right",
-                        Size = 21
-                    }
-                }
-            };
+            var method = new TestDelegate(delegate { MappingsList.Get<Address, BuildingModel>(); });
+            var exceptionMessage = string.Format(MappingExceptionMessages.MappingNotFoundException, typeof(Address).Name, typeof(BuildingModel).Name);
 
-            var list = new List<Car> { car };
-            var query = list.AsQueryable();
+            var exception = Assert.Throws<MappingException>(method);
+            Assert.AreEqual(exception.Message, exceptionMessage);
+        }
 
-            var carMapping = MappingsList.Get<Car, CarModel>();
+        [Test]
+        public void Shound_Throw_Exception_If_We_Try_To_Find_Named_Mapping_Without_Explicit_Name_Argument()
+        {
+            var method = new TestDelegate(delegate { MappingsList.Get<Address, AddressSummaryModel>(); });
+            var exceptionMessage = string.Format(MappingExceptionMessages.NameIsNullWhenSearchForNamedMappingException, typeof(Address).Name, typeof(AddressSummaryModel).Name);
 
-            Assert.IsNotNull(carMapping);
-            Assert.IsInstanceOf<ExpressionMapping<Car, CarModel>>(carMapping);
+            var exception = Assert.Throws<MappingException>(method);
+            Assert.AreEqual(exception.Message, exceptionMessage);
+        }
 
-            var expressionMapping = (ExpressionMapping<Car, CarModel>)carMapping;
+        [Test]
+        public void Shound_Throw_Exception_If_The_Same_Not_Named_Mapping_Registered_Twice()
+        {
+            var method = new TestDelegate(delegate { MappingsList.Get<Address, InvalidAddressMapping>(); });
+            var exceptionMessage = string.Format(MappingExceptionMessages.MoreThanOneMappingFoundException, typeof(Address).Name, typeof(InvalidAddressMapping).Name);
 
-            var carModelQuery = expressionMapping.Apply(query);
+            var exception = Assert.Throws<MappingException>(method);
+            Assert.AreEqual(exception.Message, exceptionMessage);
+        }
 
-            Assert.IsNotNull(carModelQuery);
-            Assert.IsInstanceOf<IQueryable<CarModel>>(carModelQuery);
+        [Test]
+        public void Shound_Throw_Exception_If_Name_For_Named_Mapping_Is_Doesnt_Exist()
+        {
+            var method = new TestDelegate(delegate { MappingsList.Get<Address, AddressSummaryModel>("SomeInvalidName"); });
+            var exceptionMessage = string.Format(MappingExceptionMessages.MappingNotFoundException, typeof(Address).Name, typeof(AddressSummaryModel).Name);
 
-            var carModelList = carModelQuery.ToList();
+            var exception = Assert.Throws<MappingException>(method);
+            Assert.AreEqual(exception.Message, exceptionMessage);
+        }
 
-            CollectionAssert.IsNotEmpty(carModelList);
-            Assert.AreEqual(carModelList.Count, list.Count);
+        [Test]
+        public void Shound_Find_Expression_Named_Mapping_By_Name()
+        {
+            var mappingName = MappingsNames.ExtendedAddressFormat;
 
-            var carModel = carModelList.First();
+            var namedMapping = MappingsList.Get<Address, AddressSummaryModel>(mappingName);
 
-            Assert.AreEqual(carModel.Make, car.Make);
-            CollectionAssert.IsNotEmpty(carModel.Wheels);
-            Assert.AreEqual(carModel.Wheels.Count, car.Wheels.Count);
+            Assert.IsNotNull(namedMapping);
+            Assert.IsInstanceOf<ExpressionMapping<Address, AddressSummaryModel>>(namedMapping);
+            Assert.AreEqual(namedMapping.From, typeof(Address));
+            Assert.AreEqual(namedMapping.To, typeof(AddressSummaryModel));
+            Assert.AreEqual(namedMapping.Name, mappingName);
+        }
 
-            for (var i = 0; i < carModel.Wheels.Count; i++)
-            {
-                var wheelModel = carModel.Wheels[i];
-                var wheel = car.Wheels[i];
+        [Test]
+        public void Shound_Find_Parameterized_Mapping_Without_Name()
+        {
+            var parameterizedMapping = MappingsList.Get<Appartment, AppartmentShortModel>();
 
-                Assert.AreEqual(wheelModel.Size, wheel.Size);
-            }
+            Assert.IsNotNull(parameterizedMapping);
+            Assert.IsInstanceOf<ParameterizedMapping<Appartment, AppartmentShortModel, AppartmentsArguments>>(parameterizedMapping);
+            Assert.AreEqual(parameterizedMapping.From, typeof(Appartment));
+            Assert.AreEqual(parameterizedMapping.To, typeof(AppartmentShortModel));
+            Assert.IsNull(parameterizedMapping.Name);
+        }
+
+        [Test]
+        public void Shound_Find_Parameterized_Mapping_By_Name()
+        {
+            var mappingName = MappingsNames.AppartmentsWithoutBuilding;
+
+            var parameterizedMapping = MappingsList.Get<Appartment, AppartmentModel>(mappingName);
+
+            Assert.IsNotNull(parameterizedMapping);
+            Assert.IsInstanceOf<ParameterizedMapping<Appartment, AppartmentModel, AppartmentsArguments>>(parameterizedMapping);
+            Assert.AreEqual(parameterizedMapping.From, typeof(Appartment));
+            Assert.AreEqual(parameterizedMapping.To, typeof(AppartmentModel));
+            Assert.AreEqual(parameterizedMapping.Name, mappingName);
+        }
+
+        [Test]
+        public void Shound_Find_Query_Mapping_Without_Name()
+        {
+            var queryMapping = MappingsList.Get<Appartment, AppartmentReviewsModel>();
+
+            Assert.IsNotNull(queryMapping);
+            Assert.IsInstanceOf<QueryMapping<Appartment, AppartmentReviewsModel, RentalContext>>(queryMapping);
+            Assert.AreEqual(queryMapping.From, typeof(Appartment));
+            Assert.AreEqual(queryMapping.To, typeof(AppartmentReviewsModel));
+            Assert.IsNull(queryMapping.Name);
+        }
+
+        [Test]
+        public void Shound_Find_Query_Mapping_By_Name()
+        {
+            var mappingName = MappingsNames.BuildingWithReviews;
+
+            var queryMapping = MappingsList.Get<Building, BuildingModel>(mappingName);
+
+            Assert.IsNotNull(queryMapping);
+            Assert.IsInstanceOf<QueryMapping<Building, BuildingModel, RentalContext>>(queryMapping);
+            Assert.AreEqual(queryMapping.From, typeof(Building));
+            Assert.AreEqual(queryMapping.To, typeof(BuildingModel));
+            Assert.AreEqual(queryMapping.Name, mappingName);
+        }
+
+        [Test]
+        public void Shound_Find_Parameterized_Query_Mapping()
+        {
+            var mapping = MappingsList.Get<Building, BuildingStatisticsModel>();
+
+            Assert.IsNotNull(mapping);
+            Assert.IsInstanceOf<ParameterizedQueryMapping<Building, BuildingStatisticsModel, BuildingArguments, RentalContext>>(mapping);
+            Assert.AreEqual(mapping.From, typeof(Building));
+            Assert.AreEqual(mapping.To, typeof(BuildingStatisticsModel));
+            Assert.IsNull(mapping.Name);
+        }
+
+        [Test]
+        public void Should_Throw_Exception_If_Apply_()
+        {
+            var query = _context.Appartments.AsQueryable();
+
+            var appartments = query.AsQuery<Appartment, AppartmentShortModel>();
+
+            Assert.IsNotNull(appartments);
+            Assert.IsInstanceOf<IQueryable<AppartmentShortModel>>(appartments);
         }
     }
 }
