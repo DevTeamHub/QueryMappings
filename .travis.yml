@@ -1,7 +1,7 @@
 language: csharp
 solution: DevTeam.QueryMappings.sln
 install:
-  - nuget DevTeam.QueryMappings.sln
+  - nuget restore DevTeam.QueryMappings.sln
   - nuget install NUnit.Console -Version 3.8.0 -OutputDirectory testrunner
 script:
   - xbuild /p:Configuration=Release DevTeam.QueryMappings.sln
