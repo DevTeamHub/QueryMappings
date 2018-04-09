@@ -1,24 +1,24 @@
-﻿using DevTeam.QueryMappings.Helpers;
+﻿using Autofac;
 using DevTeam.EntityFrameworkExtensions.DbContext;
-using Autofac;
-using NUnit.Framework;
-using DevTeam.QueryMappings.Tests.Mappings;
+using DevTeam.QueryMappings.Base;
+using DevTeam.QueryMappings.Helpers;
 using DevTeam.QueryMappings.Mappings;
+using DevTeam.QueryMappings.Properties;
 using DevTeam.QueryMappings.Tests.Context;
 using DevTeam.QueryMappings.Tests.Context.RentalContext;
-using DevTeam.QueryMappings.Tests.Context.RentalContext.Mappings;
 using DevTeam.QueryMappings.Tests.Context.RentalContext.Entities;
-using DevTeam.QueryMappings.Tests.Context.RentalContext.Models;
-using DevTeam.QueryMappings.Base;
+using DevTeam.QueryMappings.Tests.Context.RentalContext.Mappings;
 using DevTeam.QueryMappings.Tests.Context.RentalContext.Mappings.Arguments;
-using System.Linq;
-using DevTeam.QueryMappings.Properties;
+using DevTeam.QueryMappings.Tests.Context.RentalContext.Models;
+using DevTeam.QueryMappings.Tests.Mappings;
+using NUnit.Framework;
 
 namespace DevTeam.QueryMappings.Tests.Tests
 {
-    [Category("Unit")]
+    [Category("MappingsList")]
+    [TestOf(typeof(MappingsList))]
     [TestFixture]
-    public class MappingTests
+    public class MappingsListTests
     {
         private IContainer _container;
         private RentalContext _context;
@@ -33,11 +33,11 @@ namespace DevTeam.QueryMappings.Tests.Tests
 
             _container = builder.Build();
 
-            _context = (RentalContext) _container.Resolve<IDbContext>();
+            _context = (RentalContext)_container.Resolve<IDbContext>();
 
             MappingsConfiguration.Register(typeof(AddressMappings).Assembly);
 
-            ContextResolver<IDbContext>.RegisterResolver(type => 
+            ContextResolver<IDbContext>.RegisterResolver(type =>
             {
                 if (type == null)
                 {
@@ -187,7 +187,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
             var queryMapping = MappingsList.Get<Appartment, AppartmentReviewsModel>();
 
             Assert.IsNotNull(queryMapping);
-            Assert.IsInstanceOf<QueryMapping<Appartment, AppartmentReviewsModel, RentalContext>>(queryMapping);
+            Assert.IsInstanceOf<QueryMapping<Appartment, AppartmentReviewsModel, IDbContext>>(queryMapping);
             Assert.AreEqual(queryMapping.From, typeof(Appartment));
             Assert.AreEqual(queryMapping.To, typeof(AppartmentReviewsModel));
             Assert.IsNull(queryMapping.Name);
@@ -201,7 +201,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
             var queryMapping = MappingsList.Get<Building, BuildingModel>(mappingName);
 
             Assert.IsNotNull(queryMapping);
-            Assert.IsInstanceOf<QueryMapping<Building, BuildingModel, RentalContext>>(queryMapping);
+            Assert.IsInstanceOf<QueryMapping<Building, BuildingModel, IDbContext>>(queryMapping);
             Assert.AreEqual(queryMapping.From, typeof(Building));
             Assert.AreEqual(queryMapping.To, typeof(BuildingModel));
             Assert.AreEqual(queryMapping.Name, mappingName);
@@ -213,21 +213,10 @@ namespace DevTeam.QueryMappings.Tests.Tests
             var mapping = MappingsList.Get<Building, BuildingStatisticsModel>();
 
             Assert.IsNotNull(mapping);
-            Assert.IsInstanceOf<ParameterizedQueryMapping<Building, BuildingStatisticsModel, BuildingArguments, RentalContext>>(mapping);
+            Assert.IsInstanceOf<ParameterizedQueryMapping<Building, BuildingStatisticsModel, BuildingArguments, IDbContext>>(mapping);
             Assert.AreEqual(mapping.From, typeof(Building));
             Assert.AreEqual(mapping.To, typeof(BuildingStatisticsModel));
             Assert.IsNull(mapping.Name);
-        }
-
-        [Test]
-        public void Should_Throw_Exception_If_Apply_()
-        {
-            var query = _context.Appartments.AsQueryable();
-
-            var appartments = query.AsQuery<Appartment, AppartmentShortModel>();
-
-            Assert.IsNotNull(appartments);
-            Assert.IsInstanceOf<IQueryable<AppartmentShortModel>>(appartments);
         }
     }
 }

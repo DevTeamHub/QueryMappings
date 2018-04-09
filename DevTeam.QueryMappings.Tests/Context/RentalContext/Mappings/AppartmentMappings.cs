@@ -1,4 +1,5 @@
-﻿using DevTeam.QueryMappings.Base;
+﻿using DevTeam.EntityFrameworkExtensions.DbContext;
+using DevTeam.QueryMappings.Base;
 using DevTeam.QueryMappings.Helpers;
 using DevTeam.QueryMappings.Tests.Context.RentalContext.Entities;
 using DevTeam.QueryMappings.Tests.Context.RentalContext.Mappings.Arguments;
@@ -59,11 +60,11 @@ namespace DevTeam.QueryMappings.Tests.Context.RentalContext.Mappings
                 };
             });
 
-            MappingsList.Add<Appartment, AppartmentReviewsModel, RentalContext>((query, context) =>
+            MappingsList.Add<Appartment, AppartmentReviewsModel, IDbContext>((query, context) =>
                 from appartment in query
-                join review in context.Reviews on new { EntityId = appartment.Id, EntityTypeId = (int)EntityType.Building }
-                                               equals new { EntityId = review.EntityId, EntityTypeId = review.EntityTypeId }
-                                               into reviews
+                join review in context.Set<Review>() on new { EntityId = appartment.Id, EntityTypeId = (int)EntityType.Appartment }
+                                                     equals new { EntityId = review.EntityId, EntityTypeId = review.EntityTypeId }
+                                                     into reviews
                 select new AppartmentReviewsModel
                 {
                     Id = appartment.Id,

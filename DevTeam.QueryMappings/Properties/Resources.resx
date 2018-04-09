@@ -119,10 +119,18 @@
   </resheader>
   <data name="ApplyMappingException" xml:space="preserve">
     <value>Exception has happened on attempt to apply mapping. See the Inner Exception for more details</value>
+    <comment>Exception describes some general exception on attempt to apply Select statement to IQueryable</comment>
   </data>
   <data name="ArgumentsAreRequiredException" xml:space="preserve">
     <value>Arguments can't be null for this overload of AsQuery method</value>
     <comment>Exception will happen if args are null for one of overloads of AsQuery method where args are required</comment>
+  </data>
+  <data name="ContextKeyIsRequredException" xml:space="preserve">
+    <value>Context Key was null. In Current version Context Key is required parameter.</value>
+    <comment>Exception will be thrown if used AsQuery method with context key argument and context key will be passed as null</comment>
+  </data>
+  <data name="ContextResolverIsntRegisteredException" xml:space="preserve">
+    <value>Context Resolver wasn't registered for type {0}. To use Query Mappings you need to register context resolver function.</value>
   </data>
   <data name="GeneralInitializationException" xml:space="preserve">
     <value>Exception has happened during mappings initialization. Please see Inner Exception to find more details.</value>
@@ -132,9 +140,9 @@
     <value>General exception has happened on attempt to create IMappingStorage instance of type {0}</value>
     <comment>Any other exception when Activator.CreateInstance tried to create instance of IMappingStorage</comment>
   </data>
-  <data name="InvaidMappingCastException" xml:space="preserve">
-    <value>Invalid AsQuery method overload used. See Inner Exception for more details</value>
-    <comment>AsQuery method has 4 different overloads: mapping without paramteres, mapping with parameters, mapping with EF context available in it and mapping with both parameters and EF context. This exception will happen when incorrect version is used </comment>
+  <data name="InvalidCastMappingException" xml:space="preserve">
+    <value>Mapping from type {0} to type {1} was found, but you are using incorrect version of AsQuery method for this type of mapping. You are using AsQuery method that is used {4} arguments and {5} EF context, but founded mapping was registered {2} arguments and {3} EF context</value>
+    <comment>AsQuery method has 4 different overloads: mapping without paramteres, mapping with parameters, mapping with EF context available in it and mapping with both parameters and EF context. This exception will happen when incorrect version is used</comment>
   </data>
   <data name="MappingNotFoundException" xml:space="preserve">
     <value>Mapping from {0} to {1} was not found</value>

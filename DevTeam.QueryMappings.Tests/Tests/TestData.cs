@@ -8,7 +8,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
 {
     public static class TestData
     {
-        public static List<Address> Addresses => new List<Address>
+        private static readonly List<Address> _addresses = new List<Address>
         {
             new Address
             {
@@ -34,7 +34,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
             }
         };
 
-        public static List<Building> Buildings => new List<Building>
+        private static readonly List<Building> _buildings = new List<Building>
         {
             new Building
             {
@@ -54,7 +54,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
             }
         };
 
-        public static List<Appartment> Appartments => new List<Appartment>
+        private static readonly List<Appartment> _appartments = new List<Appartment>
         {
             new Appartment
             {
@@ -135,7 +135,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
             }
         };
 
-        public static List<Person> People => new List<Person>
+        private static readonly List<Person> _people = new List<Person>
         {
             new Person
             {
@@ -227,7 +227,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
             }
         };
 
-        public static List<Review> Reviews => new List<Review>
+        private static readonly List<Review> _reviews = new List<Review>
         {
             new Review
             {
@@ -343,7 +343,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
             }
         };
 
-        public static List<User> Users => new List<User>
+        private static readonly List<User> _users = new List<User>
         {
             new User
             {
@@ -367,6 +367,13 @@ namespace DevTeam.QueryMappings.Tests.Tests
                 IsAdmin = false
             }
         };
+
+        public static List<Address> Addresses => _addresses;
+        public static List<Appartment> Appartments => _appartments;
+        public static List<Building> Buildings => _buildings;
+        public static List<Person> People => _people;
+        public static List<Review> Reviews => _reviews;
+        public static List<User> Users => _users;
 
         static TestData()
         {

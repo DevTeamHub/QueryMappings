@@ -1,4 +1,5 @@
 ﻿using DevTeam.QueryMappings.Base;
+using DevTeam.QueryMappings.Properties;
 using System;
 
 namespace DevTeam.QueryMappings.Helpers
@@ -15,7 +16,7 @@ namespace DevTeam.QueryMappings.Helpers
         public static TContext Resolve(object contextKey = null)
         {
             if (_contextResolver == null)
-                throw new MappingException("Context Resolver wasn't registered. To use Query Mappings you need to register context resolver function.");
+                throw new MappingException(string.Format(Resources.ContextResolverIsntRegisteredException, typeof(TContext).Name));
 
             return _contextResolver.Invoke(contextKey);
         }

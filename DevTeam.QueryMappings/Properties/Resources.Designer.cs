@@ -79,6 +79,24 @@ namespace DevTeam.QueryMappings.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Context Key was null. In Current version Context Key is required parameter..
+        /// </summary>
+        public static string ContextKeyIsRequredException {
+            get {
+                return ResourceManager.GetString("ContextKeyIsRequredException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Context Resolver wasn&apos;t registered for type {0}. To use Query Mappings you need to register context resolver function..
+        /// </summary>
+        public static string ContextResolverIsntRegisteredException {
+            get {
+                return ResourceManager.GetString("ContextResolverIsntRegisteredException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exception has happened during mappings initialization. Please see Inner Exception to find more details..
         /// </summary>
         public static string GeneralInitializationException {
@@ -97,11 +115,11 @@ namespace DevTeam.QueryMappings.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid AsQuery method overload used. See Inner Exception for more details.
+        ///   Looks up a localized string similar to Mapping from type {0} to type {1} was found, but you are using incorrect version of AsQuery method for this type of mapping. You are using AsQuery method that is used {4} arguments and {5} EF context, but founded mapping was registered {2} arguments and {3} EF context.
         /// </summary>
-        public static string InvaidMappingCastException {
+        public static string InvalidCastMappingException {
             get {
-                return ResourceManager.GetString("InvaidMappingCastException", resourceCulture);
+                return ResourceManager.GetString("InvalidCastMappingException", resourceCulture);
             }
         }
         

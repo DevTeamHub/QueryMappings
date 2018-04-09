@@ -1,4 +1,5 @@
-﻿using DevTeam.QueryMappings.Base;
+﻿using DevTeam.EntityFrameworkExtensions.DbContext;
+using DevTeam.QueryMappings.Base;
 using DevTeam.QueryMappings.Helpers;
 using DevTeam.QueryMappings.Tests.Context.RentalContext.Entities;
 using DevTeam.QueryMappings.Tests.Context.RentalContext.Mappings.Arguments;
@@ -40,11 +41,11 @@ namespace DevTeam.QueryMappings.Tests.Context.RentalContext.Mappings
                 }).ToList()
             });
 
-            MappingsList.Add<Building, BuildingModel, RentalContext>(MappingsNames.BuildingWithReviews, (query, context) => 
+            MappingsList.Add<Building, BuildingModel, IDbContext>(MappingsNames.BuildingWithReviews, (query, context) => 
                 from building in query
-                join review in context.Reviews on new { EntityId = building.Id, EntityTypeId = (int) EntityType.Building } 
-                                               equals new { EntityId = review.EntityId, EntityTypeId = review.EntityTypeId }
-                                               into reviews
+                join review in context.Set<Review>() on new { EntityId = building.Id, EntityTypeId = (int) EntityType.Building } 
+                                                     equals new { EntityId = review.EntityId, EntityTypeId = review.EntityTypeId }
+                                                     into reviews
                 select new BuildingModel
                 {
                     Id = building.Id,
@@ -82,13 +83,13 @@ namespace DevTeam.QueryMappings.Tests.Context.RentalContext.Mappings
                     }).ToList()
                 });
 
-            MappingsList.Add<Building, BuildingStatisticsModel, BuildingArguments, RentalContext>(args =>
+            MappingsList.Add<Building, BuildingStatisticsModel, BuildingArguments, IDbContext>(args =>
             {
                 return (query, context) =>
                     from building in query
-                    join review in context.Reviews on new { EntityId = building.Id, EntityTypeId = (int)EntityType.Building }
-                                                   equals new { EntityId = review.EntityId, EntityTypeId = review.EntityTypeId }
-                                                   into reviews
+                    join review in context.Set<Review>() on new { EntityId = building.Id, EntityTypeId = (int)EntityType.Building }
+                                                         equals new { EntityId = review.EntityId, EntityTypeId = review.EntityTypeId }
+                                                         into reviews
                     let address = building.Address
                     select new BuildingStatisticsModel
                     {
