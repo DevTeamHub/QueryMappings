@@ -12,6 +12,7 @@ using DevTeam.QueryMappings.Tests.Context.RentalContext.Models;
 using DevTeam.QueryMappings.Base;
 using DevTeam.QueryMappings.Tests.Context.RentalContext.Mappings.Arguments;
 using System.Linq;
+using DevTeam.QueryMappings.Properties;
 
 namespace DevTeam.QueryMappings.Tests.Tests
 {
@@ -104,7 +105,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
         public void Shound_Throw_Exception_If_Mapping_Doesnt_Exist()
         {
             var method = new TestDelegate(delegate { MappingsList.Get<Address, BuildingModel>(); });
-            var exceptionMessage = string.Format(MappingExceptionMessages.MappingNotFoundException, typeof(Address).Name, typeof(BuildingModel).Name);
+            var exceptionMessage = string.Format(Resources.MappingNotFoundException, typeof(Address).Name, typeof(BuildingModel).Name);
 
             var exception = Assert.Throws<MappingException>(method);
             Assert.AreEqual(exception.Message, exceptionMessage);
@@ -114,7 +115,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
         public void Shound_Throw_Exception_If_We_Try_To_Find_Named_Mapping_Without_Explicit_Name_Argument()
         {
             var method = new TestDelegate(delegate { MappingsList.Get<Address, AddressSummaryModel>(); });
-            var exceptionMessage = string.Format(MappingExceptionMessages.NameIsNullWhenSearchForNamedMappingException, typeof(Address).Name, typeof(AddressSummaryModel).Name);
+            var exceptionMessage = string.Format(Resources.NameIsNullWhenSearchForNamedMappingException, typeof(Address).Name, typeof(AddressSummaryModel).Name);
 
             var exception = Assert.Throws<MappingException>(method);
             Assert.AreEqual(exception.Message, exceptionMessage);
@@ -124,7 +125,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
         public void Shound_Throw_Exception_If_The_Same_Not_Named_Mapping_Registered_Twice()
         {
             var method = new TestDelegate(delegate { MappingsList.Get<Address, InvalidAddressMapping>(); });
-            var exceptionMessage = string.Format(MappingExceptionMessages.MoreThanOneMappingFoundException, typeof(Address).Name, typeof(InvalidAddressMapping).Name);
+            var exceptionMessage = string.Format(Resources.MoreThanOneMappingFoundException, typeof(Address).Name, typeof(InvalidAddressMapping).Name);
 
             var exception = Assert.Throws<MappingException>(method);
             Assert.AreEqual(exception.Message, exceptionMessage);
@@ -134,7 +135,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
         public void Shound_Throw_Exception_If_Name_For_Named_Mapping_Is_Doesnt_Exist()
         {
             var method = new TestDelegate(delegate { MappingsList.Get<Address, AddressSummaryModel>("SomeInvalidName"); });
-            var exceptionMessage = string.Format(MappingExceptionMessages.MappingNotFoundException, typeof(Address).Name, typeof(AddressSummaryModel).Name);
+            var exceptionMessage = string.Format(Resources.MappingNotFoundException, typeof(Address).Name, typeof(AddressSummaryModel).Name);
 
             var exception = Assert.Throws<MappingException>(method);
             Assert.AreEqual(exception.Message, exceptionMessage);

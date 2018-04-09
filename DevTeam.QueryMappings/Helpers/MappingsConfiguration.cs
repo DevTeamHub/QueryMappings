@@ -1,4 +1,5 @@
 ﻿using DevTeam.QueryMappings.Base;
+using DevTeam.QueryMappings.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace DevTeam.QueryMappings.Helpers
             }
             catch (Exception exception)
             {
-                throw new MappingException(MappingExceptionMessages.GeneralInitializationException, exception);
+                throw new MappingException(Resources.GeneralInitializationException, exception);
             }
         }
 
@@ -34,12 +35,12 @@ namespace DevTeam.QueryMappings.Helpers
             }
             catch (MissingMethodException mmmException)
             {
-                var exceptionMessage = string.Format(MappingExceptionMessages.NoEmptyConstructorInitializationException, storageType.FullName);
+                var exceptionMessage = string.Format(Resources.NoEmptyConstructorInitializationException, storageType.FullName);
                 throw new MappingException(exceptionMessage, mmmException);
             }
             catch (Exception exception)
             {
-                throw new MappingException(MappingExceptionMessages.GeneralMappingStorageException, exception);
+                throw new MappingException(Resources.GeneralMappingStorageException, exception);
             }
         }
 
@@ -51,7 +52,7 @@ namespace DevTeam.QueryMappings.Helpers
             }
             catch (Exception exception)
             {
-                var exceptionMessage = string.Format(MappingExceptionMessages.MappingStorageSetupException, mappingsStorage.GetType().FullName);
+                var exceptionMessage = string.Format(Resources.MappingStorageSetupException, mappingsStorage.GetType().FullName);
                 throw new MappingException(exceptionMessage, exception);
             }
         }

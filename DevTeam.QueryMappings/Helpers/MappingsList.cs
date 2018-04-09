@@ -1,5 +1,6 @@
 ﻿using DevTeam.QueryMappings.Base;
 using DevTeam.QueryMappings.Mappings;
+using DevTeam.QueryMappings.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace DevTeam.QueryMappings.Helpers
 
                 if (mapping == null)
                 {
-                    var exceptionMessage = string.Format(MappingExceptionMessages.MappingNotFoundException, typeof(TFrom).Name, typeof(TTo).Name);
+                    var exceptionMessage = string.Format(Resources.MappingNotFoundException, typeof(TFrom).Name, typeof(TTo).Name);
                     throw new MappingException(exceptionMessage);
                 }
 
@@ -37,11 +38,11 @@ namespace DevTeam.QueryMappings.Helpers
 
                 if (namedMappings.Count > 0 && string.IsNullOrEmpty(name))
                 {
-                    exceptionMessage = string.Format(MappingExceptionMessages.NameIsNullWhenSearchForNamedMappingException, typeof(TFrom).Name, typeof(TTo).Name);
+                    exceptionMessage = string.Format(Resources.NameIsNullWhenSearchForNamedMappingException, typeof(TFrom).Name, typeof(TTo).Name);
                 }
                 else if (namedMappings.Count == 0)
                 {
-                    exceptionMessage = string.Format(MappingExceptionMessages.MoreThanOneMappingFoundException, typeof(TFrom).Name, typeof(TTo).Name);
+                    exceptionMessage = string.Format(Resources.MoreThanOneMappingFoundException, typeof(TFrom).Name, typeof(TTo).Name);
                 }
 
                 throw new MappingException(exceptionMessage, ioeException);

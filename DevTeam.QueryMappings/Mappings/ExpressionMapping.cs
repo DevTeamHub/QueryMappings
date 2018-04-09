@@ -8,7 +8,7 @@ namespace DevTeam.QueryMappings.Mappings
     public class ExpressionMapping<TFrom, TTo> : Mapping
     {
         public ExpressionMapping(Expression<Func<TFrom, TTo>> mapping, string name = null)
-            : base(typeof(TFrom), typeof(TTo), name)
+            : base(typeof(TFrom), typeof(TTo), MappingType.Expression, name)
         {
             _mapping = mapping;
         }

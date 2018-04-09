@@ -9,7 +9,7 @@ namespace DevTeam.QueryMappings.Mappings
         where TArgs: class
     {
         public ParameterizedMapping(Func<TArgs, Expression<Func<TFrom, TTo>>> mapping, string name = null)
-            : base(typeof(TFrom), typeof(TTo), name)
+            : base(typeof(TFrom), typeof(TTo), MappingType.Parameterized, name)
         {
             _mapping = mapping;
         }

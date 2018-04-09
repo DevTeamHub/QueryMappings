@@ -43,7 +43,6 @@
     <Compile Include="Base\BaseMapping.cs" />
     <Compile Include="Base\IMappingsStorage.cs" />
     <Compile Include="Base\MappingException.cs" />
-    <Compile Include="Base\MappingExceptionMessages.cs" />
     <Compile Include="Helpers\ContextResolver.cs" />
     <Compile Include="Helpers\MappingsConfiguration.cs" />
     <Compile Include="Helpers\MappingsExtensions.cs" />
@@ -53,6 +52,17 @@
     <Compile Include="Mappings\ParameterizedQueryMapping.cs" />
     <Compile Include="Mappings\QueryMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

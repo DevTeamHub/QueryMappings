@@ -9,7 +9,7 @@ namespace DevTeam.QueryMappings.Mappings
         private readonly Type _contextType;
 
         public ParameterizedQueryMapping(Func<TArgs, Func<IQueryable<TFrom>, TContext, IQueryable<TTo>>> mapping, string name = null)
-            : base(typeof(TFrom), typeof(TTo), name)
+            : base(typeof(TFrom), typeof(TTo), MappingType.ParemeterizedQuery, name)
         {
             _mapping = mapping;
             _contextType = typeof(TContext);
