@@ -9,9 +9,6 @@ namespace DevTeam.QueryMappings.Tests.Context.RentalContext.Mappings
     {
         public void Setup()
         {
-            ///
-            /// Example of simple expression mapping. In most of the cases that is everything you need.
-            ///
             MappingsList.Add<Address, AddressModel>(x => new AddressModel
             {
                 Id = x.Id,
