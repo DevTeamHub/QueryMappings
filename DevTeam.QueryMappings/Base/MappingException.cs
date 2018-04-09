@@ -3,13 +3,13 @@ using System.Runtime.Serialization;
 
 namespace DevTeam.QueryMappings.Base
 {
+    /// <summary>
+    /// Special exception that is used to describe every exception that happens inside of QueryMappings library.
+    /// Implements standart Exception pattern.
+    /// </summary>
     [Serializable]
     public class MappingException: ApplicationException
     {
-        public Type From { get; set; }
-
-        public Type To { get; set; }
-
         public MappingException()
         { }
 

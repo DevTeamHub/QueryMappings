@@ -5,6 +5,12 @@ using System.Linq.Expressions;
 
 namespace DevTeam.QueryMappings.Mappings
 {
+    /// <summary>
+    /// Describes mapping from one type to another with expression and arguments that can be used inside of expression. 
+    /// </summary>
+    /// <typeparam name="TFrom">Source type of mapping.</typeparam>
+    /// <typeparam name="TTo">Destination type of mapping.</typeparam>
+    /// <typeparam name="TArgs">Type of arguments that we pass into mapping expression.</typeparam>
     public class ParameterizedMapping<TFrom, TTo, TArgs> : Mapping
         where TArgs: class
     {
@@ -16,6 +22,13 @@ namespace DevTeam.QueryMappings.Mappings
 
         private readonly Func<TArgs, Expression<Func<TFrom, TTo>>> _mapping;
 
+        /// <summary>
+        /// Applies expression on <see cref="IQueryable{T}"/> instance.
+        /// Arguments can be used inside of the expression.
+        /// </summary>
+        /// <param name="query"><see cref="IQueryable{T}"/> instance.</param>
+        /// <param name="args">Arguments that we pass into mapping expression.</param>
+        /// <returns>New <see cref="IQueryable{T}"/> instance with applied expression.</returns>
         public IQueryable<TTo> Apply(IQueryable<TFrom> query, TArgs args)
         {
             var expression = _mapping.Invoke(args);

@@ -75,12 +75,8 @@ namespace DevTeam.QueryMappings.Tests.Tests
         [Test]
         public void Context_Resolver_Should_Work()
         {
-            var defaultContext = ContextResolver<IDbContext>.Resolve();
             var firstContext = ContextResolver<IDbContext>.Resolve(ContextType.Rental);
             var secondContext = ContextResolver<IDbContext>.Resolve(ContextType.Security);
-
-            Assert.IsNotNull(defaultContext);
-            Assert.IsInstanceOf<RentalContext>(defaultContext);
 
             Assert.IsNotNull(firstContext);
             Assert.IsInstanceOf<RentalContext>(firstContext);
