@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>DevTeam.QueryMappings</id>
-    <version>2.0.0</version>
+    <version>2.0.0-rc</version>
     <title>DevTeam.QueryMappings</title>
     <iconUrl>http://dev-team.com/img/devteam.png</iconUrl>
     <licenseUrl>https://github.com/DevTeamHub/QueryMappings/blob/master/LICENSE.md</licenseUrl>
