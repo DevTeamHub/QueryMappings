@@ -10,9 +10,9 @@
     <authors>Dev Team Inc.</authors>
     <owners>Dev Team Inc.</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Strongly typed analog of AutoMapper with ability to map on IQueryable.</description>
-    <summary>Strongly typed analog of AutoMapper with ability to map on IQueryable.</summary>
-    <releaseNotes></releaseNotes>
+    <description>Simple strongly typed interface for IQueryable-to-object mappings optimized for Entity Framework without reflection usages.</description>
+    <summary>Simple strongly typed interface for IQueryable-to-object mappings optimized for Entity Framework without reflection usages.</summary>
+    <releaseNotes>https://github.com/DevTeamHub/QueryMappings/blob/master/CHANGELOG.md</releaseNotes>
     <language>en-US</language>
     <tags>IQueryable Entity Framework Mapper</tags>
   </metadata>

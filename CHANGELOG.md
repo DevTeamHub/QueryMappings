@@ -1,6 +1,6 @@
 
 <a name="2.0.0"></a>
-# [2.0.0](https://github.com/DevTeamHub/angular-webpack-boilerplate/compare/1.0.4...2.0.0) (2018-04-13)
+# [2.0.0](https://github.com/DevTeamHub/QueryMappings/compare/1.0.4...2.0.0) (2018-04-13)
 
 ### Features
 
