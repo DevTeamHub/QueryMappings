@@ -19,7 +19,7 @@ namespace DevTeam.QueryMappings.Helpers
         /// <param name="query">Instance of <see cref="IQueryable{T}"/> to apply mapping to.</param>
         /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
         /// <returns>Result of mapping. Instance of <see cref="IQueryable{T}"/> object with applied mapping.</returns>
-        /// /// <exception cref="MappingException">Thrown if we are using incorrect version of AsQuery method or if mapping wasn't found.</exception>
+        /// <exception cref="MappingException">Thrown if we are using incorrect version of AsQuery method or if mapping wasn't found.</exception>
         public static IQueryable<TModel> AsQuery<TEntity, TModel>(this IQueryable<TEntity> query, string name = null)
         {
             return ApplyMapping<TEntity, TModel>(mapping => 
@@ -40,7 +40,7 @@ namespace DevTeam.QueryMappings.Helpers
         /// <param name="args">Arguments that we want to pass into mapping to use them inside of mapping expression.</param>
         /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
         /// <returns>Result of mapping. Instance of <see cref="IQueryable{T}"/> object with applied mapping.</returns>
-        /// <exception cref="MappingException">Thrown if args are null or if we are using incorrect version of AsQuery method or if mapping wasn't found..</exception>
+        /// <exception cref="MappingException">Thrown if args are null or if we are using incorrect version of AsQuery method or if mapping wasn't found.</exception>
         public static IQueryable<TModel> AsQuery<TEntity, TModel, TArgs>(this IQueryable<TEntity> query, TArgs args, string name = null)
             where TArgs : class
         {
@@ -65,7 +65,7 @@ namespace DevTeam.QueryMappings.Helpers
         /// <param name="contextKey">Obligatory parameter. Key that will be used to resolve context. Helps to choose correct Context instance when we have more than one EF Context in application.</param>
         /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
         /// <returns>Result of mapping. Instance of <see cref="IQueryable{T}"/> object with applied mapping.</returns>
-        /// <exception cref="MappingException">Thrown if context key is null or if we are using incorrect version of AsQuery method or if mapping wasn't found..</exception>
+        /// <exception cref="MappingException">Thrown if context key is null or if we are using incorrect version of AsQuery method or if mapping wasn't found.</exception>
         public static IQueryable<TModel> AsQuery<TEntity, TModel, TContext>(this IQueryable<TEntity> query, object contextKey, string name = null)
         {
             if (contextKey == null)

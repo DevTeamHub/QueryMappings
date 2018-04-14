@@ -77,7 +77,7 @@ namespace DevTeam.QueryMappings.Helpers
         /// <param name="expression">Mapping expression that will be applied on <see cref="IQueryable{T}"/> instance.</param>
         /// <example>
         /// <code>
-        /// MappingsList.Add<Address, AddressModel>(x => new AddressModel
+        /// MappingsList.Add&lt;Address, AddressModel&gt;(x => new AddressModel
         /// {
         ///     Id = x.Id,
         ///     BuildingNumber = x.BuildingNumber,
@@ -104,7 +104,7 @@ namespace DevTeam.QueryMappings.Helpers
         /// <param name="expression">Mapping expression that will be applied on <see cref="IQueryable{T}"/> instance.</param>
         /// <example>
         /// <code>
-        /// MappingsList.Add<Address, AddressModel>("AdressMapping_1", x => new AddressModel
+        /// MappingsList.Add&lt;Address, AddressModel&gt;("AdressMapping_1", x => new AddressModel
         /// {
         ///     Id = x.Id,
         ///     BuildingNumber = x.BuildingNumber,
@@ -132,7 +132,7 @@ namespace DevTeam.QueryMappings.Helpers
         /// <param name="expression">Mapping expression that will be applied on <see cref="IQueryable{T}"/> instance. Input parameter is an object of arguments that will be used inside of expression.</param>
         /// <example>
         /// <code>
-        /// MappingsList.Add<Appartment, AppartmentModel, AppartmentsArguments>(args =>
+        /// MappingsList.Add&lt;Appartment, AppartmentModel, AppartmentsArguments&gt;(args =>
         /// {
         ///     return x => new AppartmentModel
         ///     {
@@ -165,7 +165,7 @@ namespace DevTeam.QueryMappings.Helpers
         /// <param name="expression">Mapping expression that will be applied on <see cref="IQueryable{T}"/> instance. Input parameter is an object of arguments that will be used inside of expression.</param>
         /// <example>
         /// <code>
-        /// MappingsList.Add<Appartment, AppartmentModel, AppartmentsArguments>(MappingsNames.AppartmentsWithoutBuilding, args =>
+        /// MappingsList.Add&lt;Appartment, AppartmentModel, AppartmentsArguments&gt;(MappingsNames.AppartmentsWithoutBuilding, args =>
         /// {
         ///     return x => new AppartmentModel
         ///     {
@@ -197,9 +197,9 @@ namespace DevTeam.QueryMappings.Helpers
         /// <param name="expression">Mapping expression that will be applied on <see cref="IQueryable{T}"/> instance. Input parameters contain EF Context that can be used inside of mapping.</param>
         /// <example>
         /// <code>
-        /// MappingsList.Add<Appartment, AppartmentReviewsModel, IDbContext>((query, context) =>
+        /// MappingsList.Add&lt;Appartment, AppartmentReviewsModel, IDbContext&gt;((query, context) =>
         ///     from appartment in query
-        ///     join review in context.Set<Review>() on new { EntityId = appartment.Id, EntityTypeId = (int) EntityType.Appartment }
+        ///     join review in context.Set&lt;Review&gt;() on new { EntityId = appartment.Id, EntityTypeId = (int) EntityType.Appartment }
         ///                                          equals new { EntityId = review.EntityId, EntityTypeId = review.EntityTypeId }
         ///                                          into reviews
         ///     select new AppartmentReviewsModel
@@ -234,9 +234,9 @@ namespace DevTeam.QueryMappings.Helpers
         /// <param name="expression">Mapping expression that will be applied on <see cref="IQueryable{T}"/> instance. Input parameters contain EF Context that can be used inside of mapping.</param>
         /// <example>
         /// <code>
-        /// MappingsList.Add<Appartment, AppartmentReviewsModel, IDbContext>("Mapping_2", (query, context) =>
+        /// MappingsList.Add&lt;Appartment, AppartmentReviewsModel, IDbContext&gt;("Mapping_2", (query, context) =>
         ///     from appartment in query
-        ///     join review in context.Set<Review>() on new { EntityId = appartment.Id, EntityTypeId = (int) EntityType.Appartment }
+        ///     join review in context.Set&lt;Review&gt;() on new { EntityId = appartment.Id, EntityTypeId = (int) EntityType.Appartment }
         ///                                          equals new { EntityId = review.EntityId, EntityTypeId = review.EntityTypeId }
         ///                                          into reviews
         ///     select new AppartmentReviewsModel
@@ -272,11 +272,11 @@ namespace DevTeam.QueryMappings.Helpers
         /// <param name="expression">Mapping expression that will be applied on <see cref="IQueryable{T}"/> instance. Input parameters contain arguments and EF Context that can be used inside of mapping.</param>
         /// <example>
         /// <code>
-        /// MappingsList.Add<Building, BuildingStatisticsModel, BuildingArguments, IDbContext>(args =>
+        /// MappingsList.Add&lt;Building, BuildingStatisticsModel, BuildingArguments, IDbContext&gt;(args =>
         /// {
         ///     return (query, context) =>
         ///         from building in query
-        ///         join review in context.Set<Review>() on new { EntityId = building.Id, EntityTypeId = (int) EntityType.Building }
+        ///         join review in context.Set&lt;Review&gt;() on new { EntityId = building.Id, EntityTypeId = (int) EntityType.Building }
         ///                                              equals new { EntityId = review.EntityId, EntityTypeId = review.EntityTypeId }
         ///                                              into reviews
         ///         let address = building.Address
@@ -311,11 +311,11 @@ namespace DevTeam.QueryMappings.Helpers
         /// <param name="expression">Mapping expression that will be applied on <see cref="IQueryable{T}"/> instance. Input parameters contain arguments and EF Context that can be used inside of mapping.</param>
         /// <example>
         /// <code>
-        /// MappingsList.Add<Building, BuildingStatisticsModel, BuildingArguments, IDbContext>("MappingName", args =>
+        /// MappingsList.Add&lt;Building, BuildingStatisticsModel, BuildingArguments, IDbContext&gt;("MappingName", args =>
         /// {
         ///     return (query, context) =>
         ///         from building in query
-        ///         join review in context.Set<Review>() on new { EntityId = building.Id, EntityTypeId = (int) EntityType.Building }
+        ///         join review in context.Set&lt;Review&gt;() on new { EntityId = building.Id, EntityTypeId = (int) EntityType.Building }
         ///                                              equals new { EntityId = review.EntityId, EntityTypeId = review.EntityTypeId }
         ///                                              into reviews
         ///         let address = building.Address

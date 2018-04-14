@@ -12,6 +12,11 @@ namespace DevTeam.QueryMappings.Mappings
     /// <typeparam name="TTo">Destination type of mapping.</typeparam>
     public class ExpressionMapping<TFrom, TTo> : Mapping
     {
+        /// <summary>
+        /// Creates instance of <see cref="ExpressionMapping{TFrom, TTo}"/> class.
+        /// </summary>
+        /// <param name="mapping">Mapping expression that will be applied on <see cref="IQueryable{T}"/> instance.</param>
+        /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
         public ExpressionMapping(Expression<Func<TFrom, TTo>> mapping, string name = null)
             : base(typeof(TFrom), typeof(TTo), MappingType.Expression, name)
         {
