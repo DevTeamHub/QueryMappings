@@ -126,7 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DevTeam.QueryMappings\DevTeam.QueryMappings.csproj">
-      <Project>{a6a1c5ed-7384-4939-9bfa-d07af483a3c6}</Project>
+      <Project>{7da07e42-392e-482c-9ae8-8152afcf5d7e}</Project>
       <Name>DevTeam.QueryMappings</Name>
     </ProjectReference>
   </ItemGroup>

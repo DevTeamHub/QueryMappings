@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevTeam.QueryMappings", "DevTeam.QueryMappings\DevTeam.QueryMappings.csproj", "{A6A1C5ED-7384-4939-9BFA-D07AF483A3C6}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5D8FFECA-0DD9-41DB-AF5C-EA37DF3818AE}"
 	ProjectSection(SolutionItems) = preProject
 		CHANGELOG.md = CHANGELOG.md
@@ -15,20 +13,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevTeam.QueryMappings.Tests", "DevTeam.QueryMappings.Tests\DevTeam.QueryMappings.Tests.csproj", "{CAA9C93C-654D-414C-B5BB-9B3FAA5978B0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevTeam.QueryMappings", "DevTeam.QueryMappings\DevTeam.QueryMappings.csproj", "{7DA07E42-392E-482C-9AE8-8152AFCF5D7E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A6A1C5ED-7384-4939-9BFA-D07AF483A3C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A6A1C5ED-7384-4939-9BFA-D07AF483A3C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A6A1C5ED-7384-4939-9BFA-D07AF483A3C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A6A1C5ED-7384-4939-9BFA-D07AF483A3C6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CAA9C93C-654D-414C-B5BB-9B3FAA5978B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CAA9C93C-654D-414C-B5BB-9B3FAA5978B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CAA9C93C-654D-414C-B5BB-9B3FAA5978B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CAA9C93C-654D-414C-B5BB-9B3FAA5978B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DA07E42-392E-482C-9AE8-8152AFCF5D7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DA07E42-392E-482C-9AE8-8152AFCF5D7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DA07E42-392E-482C-9AE8-8152AFCF5D7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DA07E42-392E-482C-9AE8-8152AFCF5D7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

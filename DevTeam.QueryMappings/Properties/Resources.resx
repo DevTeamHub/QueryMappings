@@ -131,6 +131,7 @@
   </data>
   <data name="ContextResolverIsntRegisteredException" xml:space="preserve">
     <value>Context Resolver wasn't registered for type {0}. To use Query Mappings you need to register context resolver function.</value>
+    <comment>Exception will be thrown if context resolver function isn't registered</comment>
   </data>
   <data name="GeneralInitializationException" xml:space="preserve">
     <value>Exception has happened during mappings initialization. Please see Inner Exception to find more details.</value>
@@ -146,7 +147,7 @@
   </data>
   <data name="MappingNotFoundException" xml:space="preserve">
     <value>Mapping from {0} to {1} was not found</value>
-    <comment>Mapping for this 2 types wasn't found </comment>
+    <comment>Mapping for this 2 types wasn't found</comment>
   </data>
   <data name="MappingStorageSetupException" xml:space="preserve">
     <value>Exception has happened inside of Setup method invokation on IMappingStorage of type {0}</value>
@@ -162,6 +163,6 @@
   </data>
   <data name="NoEmptyConstructorInitializationException" xml:space="preserve">
     <value>Couldn't find empty constructor for IMappingStorage implementation: {0}</value>
-    <comment>Exception will happen if any of IMappingStorage implementations has non-default constructor and doesn't implement empty constructor </comment>
+    <comment>Exception will happen if any of IMappingStorage implementations has non-default constructor and doesn't implement empty constructor</comment>
   </data>
 </root>
