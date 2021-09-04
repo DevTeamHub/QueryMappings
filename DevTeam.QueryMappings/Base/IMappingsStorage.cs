@@ -1,4 +1,6 @@
 ﻿
+using DevTeam.QueryMappings.Helpers;
+
 namespace DevTeam.QueryMappings.Base
 {
     /// <summary>
@@ -11,6 +13,7 @@ namespace DevTeam.QueryMappings.Base
         /// <summary>
         /// Method, where all mappings that belong to current Storage, should be described.
         /// </summary>
-        void Setup();
+        /// <param name="mappings">Singleton instance of <see cref="IMappingsList" /> that can be used to register mappings.</param>
+        void Setup(IMappingsList mappings);
     }
 }

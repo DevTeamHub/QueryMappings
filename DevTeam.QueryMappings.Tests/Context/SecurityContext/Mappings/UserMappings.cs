@@ -7,9 +7,9 @@ namespace DevTeam.QueryMappings.Tests.Context.SecurityContext.Mappings
 {
     public class UserMappings: IMappingsStorage
     {
-        public void Setup()
+        public void Setup(IMappingsList mappings)
         {
-            MappingsList.Add<User, UserModel>(x => new UserModel
+            mappings.Add<User, UserModel>(x => new UserModel
             {
                 Id = x.Id,
                 UserName = x.UserName,

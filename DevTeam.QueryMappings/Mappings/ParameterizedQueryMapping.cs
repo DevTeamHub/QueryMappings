@@ -13,18 +13,15 @@ namespace DevTeam.QueryMappings.Mappings
     /// <typeparam name="TContext">Entity Framework Context type.</typeparam>
     public class ParameterizedQueryMapping<TFrom, TTo, TArgs, TContext>: Mapping
     {
-        private readonly Type _contextType;
-
         /// <summary>
         /// Creates instance of <see cref="ParameterizedQueryMapping{TFrom, TTo, TArgs, TContext}"/> class.
         /// </summary>
         /// <param name="mapping">Mapping expression that will be applied on <see cref="IQueryable{T}"/> instance. Input parameters contain arguments and EF Context that can be used inside of mapping.</param>
         /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
         public ParameterizedQueryMapping(Func<TArgs, Func<IQueryable<TFrom>, TContext, IQueryable<TTo>>> mapping, string name = null)
-            : base(typeof(TFrom), typeof(TTo), MappingType.ParemeterizedQuery, name)
+            : base(typeof(TFrom), typeof(TTo), typeof(TArgs), typeof(TContext), MappingType.ParemeterizedQuery, name)
         {
             _mapping = mapping;
-            _contextType = typeof(TContext);
         }
 
         private readonly Func<TArgs, Func<IQueryable<TFrom>, TContext, IQueryable<TTo>>> _mapping;

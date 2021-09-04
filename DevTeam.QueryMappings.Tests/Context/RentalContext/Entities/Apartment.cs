@@ -2,7 +2,7 @@
 
 namespace DevTeam.QueryMappings.Tests.Context.RentalContext.Entities
 {
-    public class Appartment
+    public class Apartment
     {
         public int Id { get; set; }
         public int BuildingId { get; set; }
@@ -16,7 +16,7 @@ namespace DevTeam.QueryMappings.Tests.Context.RentalContext.Entities
         public Building Building { get; set; }
         public List<Person> Residents { get; set; }
 
-        public Appartment()
+        public Apartment()
         {
             Residents = new List<Person>();
         }

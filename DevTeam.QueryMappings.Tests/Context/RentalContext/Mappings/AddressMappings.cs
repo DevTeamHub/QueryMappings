@@ -7,9 +7,9 @@ namespace DevTeam.QueryMappings.Tests.Context.RentalContext.Mappings
 {
     public class AddressMappings: IMappingsStorage
     {
-        public void Setup()
+        public void Setup(IMappingsList mappings)
         {
-            MappingsList.Add<Address, AddressModel>(x => new AddressModel
+            mappings.Add<Address, AddressModel>(x => new AddressModel
             {
                 Id = x.Id,
                 BuildingNumber = x.BuildingNumber,
@@ -20,19 +20,19 @@ namespace DevTeam.QueryMappings.Tests.Context.RentalContext.Mappings
                 ZipCode = x.ZipCode
             });
 
-            MappingsList.Add<Address, AddressSummaryModel>(MappingsNames.ExtendedAddressFormat, x => new AddressSummaryModel
+            mappings.Add<Address, AddressSummaryModel>(MappingsNames.ExtendedAddressFormat, x => new AddressSummaryModel
             {
                 Id = x.Id,
                 Address = x.BuildingNumber + " " + x.Street + ", " + x.City + ", " + x.State + ", " + x.Country + ", " + x.ZipCode
             });
 
-            MappingsList.Add<Address, AddressSummaryModel>(MappingsNames.ShortAddressFormat, x => new AddressSummaryModel
+            mappings.Add<Address, AddressSummaryModel>(MappingsNames.ShortAddressFormat, x => new AddressSummaryModel
             {
                 Id = x.Id,
                 Address = x.BuildingNumber + " " + x.Street + ", " + x.City 
             });
 
-            MappingsList.Add<Address, InvalidAddressMapping>(x => new InvalidAddressMapping
+            mappings.Add<Address, InvalidAddressMapping>(x => new InvalidAddressMapping
             {
                 Id = x.Id,
                 BuildingNumber = x.BuildingNumber,
@@ -43,7 +43,7 @@ namespace DevTeam.QueryMappings.Tests.Context.RentalContext.Mappings
                 ZipCode = x.ZipCode
             });
 
-            MappingsList.Add<Address, InvalidAddressMapping>(x => new InvalidAddressMapping
+            mappings.Add<Address, InvalidAddressMapping>(x => new InvalidAddressMapping
             {
                 Id = x.Id,
                 BuildingNumber = x.BuildingNumber,

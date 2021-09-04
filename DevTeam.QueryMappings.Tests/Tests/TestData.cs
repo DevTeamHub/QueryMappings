@@ -8,7 +8,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
 {
     public static class TestData
     {
-        private static readonly List<Address> _addresses = new List<Address>
+        private static readonly List<Address> _addresses = new()
         {
             new Address
             {
@@ -34,7 +34,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
             }
         };
 
-        private static readonly List<Building> _buildings = new List<Building>
+        private static readonly List<Building> _buildings = new()
         {
             new Building
             {
@@ -54,9 +54,9 @@ namespace DevTeam.QueryMappings.Tests.Tests
             }
         };
 
-        private static readonly List<Appartment> _appartments = new List<Appartment>
+        private static readonly List<Apartment> _apartments = new()
         {
-            new Appartment
+            new Apartment
             {
                 Id = 1,
                 BuildingId = 1,
@@ -67,7 +67,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
                 Bathrooms = 1,
                 IsLodge = false
             },
-            new Appartment
+            new Apartment
             {
                 Id = 2,
                 BuildingId = 1,
@@ -78,7 +78,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
                 Bathrooms = 2,
                 IsLodge = false
             },
-            new Appartment
+            new Apartment
             {
                 Id = 3,
                 BuildingId = 1,
@@ -89,7 +89,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
                 Bathrooms = 1,
                 IsLodge = true
             },
-            new Appartment
+            new Apartment
             {
                 Id = 4,
                 BuildingId = 1,
@@ -100,7 +100,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
                 Bathrooms = 2,
                 IsLodge = true
             },
-            new Appartment
+            new Apartment
             {
                 Id = 5,
                 BuildingId = 2,
@@ -111,7 +111,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
                 Bathrooms = 1,
                 IsLodge = true
             },
-            new Appartment
+            new Apartment
             {
                 Id = 6,
                 BuildingId = 2,
@@ -122,7 +122,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
                 Bathrooms = 2,
                 IsLodge = true
             },
-            new Appartment
+            new Apartment
             {
                 Id = 7,
                 BuildingId = 2,
@@ -135,7 +135,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
             }
         };
 
-        private static readonly List<Person> _people = new List<Person>
+        private static readonly List<Person> _people = new()
         {
             new Person
             {
@@ -227,7 +227,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
             }
         };
 
-        private static readonly List<Review> _reviews = new List<Review>
+        private static readonly List<Review> _reviews = new()
         {
             new Review
             {
@@ -257,7 +257,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
             {
                 Id = 4,
                 EntityId = 1,
-                EntityTypeId = (int) EntityType.Appartment,
+                EntityTypeId = (int) EntityType.Apartment,
                 Rating = 5,
                 Comments = null
             },
@@ -265,7 +265,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
             {
                 Id = 5,
                 EntityId = 1,
-                EntityTypeId = (int) EntityType.Appartment,
+                EntityTypeId = (int) EntityType.Apartment,
                 Rating = 3,
                 Comments = "some isn't really good opinion"
             },
@@ -273,7 +273,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
             {
                 Id = 6,
                 EntityId = 2,
-                EntityTypeId = (int) EntityType.Appartment,
+                EntityTypeId = (int) EntityType.Apartment,
                 Rating = 5,
                 Comments = "Very good review of appartment"
             },
@@ -281,7 +281,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
             {
                 Id = 7,
                 EntityId = 3,
-                EntityTypeId = (int) EntityType.Appartment,
+                EntityTypeId = (int) EntityType.Apartment,
                 Rating = 1,
                 Comments = "no comments..."
             },
@@ -289,7 +289,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
             {
                 Id = 8,
                 EntityId = 3,
-                EntityTypeId = (int) EntityType.Appartment,
+                EntityTypeId = (int) EntityType.Apartment,
                 Rating = 2,
                 Comments = "aweful..."
             },
@@ -297,7 +297,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
             {
                 Id = 9,
                 EntityId = 4,
-                EntityTypeId = (int) EntityType.Appartment,
+                EntityTypeId = (int) EntityType.Apartment,
                 Rating = 3,
                 Comments = null
             },
@@ -305,7 +305,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
             {
                 Id = 10,
                 EntityId = 4,
-                EntityTypeId = (int) EntityType.Appartment,
+                EntityTypeId = (int) EntityType.Apartment,
                 Rating = 3,
                 Comments = null
             },
@@ -313,7 +313,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
             {
                 Id = 11,
                 EntityId = 4,
-                EntityTypeId = (int) EntityType.Appartment,
+                EntityTypeId = (int) EntityType.Apartment,
                 Rating = 4,
                 Comments = null
             },
@@ -321,7 +321,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
             {
                 Id = 12,
                 EntityId = 5,
-                EntityTypeId = (int) EntityType.Appartment,
+                EntityTypeId = (int) EntityType.Apartment,
                 Rating = 4,
                 Comments = "good review"
             },
@@ -329,7 +329,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
             {
                 Id = 13,
                 EntityId = 6,
-                EntityTypeId = (int) EntityType.Appartment,
+                EntityTypeId = (int) EntityType.Apartment,
                 Rating = 5,
                 Comments = "amazing review"
             },
@@ -337,13 +337,13 @@ namespace DevTeam.QueryMappings.Tests.Tests
             {
                 Id = 14,
                 EntityId = 6,
-                EntityTypeId = (int) EntityType.Appartment,
+                EntityTypeId = (int) EntityType.Apartment,
                 Rating = 3,
                 Comments = "average review"
             }
         };
 
-        private static readonly List<User> _users = new List<User>
+        private static readonly List<User> _users = new()
         {
             new User
             {
@@ -369,7 +369,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
         };
 
         public static List<Address> Addresses => _addresses;
-        public static List<Appartment> Appartments => _appartments;
+        public static List<Apartment> Apartments => _apartments;
         public static List<Building> Buildings => _buildings;
         public static List<Person> People => _people;
         public static List<Review> Reviews => _reviews;
@@ -380,7 +380,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
             Buildings.ForEach(building =>
             {
                 building.Address = Addresses.SingleOrDefault(x => x.BuildingId == building.Id);
-                building.Appartments = Appartments.Where(x => x.BuildingId == building.Id).ToList();
+                building.Appartments = Apartments.Where(x => x.BuildingId == building.Id).ToList();
             });
 
             Addresses.ForEach(address =>
@@ -388,7 +388,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
                 address.Building = Buildings.SingleOrDefault(x => x.Id == address.BuildingId);
             });
 
-            Appartments.ForEach(appartment =>
+            Apartments.ForEach(appartment =>
             {
                 appartment.Building = Buildings.SingleOrDefault(x => x.Id == appartment.BuildingId);
                 appartment.Residents = People.Where(x => x.AppartmentId == appartment.Id).ToList();
@@ -396,7 +396,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
 
             People.ForEach(person =>
             {
-                person.Appartment = Appartments.SingleOrDefault(x => x.Id == person.AppartmentId);
+                person.Appartment = Apartments.SingleOrDefault(x => x.Id == person.AppartmentId);
             });
         }
     }

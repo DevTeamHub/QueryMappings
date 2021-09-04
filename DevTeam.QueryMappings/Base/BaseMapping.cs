@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevTeam.QueryMappings.Properties;
+using System;
 
 namespace DevTeam.QueryMappings.Base
 {
@@ -46,6 +47,16 @@ namespace DevTeam.QueryMappings.Base
         public Type To { get; protected set; }
 
         /// <summary>
+        /// Returns type of required arguments to perform the mapping.
+        /// </summary>
+        public Type ArgumentsType { get; protected set; }
+
+        /// <summary>
+        /// Returns type of required Database Context to perform the mapping.
+        /// </summary>
+        public Type ContextType { get; protected set; }
+
+        /// <summary>
         /// Type of mapping. Described with help of <see cref="MappingType"/> enum.
         /// </summary>
         public MappingType MappingType { get; protected set; }
@@ -61,12 +72,16 @@ namespace DevTeam.QueryMappings.Base
         /// </summary>
         /// <param name="from">Source type of mapping.</param>
         /// <param name="to">Destination type of mapping.</param>
+        /// <param name="argumentsType">Type of Arguments of they passed into the mapping.</param>
+        /// <param name="contextType">Type of Database Context if it's required by the mapping.</param>
         /// <param name="mappingType">Type of mapping. Described with help of <see cref="MappingType"/> enum.</param>
         /// <param name="name">Name of mapping. Used as identifier for mappings with the same direction (From -> To).</param>
-        protected Mapping(Type from, Type to, MappingType mappingType, string name = null)
+        protected Mapping(Type from, Type to, Type argumentsType, Type contextType, MappingType mappingType, string name = null)
         {
             From = from;
             To = to;
+            ArgumentsType = argumentsType;
+            ContextType = contextType;
             Name = name;
             MappingType = mappingType;
         }
@@ -96,6 +111,30 @@ namespace DevTeam.QueryMappings.Base
                 return false;
 
             return from == From && to == To;
+        }
+
+        /// <summary>
+        /// Validate if provided by user arguments are the same type as arguments that mapping requires.
+        /// </summary>
+        /// <exception cref="MappingException">Thrown if type of provided arguments is different from the one used in the mapping.</exception>
+        public void ValidateArguments<TArgs>()
+        {
+            if (ArgumentsType != null && ArgumentsType != typeof(TArgs))
+            {
+                throw new MappingException(string.Format(Resources.ArgumentsOfIncorrectType, From.Name, To.Name, ArgumentsType, typeof(TArgs)));
+            }
+        }
+
+        /// <summary>
+        /// Validate if provided by user Database Context are the same type as Database Context that mapping requires.
+        /// </summary>
+        /// <exception cref="MappingException">Thrown if type of provided Context type is different from the one used in the mapping.</exception>
+        public void ValidateContext<TContext>()
+        {
+            if (ContextType != null && ContextType != typeof(TContext))
+            {
+                throw new MappingException(string.Format(Resources.ContextOfIncorrectType, From.Name, To.Name, ContextType, typeof(TContext)));
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 The MIT License
 
-Copyright (c) 2014-2018 Dev Team Inc. http://dev-team.com
+Copyright (c) 2014-2021 Dev Team Inc. http://devteam.inc
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

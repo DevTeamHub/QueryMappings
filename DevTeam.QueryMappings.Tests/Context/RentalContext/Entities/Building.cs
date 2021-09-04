@@ -11,11 +11,11 @@ namespace DevTeam.QueryMappings.Tests.Context.RentalContext.Entities
         public bool IsLaundry { get; set; }
 
         public Address Address { get; set; }
-        public List<Appartment> Appartments { get; set; }
+        public List<Apartment> Appartments { get; set; }
 
         public Building()
         {
-            Appartments = new List<Appartment>();
+            Appartments = new List<Apartment>();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevTeam.QueryMappings.Properties;
+using System;
 using System.Runtime.Serialization;
 
 namespace DevTeam.QueryMappings.Base
@@ -41,5 +42,36 @@ namespace DevTeam.QueryMappings.Base
         protected MappingException(SerializationInfo info, StreamingContext context)
             :base (info, context)
         { }
+
+        /// <summary>
+        /// Helps to build descriptive message if we are using incorrect version of AsQuery method.
+        /// </summary>
+        /// <typeparam name="TFrom">Source type of mapping.</typeparam>
+        /// <typeparam name="TTo">Destination type of mapping.</typeparam>
+        /// <param name="requestedType">Type of mapping that was found in storage instead of expected type.</param>
+        /// <param name="actualType">Expected type of mapping that we tried to find.</param>
+        /// <param name="innerException">Exception that has happened during incorrect conversion of mapping.</param>
+        /// <returns>Descriptive exception with detailed information about exception.</returns>
+        public static MappingException HandleMappingError<TFrom, TTo>(MappingType requestedType, MappingType actualType, Exception innerException)
+        {
+            var exceptionMessage = string.Format(Resources.InvalidCastMappingException, typeof(TFrom).Name, typeof(TTo).Name);
+
+            if (requestedType.HasFlag(MappingType.Parameterized) && !actualType.HasFlag(MappingType.Parameterized))
+            {
+                exceptionMessage += Resources.ArgumentsAreNotNeeded;
+            }
+
+            if (!requestedType.HasFlag(MappingType.Parameterized) && actualType.HasFlag(MappingType.Parameterized))
+            {
+                exceptionMessage += Resources.ArgumentsHaventBeenPassed;
+            }
+
+            if (!requestedType.HasFlag(MappingType.Query) && actualType.HasFlag(MappingType.Query))
+            {
+                exceptionMessage += Resources.ContextHaventBeenInjected;
+            }
+
+            return new MappingException(exceptionMessage, innerException);
+        }
     }
 }

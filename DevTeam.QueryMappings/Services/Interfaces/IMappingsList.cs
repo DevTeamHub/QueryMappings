@@ -1,8 +1,6 @@
 ﻿using DevTeam.QueryMappings.Base;
 using DevTeam.QueryMappings.Mappings;
-using DevTeam.QueryMappings.Properties;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -11,15 +9,8 @@ namespace DevTeam.QueryMappings.Helpers
     /// <summary>
     /// Internal In-Memory mappings storage. Holds all registered mapping.
     /// </summary>
-    public static class MappingsList
+    public interface IMappingsList
     {
-        private static readonly List<Mapping> Mappings;
-
-        static MappingsList()
-        {
-            Mappings = new List<Mapping>();
-        }
-
         /// <summary>
         /// Searches for a mapping with described direction.
         /// </summary>
@@ -28,46 +19,7 @@ namespace DevTeam.QueryMappings.Helpers
         /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
         /// <returns>Instance of mapping with described direction.</returns>
         /// <exception cref="MappingException">Thrown if mapping wasn't found or if more than one mapping found and wasn't enough information to resolve which exactly is correct one.</exception>
-        public static Mapping Get<TFrom, TTo>(string name = null)
-        {
-            try
-            {
-                var mapping = Mappings.SingleOrDefault(m => m.Is<TFrom, TTo>(name));
-
-                if (mapping == null)
-                {
-                    var exceptionMessage = string.Format(Resources.MappingNotFoundException, typeof(TFrom).Name, typeof(TTo).Name);
-                    throw new MappingException(exceptionMessage);
-                }
-
-                return mapping;
-            }
-            catch (InvalidOperationException ioeException)
-            {
-                var exceptionMessage = string.Empty;
-                var namedMappings = Mappings.Where(m => m.Is<TFrom, TTo>() && !string.IsNullOrEmpty(m.Name)).ToList();
-
-                if (namedMappings.Count > 0 && string.IsNullOrEmpty(name))
-                {
-                    exceptionMessage = string.Format(Resources.NameIsNullWhenSearchForNamedMappingException, typeof(TFrom).Name, typeof(TTo).Name);
-                }
-                else if (namedMappings.Count == 0)
-                {
-                    exceptionMessage = string.Format(Resources.MoreThanOneMappingFoundException, typeof(TFrom).Name, typeof(TTo).Name);
-                }
-
-                throw new MappingException(exceptionMessage, ioeException);
-            }
-        }
-
-        /// <summary>
-        /// Adds mapping into Storage.
-        /// </summary>
-        /// <param name="mapping">Mapping to add into storage.</param>
-        private static void Add(Mapping mapping)
-        {
-            Mappings.Add(mapping);
-        }
+        Mapping Get<TFrom, TTo>(string name = null);
 
         /// <summary>
         /// Adds <see cref="ExpressionMapping{TFrom, TTo}"/> into Storage with direction From -> To.
@@ -89,10 +41,7 @@ namespace DevTeam.QueryMappings.Helpers
         /// });
         /// </code>
         /// </example>
-        public static void Add<TFrom, TTo>(Expression<Func<TFrom, TTo>> expression)
-        {
-            Add(null, expression);
-        }
+        void Add<TFrom, TTo>(Expression<Func<TFrom, TTo>> expression);
 
         /// <summary>
         /// Adds Named <see cref="ExpressionMapping{TFrom, TTo}"/> into Storage with direction From -> To and explicitly specified name. 
@@ -116,11 +65,7 @@ namespace DevTeam.QueryMappings.Helpers
         /// });
         /// </code>
         /// </example>
-        public static void Add<TFrom, TTo>(string name, Expression<Func<TFrom, TTo>> expression)
-        {
-            var mapping = new ExpressionMapping<TFrom, TTo>(expression, name);
-            Add(mapping);
-        }
+        void Add<TFrom, TTo>(string name, Expression<Func<TFrom, TTo>> expression);
 
         /// <summary>
         /// Adds <see cref="ParameterizedMapping{TFrom, TTo, TArgs}"/> into Storage with direction From -> To.
@@ -147,11 +92,8 @@ namespace DevTeam.QueryMappings.Helpers
         /// });
         /// </code>
         /// </example>
-        public static void Add<TFrom, TTo, TArgs>(Func<TArgs, Expression<Func<TFrom, TTo>>> expression)
-            where TArgs : class
-        {
-            Add(null, expression);
-        }
+        void Add<TFrom, TTo, TArgs>(Func<TArgs, Expression<Func<TFrom, TTo>>> expression)
+            where TArgs : class;
 
         /// <summary>
         /// Adds Named <see cref="ParameterizedMapping{TFrom, TTo, TArgs}"/> into Storage with direction From -> To and explicitly specified name.
@@ -180,12 +122,8 @@ namespace DevTeam.QueryMappings.Helpers
         /// });
         /// </code>
         /// </example>
-        public static void Add<TFrom, TTo, TArgs>(string name, Func<TArgs, Expression<Func<TFrom, TTo>>> expression)
-            where TArgs : class
-        {
-            var mapping = new ParameterizedMapping<TFrom, TTo, TArgs>(expression, name);
-            Add(mapping);
-        }
+        void Add<TFrom, TTo, TArgs>(string name, Func<TArgs, Expression<Func<TFrom, TTo>>> expression)
+            where TArgs : class;
 
         /// <summary>
         /// Adds Named <see cref="QueryMapping{TFrom, TTo, TContext}"/> into Storage with direction From -> To.
@@ -217,10 +155,7 @@ namespace DevTeam.QueryMappings.Helpers
         ///     });
         /// </code>
         /// </example>
-        public static void Add<TFrom, TTo, TContext>(Func<IQueryable<TFrom>, TContext, IQueryable<TTo>> expression)
-        {
-            Add(null, expression);
-        }
+        void Add<TFrom, TTo, TContext>(Func<IQueryable<TFrom>, TContext, IQueryable<TTo>> expression);
 
         /// <summary>
         /// Adds Named <see cref="QueryMapping{TFrom, TTo, TContext}"/> into Storage with direction From -> To and explicitly specified name.
@@ -254,11 +189,7 @@ namespace DevTeam.QueryMappings.Helpers
         ///     });
         /// </code>
         /// </example>
-        public static void Add<TFrom, TTo, TContext>(string name, Func<IQueryable<TFrom>, TContext, IQueryable<TTo>> expression)
-        {
-            var mapping = new QueryMapping<TFrom, TTo, TContext>(expression, name);
-            Add(mapping);
-        }
+        void Add<TFrom, TTo, TContext>(string name, Func<IQueryable<TFrom>, TContext, IQueryable<TTo>> expression);
 
         /// <summary>
         /// Adds <see cref="ParameterizedQueryMapping{TFrom, TTo, TArgs, TContext}"/> into Storage with direction From -> To.
@@ -292,10 +223,7 @@ namespace DevTeam.QueryMappings.Helpers
         /// });
         /// </code>
         /// </example>
-        public static void Add<TFrom, TTo, TArgs, TContext>(Func<TArgs, Func<IQueryable<TFrom>, TContext, IQueryable<TTo>>> expression)
-        {
-            Add(null, expression);
-        }
+        void Add<TFrom, TTo, TArgs, TContext>(Func<TArgs, Func<IQueryable<TFrom>, TContext, IQueryable<TTo>>> expression);
 
         /// <summary>
         /// Adds Named <see cref="ParameterizedQueryMapping{TFrom, TTo, TArgs, TContext}"/> into Storage with direction From -> To and explicitly specified name.
@@ -331,18 +259,11 @@ namespace DevTeam.QueryMappings.Helpers
         /// });
         /// </code>
         /// </example>
-        public static void Add<TFrom, TTo, TArgs, TContext>(string name, Func<TArgs, Func<IQueryable<TFrom>, TContext, IQueryable<TTo>>> expression)
-        {
-            var mapping = new ParameterizedQueryMapping<TFrom, TTo, TArgs, TContext>(expression, name);
-            Add(mapping);
-        }
+        void Add<TFrom, TTo, TArgs, TContext>(string name, Func<TArgs, Func<IQueryable<TFrom>, TContext, IQueryable<TTo>>> expression);
 
         /// <summary>
         /// Removes all mappings from In-Memory storage.
         /// </summary>
-        public static void Clear()
-        {
-            Mappings.Clear();
-        }
+        void Clear();
     }
 }

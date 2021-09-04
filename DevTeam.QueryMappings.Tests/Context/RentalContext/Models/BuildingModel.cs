@@ -11,12 +11,12 @@ namespace DevTeam.QueryMappings.Tests.Context.RentalContext.Models
         public bool IsLaundry { get; set; }
 
         public AddressModel Address { get; set; }
-        public List<AppartmentModel> Appartments { get; set; }
+        public List<ApartmentModel> Appartments { get; set; }
         public List<ReviewModel> Reviews { get; set; }
 
         public BuildingModel()
         {
-            Appartments = new List<AppartmentModel>();
+            Appartments = new List<ApartmentModel>();
             Reviews = new List<ReviewModel>();
         }
     }

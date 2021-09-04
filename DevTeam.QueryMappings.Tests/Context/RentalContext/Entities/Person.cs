@@ -11,6 +11,6 @@
         public string Email { get; set; }
         public string Phone { get; set; }
 
-        public Appartment Appartment { get; set; }
+        public Apartment Appartment { get; set; }
     }
 }

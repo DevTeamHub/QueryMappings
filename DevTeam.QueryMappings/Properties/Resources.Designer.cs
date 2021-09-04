@@ -19,7 +19,7 @@ namespace DevTeam.QueryMappings.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -70,11 +70,47 @@ namespace DevTeam.QueryMappings.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The mapping doesn&apos;t need the arguments as an input, but you are passing it in AsQuery() method. .
+        /// </summary>
+        public static string ArgumentsAreNotNeeded {
+            get {
+                return ResourceManager.GetString("ArgumentsAreNotNeeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arguments can&apos;t be null for this overload of AsQuery method.
         /// </summary>
         public static string ArgumentsAreRequiredException {
             get {
                 return ResourceManager.GetString("ArgumentsAreRequiredException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The mapping uses arguments as its input, so you need to pass the arguments into AsQuery() method. .
+        /// </summary>
+        public static string ArgumentsHaventBeenPassed {
+            get {
+                return ResourceManager.GetString("ArgumentsHaventBeenPassed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mapping from type {0} to type {1} was found. But arguments of the mapping has different type from what has been provided: expected arguments of type {2}, but was {3}. .
+        /// </summary>
+        public static string ArgumentsOfIncorrectType {
+            get {
+                return ResourceManager.GetString("ArgumentsOfIncorrectType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The mapping requires an instance of Database Context to be injected, so you need to use generic version of QueryMappingService&lt;&gt; and provide the interface of the Database Context. .
+        /// </summary>
+        public static string ContextHaventBeenInjected {
+            get {
+                return ResourceManager.GetString("ContextHaventBeenInjected", resourceCulture);
             }
         }
         
@@ -88,11 +124,29 @@ namespace DevTeam.QueryMappings.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mapping from type {0} to type {1} was found. But Database Context of the mapping has different type from what has been provided: expected Database Context of type {2}, but was {3}. .
+        /// </summary>
+        public static string ContextOfIncorrectType {
+            get {
+                return ResourceManager.GetString("ContextOfIncorrectType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Context Resolver wasn&apos;t registered for type {0}. To use Query Mappings you need to register context resolver function..
         /// </summary>
         public static string ContextResolverIsntRegisteredException {
             get {
                 return ResourceManager.GetString("ContextResolverIsntRegisteredException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The mapping uses another version of Database Context from what you povided as a Generic Parameter for QueryMappingService&lt;&gt; .
+        /// </summary>
+        public static string ContextTypeIsDifferent {
+            get {
+                return ResourceManager.GetString("ContextTypeIsDifferent", resourceCulture);
             }
         }
         
@@ -115,7 +169,7 @@ namespace DevTeam.QueryMappings.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mapping from type {0} to type {1} was found, but you are using incorrect version of AsQuery method for this type of mapping. You are using AsQuery method that is used {4} arguments and {5} EF context, but founded mapping was registered {2} arguments and {3} EF context.
+        ///   Looks up a localized string similar to Mapping from type {0} to type {1} was found. But the mapping&apos;s structure requires different input arguments from what have been passed into QueryMappingService.  .
         /// </summary>
         public static string InvalidCastMappingException {
             get {

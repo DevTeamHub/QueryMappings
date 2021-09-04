@@ -3,7 +3,7 @@
     public enum EntityType
     {
         Building = 1,
-        Appartment = 2,
+        Apartment = 2,
         Address = 3,
         Person = 4,
         Review = 5

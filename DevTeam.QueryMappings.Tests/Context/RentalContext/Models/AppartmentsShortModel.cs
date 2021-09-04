@@ -1,6 +1,6 @@
 ﻿namespace DevTeam.QueryMappings.Tests.Context.RentalContext.Models
 {
-    public class AppartmentShortModel
+    public class ApartmentShortModel
     {
         public int Id { get; set; }
         public string Number { get; set; }

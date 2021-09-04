@@ -17,13 +17,14 @@ namespace DevTeam.QueryMappings.Helpers
         /// <summary>
         /// Search for implementations of <see cref="IMappingsStorage"/> inside of list of assemblies and registers mappings for usage.
         /// </summary>
+        /// <param name="mappings">Singleton instance of <see cref="IMappingsList" /> that can be used to register mappings.</param>
         /// <param name="assemblies">List of assemblies where <see cref="IMappingsStorage"/> implementations are located.</param>
         /// <exception cref="MappingException">Thrown if we couldn't initialize mappings.</exception>
-        public static void Register(params Assembly[] assemblies)
+        public static void Register(IMappingsList mappings, params Assembly[] assemblies)
         {
             try
             {
-                GetDefined(assemblies).ForEach(Setup);
+                GetDefined(assemblies).ForEach(storage => Setup(storage, mappings));
             }
             catch (Exception exception)
             {
@@ -69,17 +70,18 @@ namespace DevTeam.QueryMappings.Helpers
         /// <summary>
         /// Registers mappings and saves them into memory for further usage.
         /// </summary>
-        /// <param name="mappingsStorage">Instance of <see cref="IMappingsStorage"/></param>
+        /// <param name="storage">Instance of <see cref="IMappingsStorage"/></param>
+        /// <param name="mappings">Singleton instance of <see cref="IMappingsList" /> that can be used to register mappings.</param>
         /// <exception cref="MappingException">Thrown if error has happened during mappings initialization process.</exception>
-        private static void Setup(IMappingsStorage mappingsStorage)
+        private static void Setup(IMappingsStorage storage, IMappingsList mappings)
         {
             try
             {
-                mappingsStorage.Setup();
+                storage.Setup(mappings);
             }
             catch (Exception exception)
             {
-                var exceptionMessage = string.Format(Resources.MappingStorageSetupException, mappingsStorage.GetType().FullName);
+                var exceptionMessage = string.Format(Resources.MappingStorageSetupException, storage.GetType().FullName);
                 throw new MappingException(exceptionMessage, exception);
             }
         }

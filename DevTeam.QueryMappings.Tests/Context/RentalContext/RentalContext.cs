@@ -1,39 +1,24 @@
 ﻿using DevTeam.EntityFrameworkExtensions.DbContext;
 using DevTeam.QueryMappings.Tests.Context.RentalContext.Entities;
 using DevTeam.QueryMappings.Tests.Tests;
+using Microsoft.EntityFrameworkCore;
 using Moq;
-using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 
 namespace DevTeam.QueryMappings.Tests.Context.RentalContext
 {
-    public class RentalContext : IDbContext
+    public interface IRentalContext: IDbContext { }
+
+    public class RentalContext : DbContext, IRentalContext
     {
         public IEnumerable<Building> Buildings => TestData.Buildings;
-        public IEnumerable<Appartment> Appartments => TestData.Appartments;
+        public IEnumerable<Apartment> Apartments => TestData.Apartments;
         public IEnumerable<Address> Addresses => TestData.Addresses;
         public IEnumerable<Person> People => TestData.People;
         public IEnumerable<Review> Reviews => TestData.Reviews;
 
-        public Database Database => throw new NotImplementedException();
-
-        public DbChangeTracker ChangeTracker => throw new NotImplementedException();
-
-        public DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity)
-            where TEntity: class
-        {
-            throw new NotImplementedException();
-        }
-
-        public int SaveChanges()
-        {
-            throw new NotImplementedException();
-        }
-
-        public DbSet<TEntity> Set<TEntity>()
+        public override DbSet<TEntity> Set<TEntity>()
             where TEntity: class
         {
             List<TEntity> list = null;
@@ -50,9 +35,9 @@ namespace DevTeam.QueryMappings.Tests.Context.RentalContext
             {
                 list = Addresses.Cast<TEntity>().ToList();
             }
-            else if (typeof(TEntity) == typeof(Appartment))
+            else if (typeof(TEntity) == typeof(Apartment))
             {
-                list = Appartments.Cast<TEntity>().ToList();
+                list = Apartments.Cast<TEntity>().ToList();
             }
             else if (typeof(TEntity) == typeof(Person))
             {

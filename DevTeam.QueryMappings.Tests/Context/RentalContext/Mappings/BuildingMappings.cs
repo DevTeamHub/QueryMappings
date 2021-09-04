@@ -1,5 +1,4 @@
-﻿using DevTeam.EntityFrameworkExtensions.DbContext;
-using DevTeam.QueryMappings.Base;
+﻿using DevTeam.QueryMappings.Base;
 using DevTeam.QueryMappings.Helpers;
 using DevTeam.QueryMappings.Tests.Context.RentalContext.Entities;
 using DevTeam.QueryMappings.Tests.Context.RentalContext.Mappings.Arguments;
@@ -10,9 +9,9 @@ namespace DevTeam.QueryMappings.Tests.Context.RentalContext.Mappings
 {
     public class BuildingMappings : IMappingsStorage
     {
-        public void Setup()
+        public void Setup(IMappingsList mappings)
         {
-            MappingsList.Add<Building, BuildingModel>(MappingsNames.BuildingWithoutReviews, x => new BuildingModel
+            mappings.Add<Building, BuildingModel>(MappingsNames.BuildingWithoutReviews, x => new BuildingModel
             {
                 Id = x.Id,
                 Year = x.Year,
@@ -29,7 +28,7 @@ namespace DevTeam.QueryMappings.Tests.Context.RentalContext.Mappings
                     Street = x.Address.Street,
                     ZipCode = x.Address.ZipCode
                 },
-                Appartments = x.Appartments.Select(a => new AppartmentModel
+                Appartments = x.Appartments.Select(a => new ApartmentModel
                 {
                     Id = a.Id,
                     Badrooms = a.Badrooms,
@@ -41,7 +40,7 @@ namespace DevTeam.QueryMappings.Tests.Context.RentalContext.Mappings
                 }).ToList()
             });
 
-            MappingsList.Add<Building, BuildingModel, IDbContext>(MappingsNames.BuildingWithReviews, (query, context) => 
+            mappings.Add<Building, BuildingModel, IRentalContext>(MappingsNames.BuildingWithReviews, (query, context) => 
                 from building in query
                 join review in context.Set<Review>() on new { EntityId = building.Id, EntityTypeId = (int) EntityType.Building } 
                                                      equals new { EntityId = review.EntityId, EntityTypeId = review.EntityTypeId }
@@ -63,7 +62,7 @@ namespace DevTeam.QueryMappings.Tests.Context.RentalContext.Mappings
                         Street = building.Address.Street,
                         ZipCode = building.Address.ZipCode
                     },
-                    Appartments = building.Appartments.Select(a => new AppartmentModel
+                    Appartments = building.Appartments.Select(a => new ApartmentModel
                     {
                         Id = a.Id,
                         Badrooms = a.Badrooms,
@@ -83,7 +82,7 @@ namespace DevTeam.QueryMappings.Tests.Context.RentalContext.Mappings
                     }).ToList()
                 });
 
-            MappingsList.Add<Building, BuildingStatisticsModel, BuildingArguments, IDbContext>(args =>
+            mappings.Add<Building, BuildingStatisticsModel, BuildingArguments, IRentalContext>(args =>
             {
                 return (query, context) =>
                     from building in query
