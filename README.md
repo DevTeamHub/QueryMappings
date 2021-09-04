@@ -15,7 +15,7 @@ Also there are cases when we can't have Navigation Property between objects or w
 
 ```C#
 
-    MappingsList.Add<Address, AddressModel>(x => new AddressModel
+    _mappingsList.Add<Address, AddressModel>(x => new AddressModel
     {
         Id = x.Id,
         BuildingNumber = x.BuildingNumber,
@@ -32,7 +32,7 @@ Also there are cases when we can't have Navigation Property between objects or w
 
 ```C#
 
-MappingsList.Add<Building, BuildingStatisticsModel, BuildingArguments, IDbContext>(args =>
+_mappingsList.Add<Building, BuildingStatisticsModel, BuildingArguments, IDbContext>(args =>
 {
     return (query, context) => 
         from building in query
@@ -57,7 +57,7 @@ MappingsList.Add<Building, BuildingStatisticsModel, BuildingArguments, IDbContex
 
 ```C#
 
-MappingsList.Add<Appartment, AppartmentModel, AppartmentsArguments>(args =>
+_mappingsList.Add<Appartment, AppartmentModel, AppartmentsArguments>(args =>
 {
     return x => new AppartmentModel
     {
