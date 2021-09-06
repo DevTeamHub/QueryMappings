@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <Version>3.1.0</Version>
-    <Authors>dbezzubenkov, dev-team</Authors>
+    <Authors>dimabezzubenkov, dev-team</Authors>
     <Company>Dev Team, Inc</Company>
     <Description>Simple strongly typed interface for IQueryable-to-object mappings optimized for Entity Framework without reflection usages.</Description>
     <NeutralLanguage>en-US</NeutralLanguage>
