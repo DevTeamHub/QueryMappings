@@ -22,8 +22,8 @@ namespace DevTeam.QueryMappings.AspNetCore
         {
             services
                 .AddSingleton<IMappingsList, MappingsList>()
-                .AddScoped<IQueryMappingService, QueryMappingService>()
-                .AddScoped(typeof(IQueryMappingService<>), typeof(QueryMappingService<>));
+                .AddScoped<IMappingService, MappingService>()
+                .AddScoped(typeof(IMappingService<>), typeof(MappingService<>));
 
             return services;
         }

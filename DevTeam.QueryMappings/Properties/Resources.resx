@@ -138,16 +138,16 @@
     <comment>Exception that happens when user passes arguments to Map() method, but mapping expects different type of arguments.</comment>
   </data>
   <data name="ContextHaventBeenInjected" xml:space="preserve">
-    <value>The mapping requires an instance of Database Context to be injected, so you need to use generic version of QueryMappingService&lt;&gt; and provide the interface of the Database Context. </value>
-    <comment>Exception that happens when mapping expects the Database Context to be injected, but user uses non-generic version of QueryMappingService that doesn't provide context.</comment>
+    <value>The mapping requires an instance of Database Context to be injected, so you need to use generic version of MappingService&lt;&gt; and provide the interface of the Database Context. </value>
+    <comment>Exception that happens when mapping expects the Database Context to be injected, but user uses non-generic version of MappingService that doesn't provide context.</comment>
   </data>
   <data name="ContextOfIncorrectType" xml:space="preserve">
     <value>Mapping from type {0} to type {1} was found. But Database Context of the mapping has different type from what has been provided: expected Database Context of type {2}, but was {3}. </value>
-    <comment>Exception that happens when mapping expects the Database Context to be injected, but user uses incorrect generic version of QueryMappingService&lt;&gt; with the Database Context of incorrect type.</comment>
+    <comment>Exception that happens when mapping expects the Database Context to be injected, but user uses incorrect generic version of MappingService&lt;&gt; with the Database Context of incorrect type.</comment>
   </data>
   <data name="ContextTypeIsDifferent" xml:space="preserve">
-    <value>The mapping uses another version of Database Context from what you povided as a Generic Parameter for QueryMappingService&lt;&gt; </value>
-    <comment>Exception that happens when mapping expects the Database Context to be injected, but user uses incorrect generic version of QueryMappingService&lt;&gt; with the Database Context of incorrect type.</comment>
+    <value>The mapping uses another version of Database Context from what you povided as a Generic Parameter for MappingService&lt;&gt; </value>
+    <comment>Exception that happens when mapping expects the Database Context to be injected, but user uses incorrect generic version of MappingService&lt;&gt; with the Database Context of incorrect type.</comment>
   </data>
   <data name="GeneralInitializationException" xml:space="preserve">
     <value>Exception has happened during mappings initialization. Please see Inner Exception to find more details.</value>
@@ -158,7 +158,7 @@
     <comment>Any other exception when Activator.CreateInstance tried to create instance of IMappingStorage</comment>
   </data>
   <data name="InvalidCastMappingException" xml:space="preserve">
-    <value>Mapping from type {0} to type {1} was found. But the mapping's structure requires different input arguments from what have been passed into QueryMappingService.  </value>
+    <value>Mapping from type {0} to type {1} was found. But the mapping's structure requires different input arguments from what have been passed into MappingService.  </value>
     <comment>Map() method has 4 different overloads: mapping without paramteres, mapping with parameters, mapping with EF context available in it and mapping with both parameters and EF context. This exception will happen when incorrect version is used</comment>
   </data>
   <data name="MappingNotFoundException" xml:space="preserve">

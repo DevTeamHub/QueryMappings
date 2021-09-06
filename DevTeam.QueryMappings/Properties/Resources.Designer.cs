@@ -106,7 +106,7 @@ namespace DevTeam.QueryMappings.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The mapping requires an instance of Database Context to be injected, so you need to use generic version of QueryMappingService&lt;&gt; and provide the interface of the Database Context. .
+        ///   Looks up a localized string similar to The mapping requires an instance of Database Context to be injected, so you need to use generic version of MappingService&lt;&gt; and provide the interface of the Database Context. .
         /// </summary>
         public static string ContextHaventBeenInjected {
             get {
@@ -124,7 +124,7 @@ namespace DevTeam.QueryMappings.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The mapping uses another version of Database Context from what you povided as a Generic Parameter for QueryMappingService&lt;&gt; .
+        ///   Looks up a localized string similar to The mapping uses another version of Database Context from what you povided as a Generic Parameter for MappingService&lt;&gt; .
         /// </summary>
         public static string ContextTypeIsDifferent {
             get {
@@ -151,7 +151,7 @@ namespace DevTeam.QueryMappings.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mapping from type {0} to type {1} was found. But the mapping&apos;s structure requires different input arguments from what have been passed into QueryMappingService.  .
+        ///   Looks up a localized string similar to Mapping from type {0} to type {1} was found. But the mapping&apos;s structure requires different input arguments from what have been passed into MappingService.  .
         /// </summary>
         public static string InvalidCastMappingException {
             get {

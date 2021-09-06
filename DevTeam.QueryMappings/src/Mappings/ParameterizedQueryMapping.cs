@@ -5,7 +5,7 @@ using System.Linq;
 namespace DevTeam.QueryMappings.Mappings
 {
     /// <summary>
-    /// Describes mapping from one type to another with expression, arguments that can be used inside of expression and Entity Framework Context that is injected inside of expression. 
+    /// Describes mapping from one type to another using provided expression, arguments that can be used inside of the expression and Entity Framework Context that is injected inside of the expression. 
     /// </summary>
     /// <typeparam name="TFrom">Source type of mapping.</typeparam>
     /// <typeparam name="TTo">Destination type of mapping.</typeparam>

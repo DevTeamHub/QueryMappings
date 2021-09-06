@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 namespace DevTeam.QueryMappings.Mappings
 {
     /// <summary>
-    /// Describes mapping from one type to another with expression and arguments that can be used inside of expression. 
+    /// Describes mapping from one type to another using provided expression and arguments that can be used inside of the expression. 
     /// </summary>
     /// <typeparam name="TFrom">Source type of mapping.</typeparam>
     /// <typeparam name="TTo">Destination type of mapping.</typeparam>
@@ -28,7 +28,7 @@ namespace DevTeam.QueryMappings.Mappings
         private readonly Func<TArgs, Expression<Func<TFrom, TTo>>> _mapping;
 
         /// <summary>
-        /// Applies expression on <see cref="IQueryable{T}"/> instance.
+        /// Applies expression to <see cref="IQueryable{T}"/> instance.
         /// Arguments can be used inside of the expression.
         /// </summary>
         /// <param name="query"><see cref="IQueryable{T}"/> instance.</param>
@@ -38,6 +38,20 @@ namespace DevTeam.QueryMappings.Mappings
         {
             var expression = _mapping.Invoke(args);
             return query.Select(expression);
+        }
+
+        /// <summary>
+        /// Applies expression to source model instance.
+        /// Arguments can be used inside of the expression.
+        /// </summary>
+        /// <param name="model">Source model instance.</param>
+        /// <param name="args">Arguments that we pass into mapping expression.</param>
+        /// <returns>New destination model instance.</returns>
+        public TTo Apply(TFrom model, TArgs args)
+        {
+            var expression = _mapping.Invoke(args);
+            var func = expression.Compile();
+            return func(model);
         }
     }
 }

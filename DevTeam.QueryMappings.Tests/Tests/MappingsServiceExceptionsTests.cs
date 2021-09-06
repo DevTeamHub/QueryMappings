@@ -16,12 +16,12 @@ using DevTeam.QueryMappings.Base;
 
 namespace DevTeam.QueryMappings.Tests.Tests
 {
-    [Category("QueryMappingService")]
-    [TestOf(typeof(QueryMappingService))]
+    [Category("MappingService")]
+    [TestOf(typeof(MappingService))]
     [TestFixture]
-    public class QueryMappingServiceExceptionsTests
+    public class MappingServiceExceptionsTests
     {
-        private IQueryMappingService _service;
+        private IMappingService _service;
         private RentalContext _context;
 
         [OneTimeSetUp]
@@ -37,7 +37,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
             var serviceProvider = services.BuildServiceProvider();
             var mappings = serviceProvider.GetRequiredService<IMappingsList>();
             _context = (RentalContext)serviceProvider.GetRequiredService<IRentalContext>();
-            _service = serviceProvider.GetRequiredService<IQueryMappingService>();
+            _service = serviceProvider.GetRequiredService<IMappingService>();
 
             MappingsConfiguration.Register(mappings, typeof(AddressMappings).Assembly);
         }
@@ -65,6 +65,21 @@ namespace DevTeam.QueryMappings.Tests.Tests
         }
 
         /// <summary>
+        /// Mapping from <see cref="Apartment"/> to <see cref="ApartmentShortModel"/> expects arguments. But user doesn't pass anything.
+        /// </summary>
+        [Test]
+        public void Should_Throw_Exception_If_Object_Mapping_Requires_Arguments_But_Non_Has_Been_Passed()
+        {
+            var list = _context.Apartments.ToList();
+            var method = new TestDelegate(delegate { _service.Map<Apartment, ApartmentShortModel>(list); });
+            var exceptionMessage = string.Format(Resources.InvalidCastMappingException, typeof(Apartment).Name, typeof(ApartmentShortModel).Name);
+            exceptionMessage += Resources.ArgumentsHaventBeenPassed;
+
+            var exception = Assert.Throws<MappingException>(method);
+            Assert.AreEqual(exception.Message, exceptionMessage);
+        }
+
+        /// <summary>
         /// Mapping from <see cref="Apartment"/> to <see cref="ApartmentShortModel"/> expects arguments of type <see cref="ApartmentsArguments"/>.
         /// User passes incorrect type as arguments.
         /// </summary>
@@ -81,8 +96,24 @@ namespace DevTeam.QueryMappings.Tests.Tests
         }
 
         /// <summary>
+        /// Mapping from <see cref="Apartment"/> to <see cref="ApartmentShortModel"/> expects arguments of type <see cref="ApartmentsArguments"/>.
+        /// User passes incorrect type as arguments.
+        /// </summary>
+        [Test]
+        public void Should_Throw_Exception_If_Object_Mapping_Requires_Arguments_But_User_Passes_Arguments_Of_Another_Type()
+        {
+            var list = _context.Apartments.ToList();
+            var arguments = new BuildingArguments { TargetResidentsAge = 18 };
+            var method = new TestDelegate(delegate { _service.Map<Apartment, ApartmentShortModel, BuildingArguments>(list, arguments); });
+            var exceptionMessage = string.Format(Resources.ArgumentsOfIncorrectType, typeof(Apartment).Name, typeof(ApartmentShortModel).Name, typeof(ApartmentsArguments), typeof(BuildingArguments));
+
+            var exception = Assert.Throws<MappingException>(method);
+            Assert.AreEqual(exception.Message, exceptionMessage);
+        }
+
+        /// <summary>
         /// Mapping from <see cref="Apartment"/> to <see cref="ApartmentReviewsModel"/> expects Database Context. 
-        /// But user use non-generic version of <see cref="QueryMappingService"/> and context isn't injected.
+        /// But user use non-generic version of <see cref="MappingService"/> and context isn't injected.
         /// </summary>
         [Test]
         public void Should_Throw_Exception_When_Mapping_Expects_Database_Context_But_Its_Not_Injected()
@@ -98,7 +129,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
 
         /// <summary>
         /// Mapping from <see cref="Building"/> to <see cref="BuildingStatisticsModel"/> expects arguments and Database Context. 
-        /// But user doesn't pass arguments and use non-generic version of <see cref="QueryMappingService"/> and context isn't injected.
+        /// But user doesn't pass arguments and use non-generic version of <see cref="MappingService"/> and context isn't injected.
         /// </summary>
         [Test]
         public void Should_Throw_Exception_When_Arguments_And_Context_Are_Required_But_Not_Provided()
@@ -131,8 +162,25 @@ namespace DevTeam.QueryMappings.Tests.Tests
         }
 
         /// <summary>
+        /// Object mapping from <see cref="Address"/> to <see cref="AddressModel"/> doesn't require arguments. 
+        /// But user passes arguments anyway.
+        /// </summary>
+        [Test]
+        public void Should_Throw_Exception_When_Object_Mapping_Doesnt_Expect_Arguments_But_They_Passed_Anyway()
+        {
+            var list = _context.Addresses.ToList();
+            var arguments = new BuildingArguments { TargetResidentsAge = 18 };
+            var method = new TestDelegate(delegate { _service.Map<Address, AddressModel, BuildingArguments>(list, arguments); });
+            var exceptionMessage = string.Format(Resources.InvalidCastMappingException, typeof(Address).Name, typeof(AddressModel).Name);
+            exceptionMessage += Resources.ArgumentsAreNotNeeded;
+
+            var exception = Assert.Throws<MappingException>(method);
+            Assert.AreEqual(exception.Message, exceptionMessage);
+        }
+
+        /// <summary>
         /// Mapping from <see cref="Building"/> to <see cref="BuildingStatisticsModel"/> expects arguments and Database Context. 
-        /// User passes arguments, but use non-generic version of <see cref="QueryMappingService"/> and context isn't injected.
+        /// User passes arguments, but use non-generic version of <see cref="MappingService"/> and context isn't injected.
         /// </summary>
         [Test]
         public void Should_Throw_Exception_When_Arguments_And_Context_Are_Required_But_Only_Arguments_Provided()

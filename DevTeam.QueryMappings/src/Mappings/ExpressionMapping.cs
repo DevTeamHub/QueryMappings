@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 namespace DevTeam.QueryMappings.Mappings
 {
     /// <summary>
-    /// Describes simple mapping from one type to another with expression. 
+    /// Describes simple mapping from one type to another using provided expression. 
     /// </summary>
     /// <typeparam name="TFrom">Source type of mapping.</typeparam>
     /// <typeparam name="TTo">Destination type of mapping.</typeparam>
@@ -21,18 +21,30 @@ namespace DevTeam.QueryMappings.Mappings
             : base(typeof(TFrom), typeof(TTo), null, null, MappingType.Expression, name)
         {
             _mapping = mapping;
+            _mappingFunc = mapping.Compile();
         }
 
         private readonly Expression<Func<TFrom, TTo>> _mapping;
+        private readonly Func<TFrom, TTo> _mappingFunc;
 
         /// <summary>
-        /// Applies simple expression on <see cref="IQueryable{T}"/> instance.
+        /// Applies simple expression to <see cref="IQueryable{T}"/> instance.
         /// </summary>
         /// <param name="query"><see cref="IQueryable{T}"/> instance.</param>
         /// <returns>New <see cref="IQueryable{T}"/> instance with applied expression.</returns>
         public IQueryable<TTo> Apply(IQueryable<TFrom> query)
         {
             return query.Select(_mapping);
+        }
+
+        /// <summary>
+        /// Applies simple expression to the provided model.
+        /// </summary>
+        /// <param name="model">Source model instance.</param>
+        /// <returns>Destination model instance.</returns>
+        public TTo Apply(TFrom model)
+        {
+            return _mappingFunc(model);
         }
     }
 }
