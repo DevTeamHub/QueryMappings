@@ -12,17 +12,13 @@
 
   <ItemGroup>
     <PackageReference Include="DevTeam.EntityFrameworkExtensions" Version="1.0.2" />
+    <PackageReference Include="DevTeam.QueryMappings.AspNetCore" Version="3.3.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.9" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
     <PackageReference Include="Moq" Version="4.16.1" />
     <PackageReference Include="NUnit" Version="3.13.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
     <PackageReference Include="coverlet.collector" Version="3.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\DevTeam.QueryMappings.AspNetCore\DevTeam.QueryMappings.AspNetCore.csproj" />
-    <ProjectReference Include="..\DevTeam.QueryMappings\DevTeam.QueryMappings.csproj" />
   </ItemGroup>
 
 </Project>
