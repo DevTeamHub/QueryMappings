@@ -31,10 +31,10 @@ namespace DevTeam.QueryMappings.Services.Implementations
         /// <param name="query">Instance of <see cref="IQueryable{T}"/> to apply mapping to.</param>
         /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
         /// <returns>Result of mapping. Instance of <see cref="IQueryable{T}"/> object with applied mapping.</returns>
-        /// <exception cref="MappingException">Thrown if we are using incorrect version of AsQuery method or if mapping wasn't found.</exception>
-        public virtual IQueryable<TModel> AsQuery<TEntity, TModel>(IQueryable<TEntity> query, string name = null)
+        /// <exception cref="MappingException">Thrown if we are using incorrect version of Map() method or if mapping wasn't found.</exception>
+        public virtual IQueryable<TModel> Map<TEntity, TModel>(IQueryable<TEntity> query, string name = null)
         {
-            return AsQuery<TEntity, TModel>(query, MappingType.Expression, name);
+            return Map<TEntity, TModel>(query, MappingType.Expression, name);
         }
 
         /// <summary>
@@ -46,11 +46,11 @@ namespace DevTeam.QueryMappings.Services.Implementations
         /// <param name="mappingType">Type of mapping that we will be searching for.</param>
         /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
         /// <returns>Result of mapping. Instance of <see cref="IQueryable{T}"/> object with applied mapping.</returns>
-        /// <exception cref="MappingException">Thrown if we are using incorrect version of AsQuery method or if mapping wasn't found.</exception>
-        protected virtual IQueryable<TModel> AsQuery<TEntity, TModel>(IQueryable<TEntity> query, MappingType mappingType, string name = null)
+        /// <exception cref="MappingException">Thrown if we are using incorrect version of Map() method or if mapping wasn't found.</exception>
+        protected virtual IQueryable<TModel> Map<TEntity, TModel>(IQueryable<TEntity> query, MappingType mappingType, string name = null)
         {
             return ApplyMapping<TEntity, TModel>(
-                mapping => AsQuery<TEntity, TModel>(query, mapping), 
+                mapping => Map<TEntity, TModel>(query, mapping), 
                 mappingType, 
                 name
             );
@@ -64,8 +64,8 @@ namespace DevTeam.QueryMappings.Services.Implementations
         /// <param name="query">Instance of <see cref="IQueryable{T}"/> to apply mapping to.</param>
         /// <param name="mapping"><see cref="ExpressionMapping{TFrom, TTo}"/> mapping.</param>
         /// <returns>Result of mapping. Instance of <see cref="IQueryable{T}"/> object with applied mapping.</returns>
-        /// <exception cref="MappingException">Thrown if we are using incorrect version of AsQuery method or if mapping wasn't found.</exception>
-        protected virtual IQueryable<TModel> AsQuery<TEntity, TModel>(IQueryable<TEntity> query, Mapping mapping)
+        /// <exception cref="MappingException">Thrown if we are using incorrect version of Map() method or if mapping wasn't found.</exception>
+        protected virtual IQueryable<TModel> Map<TEntity, TModel>(IQueryable<TEntity> query, Mapping mapping)
         {
             var expressionMapping = (ExpressionMapping<TEntity, TModel>)mapping;
             return expressionMapping.Apply(query);
@@ -82,11 +82,11 @@ namespace DevTeam.QueryMappings.Services.Implementations
         /// <param name="args">Arguments that we want to pass into mapping to use them inside of mapping expression.</param>
         /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
         /// <returns>Result of mapping. Instance of <see cref="IQueryable{T}"/> object with applied mapping.</returns>
-        /// <exception cref="MappingException">Thrown if args are null or if we are using incorrect version of AsQuery method or if mapping wasn't found.</exception>
-        public virtual IQueryable<TModel> AsQuery<TEntity, TModel, TArgs>(IQueryable<TEntity> query, TArgs args, string name = null)
+        /// <exception cref="MappingException">Thrown if args are null or if we are using incorrect version of Map() method or if mapping wasn't found.</exception>
+        public virtual IQueryable<TModel> Map<TEntity, TModel, TArgs>(IQueryable<TEntity> query, TArgs args, string name = null)
             where TArgs : class
         {
-            return AsQuery<TEntity, TModel, TArgs>(query, MappingType.Parameterized, args, name);
+            return Map<TEntity, TModel, TArgs>(query, MappingType.Parameterized, args, name);
         }
 
         /// <summary>
@@ -101,15 +101,15 @@ namespace DevTeam.QueryMappings.Services.Implementations
         /// <param name="args">Arguments that we want to pass into mapping to use them inside of mapping expression.</param>
         /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
         /// <returns>Result of mapping. Instance of <see cref="IQueryable{T}"/> object with applied mapping.</returns>
-        /// <exception cref="MappingException">Thrown if args are null or if we are using incorrect version of AsQuery method or if mapping wasn't found.</exception>
-        protected IQueryable<TModel> AsQuery<TEntity, TModel, TArgs>(IQueryable<TEntity> query, MappingType mappingType, TArgs args, string name = null)
+        /// <exception cref="MappingException">Thrown if args are null or if we are using incorrect version of Map() method or if mapping wasn't found.</exception>
+        protected IQueryable<TModel> Map<TEntity, TModel, TArgs>(IQueryable<TEntity> query, MappingType mappingType, TArgs args, string name = null)
             where TArgs : class
         {
             if (args == null)
                 throw new MappingException(Resources.ArgumentsAreRequiredException);
 
             return ApplyMapping<TEntity, TModel>(
-                mapping => AsQuery<TEntity, TModel, TArgs>(query, args, mapping), 
+                mapping => Map<TEntity, TModel, TArgs>(query, args, mapping), 
                 mappingType, 
                 name
             );
@@ -126,8 +126,8 @@ namespace DevTeam.QueryMappings.Services.Implementations
         /// <param name="args">Arguments that we want to pass into mapping to use them inside of mapping expression.</param>
         /// <param name="mapping"><see cref="ExpressionMapping{TFrom, TTo}"/> mapping.</param>
         /// <returns>Result of mapping. Instance of <see cref="IQueryable{T}"/> object with applied mapping.</returns>
-        /// <exception cref="MappingException">Thrown if we are using incorrect version of AsQuery method or if mapping wasn't found.</exception>
-        protected virtual IQueryable<TModel> AsQuery<TEntity, TModel, TArgs>(IQueryable<TEntity> query, TArgs args, Mapping mapping)
+        /// <exception cref="MappingException">Thrown if we are using incorrect version of Map method or if mapping wasn't found.</exception>
+        protected virtual IQueryable<TModel> Map<TEntity, TModel, TArgs>(IQueryable<TEntity> query, TArgs args, Mapping mapping)
             where TArgs : class
         {
             mapping.ValidateArguments<TArgs>();
@@ -136,15 +136,15 @@ namespace DevTeam.QueryMappings.Services.Implementations
         }
 
         /// <summary>
-        /// Wrapper that helps handle exceptions for every AsQuery overload.
+        /// Wrapper that helps handle exceptions for every Map overload.
         /// </summary>
         /// <typeparam name="TEntity">Source type of mapping.</typeparam>
         /// <typeparam name="TModel">Destination type of mapping.</typeparam>
-        /// <param name="applyFunction">AsQuery function with main logic.</param>
+        /// <param name="applyFunction">Map function with main logic.</param>
         /// <param name="mappingType">Type of mapping to search for.</param>
         /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
         /// <returns>Result of mapping. Instance of <see cref="IQueryable{T}"/> object with applied mapping.</returns>
-        /// <exception cref="MappingException">Thrown if we are using incorrect version of AsQuery method or if mapping wasn't found.</exception>
+        /// <exception cref="MappingException">Thrown if we are using incorrect version of Map method or if mapping wasn't found.</exception>
         protected internal IQueryable<TModel> ApplyMapping<TEntity, TModel>(Func<Mapping, IQueryable<TModel>> applyFunction, MappingType mappingType, string name = null)
         {
             var mapping = _mappingsList.Get<TEntity, TModel>(name);
@@ -195,10 +195,10 @@ namespace DevTeam.QueryMappings.Services.Implementations
         /// <param name="query">Instance of <see cref="IQueryable{T}"/> to apply mapping to.</param>
         /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
         /// <returns>Result of mapping. Instance of <see cref="IQueryable{T}"/> object with applied mapping.</returns>
-        /// <exception cref="MappingException">Thrown if we are using incorrect version of AsQuery method or if mapping wasn't found.</exception>
-        public override IQueryable<TModel> AsQuery<TEntity, TModel>(IQueryable<TEntity> query, string name = null)
+        /// <exception cref="MappingException">Thrown if we are using incorrect version of Map method or if mapping wasn't found.</exception>
+        public override IQueryable<TModel> Map<TEntity, TModel>(IQueryable<TEntity> query, string name = null)
         {
-            return AsQuery<TEntity, TModel>(query, MappingType.Query, name);
+            return Map<TEntity, TModel>(query, MappingType.Query, name);
         }
 
         /// <summary>
@@ -210,8 +210,8 @@ namespace DevTeam.QueryMappings.Services.Implementations
         /// <param name="query">Instance of <see cref="IQueryable{T}"/> to apply mapping to.</param>
         /// <param name="mapping"><see cref="ExpressionMapping{TFrom, TTo}"/> mapping.</param>
         /// <returns>Result of mapping. Instance of <see cref="IQueryable{T}"/> object with applied mapping.</returns>
-        /// <exception cref="MappingException">Thrown if we are using incorrect version of AsQuery method or if mapping wasn't found.</exception>
-        protected override IQueryable<TModel> AsQuery<TEntity, TModel>(IQueryable<TEntity> query, Mapping mapping)
+        /// <exception cref="MappingException">Thrown if we are using incorrect version of Map method or if mapping wasn't found.</exception>
+        protected override IQueryable<TModel> Map<TEntity, TModel>(IQueryable<TEntity> query, Mapping mapping)
         {
             if (mapping.MappingType.HasFlag(MappingType.Query))
             {
@@ -220,7 +220,7 @@ namespace DevTeam.QueryMappings.Services.Implementations
                 return queryMapping.Apply(query, _context);
             }
 
-            return base.AsQuery<TEntity, TModel>(query, mapping);
+            return base.Map<TEntity, TModel>(query, mapping);
         }
 
         /// <summary>
@@ -235,11 +235,11 @@ namespace DevTeam.QueryMappings.Services.Implementations
         /// <param name="args">Arguments that we want to pass into mapping to use them inside of mapping expression.</param>
         /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
         /// <returns>Result of mapping. Instance of <see cref="IQueryable{T}"/> object with applied mapping.</returns>
-        /// <exception cref="MappingException">Thrown if args are null or if we are using incorrect version of AsQuery method or if mapping wasn't found.</exception>
-        public override IQueryable<TModel> AsQuery<TEntity, TModel, TArgs>(IQueryable<TEntity> query, TArgs args, string name = null)
+        /// <exception cref="MappingException">Thrown if args are null or if we are using incorrect version of Map method or if mapping wasn't found.</exception>
+        public override IQueryable<TModel> Map<TEntity, TModel, TArgs>(IQueryable<TEntity> query, TArgs args, string name = null)
             where TArgs : class
         {
-            return AsQuery<TEntity, TModel, TArgs>(query, MappingType.ParemeterizedQuery, args, name);
+            return Map<TEntity, TModel, TArgs>(query, MappingType.ParemeterizedQuery, args, name);
         }
 
         /// <summary>
@@ -254,8 +254,8 @@ namespace DevTeam.QueryMappings.Services.Implementations
         /// <param name="args">Arguments that we want to pass into mapping to use them inside of mapping expression.</param>
         /// <param name="mapping"><see cref="ExpressionMapping{TFrom, TTo}"/> mapping.</param>
         /// <returns>Result of mapping. Instance of <see cref="IQueryable{T}"/> object with applied mapping.</returns>
-        /// <exception cref="MappingException">Thrown if we are using incorrect version of AsQuery method or if mapping wasn't found.</exception>
-        protected override IQueryable<TModel> AsQuery<TEntity, TModel, TArgs>(IQueryable<TEntity> query, TArgs args, Mapping mapping)
+        /// <exception cref="MappingException">Thrown if we are using incorrect version of Map method or if mapping wasn't found.</exception>
+        protected override IQueryable<TModel> Map<TEntity, TModel, TArgs>(IQueryable<TEntity> query, TArgs args, Mapping mapping)
             where TArgs : class
         {
             if (mapping.MappingType == MappingType.ParemeterizedQuery)
@@ -266,7 +266,7 @@ namespace DevTeam.QueryMappings.Services.Implementations
                 return parameterizedMapping.Apply(query, args, _context);
             }
 
-            return base.AsQuery<TEntity, TModel, TArgs>(query, args, mapping);
+            return base.Map<TEntity, TModel, TArgs>(query, args, mapping);
         }
     }
 }

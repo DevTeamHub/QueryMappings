@@ -70,7 +70,7 @@ namespace DevTeam.QueryMappings.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The mapping doesn&apos;t need the arguments as an input, but you are passing it in AsQuery() method. .
+        ///   Looks up a localized string similar to The mapping doesn&apos;t need the arguments as an input, but you are passing it in Map() method. .
         /// </summary>
         public static string ArgumentsAreNotNeeded {
             get {
@@ -79,7 +79,7 @@ namespace DevTeam.QueryMappings.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arguments can&apos;t be null for this overload of AsQuery method.
+        ///   Looks up a localized string similar to Arguments can&apos;t be null for this overload of Map() method.
         /// </summary>
         public static string ArgumentsAreRequiredException {
             get {
@@ -88,7 +88,7 @@ namespace DevTeam.QueryMappings.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The mapping uses arguments as its input, so you need to pass the arguments into AsQuery() method. .
+        ///   Looks up a localized string similar to The mapping uses arguments as its input, so you need to pass the arguments into Map() method. .
         /// </summary>
         public static string ArgumentsHaventBeenPassed {
             get {
@@ -115,29 +115,11 @@ namespace DevTeam.QueryMappings.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Context Key was null. In Current version Context Key is required parameter..
-        /// </summary>
-        public static string ContextKeyIsRequredException {
-            get {
-                return ResourceManager.GetString("ContextKeyIsRequredException", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Mapping from type {0} to type {1} was found. But Database Context of the mapping has different type from what has been provided: expected Database Context of type {2}, but was {3}. .
         /// </summary>
         public static string ContextOfIncorrectType {
             get {
                 return ResourceManager.GetString("ContextOfIncorrectType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Context Resolver wasn&apos;t registered for type {0}. To use Query Mappings you need to register context resolver function..
-        /// </summary>
-        public static string ContextResolverIsntRegisteredException {
-            get {
-                return ResourceManager.GetString("ContextResolverIsntRegisteredException", resourceCulture);
             }
         }
         

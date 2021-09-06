@@ -17,8 +17,8 @@ namespace DevTeam.QueryMappings.Services.Interfaces
         /// <param name="query">Instance of <see cref="IQueryable{T}"/> to apply mapping to.</param>
         /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
         /// <returns>Result of mapping. Instance of <see cref="IQueryable{T}"/> object with applied mapping.</returns>
-        /// <exception cref="MappingException">Thrown if we are using incorrect version of AsQuery method or if mapping wasn't found.</exception>
-        IQueryable<TModel> AsQuery<TEntity, TModel>(IQueryable<TEntity> query, string name = null);
+        /// <exception cref="MappingException">Thrown if we are using incorrect version of Map() method or if mapping wasn't found.</exception>
+        IQueryable<TModel> Map<TEntity, TModel>(IQueryable<TEntity> query, string name = null);
 
         /// <summary>
         /// Searches for <see cref="ParameterizedMapping{TFrom, TTo, TArgs}"/> in the Storage and applies mapping on <see cref="IQueryable{T}"/>.
@@ -31,8 +31,8 @@ namespace DevTeam.QueryMappings.Services.Interfaces
         /// <param name="args">Arguments that we want to pass into mapping to use them inside of mapping expression.</param>
         /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
         /// <returns>Result of mapping. Instance of <see cref="IQueryable{T}"/> object with applied mapping.</returns>
-        /// <exception cref="MappingException">Thrown if args are null or if we are using incorrect version of AsQuery method or if mapping wasn't found.</exception>
-        IQueryable<TModel> AsQuery<TEntity, TModel, TArgs>(IQueryable<TEntity> query, TArgs args, string name = null)
+        /// <exception cref="MappingException">Thrown if args are null or if we are using incorrect version of Map() method or if mapping wasn't found.</exception>
+        IQueryable<TModel> Map<TEntity, TModel, TArgs>(IQueryable<TEntity> query, TArgs args, string name = null)
             where TArgs : class;
     }
 

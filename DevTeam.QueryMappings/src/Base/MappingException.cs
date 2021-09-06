@@ -44,7 +44,7 @@ namespace DevTeam.QueryMappings.Base
         { }
 
         /// <summary>
-        /// Helps to build descriptive message if we are using incorrect version of AsQuery method.
+        /// Helps to build descriptive message if we are using incorrect version of Map method.
         /// </summary>
         /// <typeparam name="TFrom">Source type of mapping.</typeparam>
         /// <typeparam name="TTo">Destination type of mapping.</typeparam>

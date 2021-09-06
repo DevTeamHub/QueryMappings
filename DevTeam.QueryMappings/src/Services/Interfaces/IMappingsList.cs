@@ -1,8 +1,6 @@
 ﻿using DevTeam.QueryMappings.Base;
 using DevTeam.QueryMappings.Mappings;
-using DevTeam.QueryMappings.Properties;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -11,18 +9,8 @@ namespace DevTeam.QueryMappings.Helpers
     /// <summary>
     /// Internal In-Memory mappings storage. Holds all registered mapping.
     /// </summary>
-    public class MappingsList: IMappingsList
+    public interface IMappingsList
     {
-        private readonly List<Mapping> Mappings;
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public MappingsList()
-        {
-            Mappings = new List<Mapping>();
-        }
-
         /// <summary>
         /// Searches for a mapping with described direction.
         /// </summary>
@@ -31,46 +19,7 @@ namespace DevTeam.QueryMappings.Helpers
         /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
         /// <returns>Instance of mapping with described direction.</returns>
         /// <exception cref="MappingException">Thrown if mapping wasn't found or if more than one mapping found and wasn't enough information to resolve which exactly is correct one.</exception>
-        public Mapping Get<TFrom, TTo>(string name = null)
-        {
-            try
-            {
-                var mapping = Mappings.SingleOrDefault(m => m.Is<TFrom, TTo>(name));
-
-                if (mapping == null)
-                {
-                    var exceptionMessage = string.Format(Resources.MappingNotFoundException, typeof(TFrom).Name, typeof(TTo).Name);
-                    throw new MappingException(exceptionMessage);
-                }
-
-                return mapping;
-            }
-            catch (InvalidOperationException ioeException)
-            {
-                var exceptionMessage = string.Empty;
-                var namedMappings = Mappings.Where(m => m.Is<TFrom, TTo>() && !string.IsNullOrEmpty(m.Name)).ToList();
-
-                if (namedMappings.Count > 0 && string.IsNullOrEmpty(name))
-                {
-                    exceptionMessage = string.Format(Resources.NameIsNullWhenSearchForNamedMappingException, typeof(TFrom).Name, typeof(TTo).Name);
-                }
-                else if (namedMappings.Count == 0)
-                {
-                    exceptionMessage = string.Format(Resources.MoreThanOneMappingFoundException, typeof(TFrom).Name, typeof(TTo).Name);
-                }
-
-                throw new MappingException(exceptionMessage, ioeException);
-            }
-        }
-
-        /// <summary>
-        /// Adds mapping into Storage.
-        /// </summary>
-        /// <param name="mapping">Mapping to add into storage.</param>
-        private void Add(Mapping mapping)
-        {
-            Mappings.Add(mapping);
-        }
+        Mapping Get<TFrom, TTo>(string name = null);
 
         /// <summary>
         /// Adds <see cref="ExpressionMapping{TFrom, TTo}"/> into Storage with direction From -> To.
@@ -80,7 +29,7 @@ namespace DevTeam.QueryMappings.Helpers
         /// <param name="expression">Mapping expression that will be applied on <see cref="IQueryable{T}"/> instance.</param>
         /// <example>
         /// <code>
-        /// MappingsList.Add&lt;Address, AddressModel&gt;(x => new AddressModel
+        /// mappings.Add&lt;Address, AddressModel&gt;(x => new AddressModel
         /// {
         ///     Id = x.Id,
         ///     BuildingNumber = x.BuildingNumber,
@@ -92,14 +41,11 @@ namespace DevTeam.QueryMappings.Helpers
         /// });
         /// </code>
         /// </example>
-        public void Add<TFrom, TTo>(Expression<Func<TFrom, TTo>> expression)
-        {
-            Add(null, expression);
-        }
+        void Add<TFrom, TTo>(Expression<Func<TFrom, TTo>> expression);
 
         /// <summary>
         /// Adds Named <see cref="ExpressionMapping{TFrom, TTo}"/> into Storage with direction From -> To and explicitly specified name. 
-        /// This mapping can be found only if name is specified explicitly into AsQuery method.
+        /// This mapping can be found only if name is specified explicitly into Map() method.
         /// </summary>
         /// <typeparam name="TFrom">Source type of mapping.</typeparam>
         /// <typeparam name="TTo">Destination type of mapping.</typeparam>
@@ -107,7 +53,7 @@ namespace DevTeam.QueryMappings.Helpers
         /// <param name="expression">Mapping expression that will be applied on <see cref="IQueryable{T}"/> instance.</param>
         /// <example>
         /// <code>
-        /// MappingsList.Add&lt;Address, AddressModel&gt;("AdressMapping_1", x => new AddressModel
+        /// mappings.Add&lt;Address, AddressModel&gt;("AdressMapping_1", x => new AddressModel
         /// {
         ///     Id = x.Id,
         ///     BuildingNumber = x.BuildingNumber,
@@ -119,11 +65,7 @@ namespace DevTeam.QueryMappings.Helpers
         /// });
         /// </code>
         /// </example>
-        public void Add<TFrom, TTo>(string name, Expression<Func<TFrom, TTo>> expression)
-        {
-            var mapping = new ExpressionMapping<TFrom, TTo>(expression, name);
-            Add(mapping);
-        }
+        void Add<TFrom, TTo>(string name, Expression<Func<TFrom, TTo>> expression);
 
         /// <summary>
         /// Adds <see cref="ParameterizedMapping{TFrom, TTo, TArgs}"/> into Storage with direction From -> To.
@@ -135,7 +77,7 @@ namespace DevTeam.QueryMappings.Helpers
         /// <param name="expression">Mapping expression that will be applied on <see cref="IQueryable{T}"/> instance. Input parameter is an object of arguments that will be used inside of expression.</param>
         /// <example>
         /// <code>
-        /// MappingsList.Add&lt;Appartment, AppartmentModel, AppartmentsArguments&gt;(args =>
+        /// mappings.Add&lt;Appartment, AppartmentModel, AppartmentsArguments&gt;(args =>
         /// {
         ///     return x => new AppartmentModel
         ///     {
@@ -150,16 +92,13 @@ namespace DevTeam.QueryMappings.Helpers
         /// });
         /// </code>
         /// </example>
-        public void Add<TFrom, TTo, TArgs>(Func<TArgs, Expression<Func<TFrom, TTo>>> expression)
-            where TArgs : class
-        {
-            Add(null, expression);
-        }
+        void Add<TFrom, TTo, TArgs>(Func<TArgs, Expression<Func<TFrom, TTo>>> expression)
+            where TArgs : class;
 
         /// <summary>
         /// Adds Named <see cref="ParameterizedMapping{TFrom, TTo, TArgs}"/> into Storage with direction From -> To and explicitly specified name.
         /// Expression of this mapping contains imput arguments that can be used inside of mapping expression. 
-        /// This mapping can be found only if name is specified explicitly into AsQuery method.
+        /// This mapping can be found only if name is specified explicitly into Map() method.
         /// </summary>
         /// <typeparam name="TFrom">Source type of mapping.</typeparam>
         /// <typeparam name="TTo">Destination type of mapping.</typeparam>
@@ -168,7 +107,7 @@ namespace DevTeam.QueryMappings.Helpers
         /// <param name="expression">Mapping expression that will be applied on <see cref="IQueryable{T}"/> instance. Input parameter is an object of arguments that will be used inside of expression.</param>
         /// <example>
         /// <code>
-        /// MappingsList.Add&lt;Appartment, AppartmentModel, AppartmentsArguments&gt;(MappingsNames.AppartmentsWithoutBuilding, args =>
+        /// mappings.Add&lt;Appartment, AppartmentModel, AppartmentsArguments&gt;(MappingsNames.AppartmentsWithoutBuilding, args =>
         /// {
         ///     return x => new AppartmentModel
         ///     {
@@ -183,12 +122,8 @@ namespace DevTeam.QueryMappings.Helpers
         /// });
         /// </code>
         /// </example>
-        public void Add<TFrom, TTo, TArgs>(string name, Func<TArgs, Expression<Func<TFrom, TTo>>> expression)
-            where TArgs : class
-        {
-            var mapping = new ParameterizedMapping<TFrom, TTo, TArgs>(expression, name);
-            Add(mapping);
-        }
+        void Add<TFrom, TTo, TArgs>(string name, Func<TArgs, Expression<Func<TFrom, TTo>>> expression)
+            where TArgs : class;
 
         /// <summary>
         /// Adds Named <see cref="QueryMapping{TFrom, TTo, TContext}"/> into Storage with direction From -> To.
@@ -200,7 +135,7 @@ namespace DevTeam.QueryMappings.Helpers
         /// <param name="expression">Mapping expression that will be applied on <see cref="IQueryable{T}"/> instance. Input parameters contain EF Context that can be used inside of mapping.</param>
         /// <example>
         /// <code>
-        /// MappingsList.Add&lt;Appartment, AppartmentReviewsModel, IDbContext&gt;((query, context) =>
+        /// mappings.Add&lt;Appartment, AppartmentReviewsModel, IDbContext&gt;((query, context) =>
         ///     from appartment in query
         ///     join review in context.Set&lt;Review&gt;() on new { EntityId = appartment.Id, EntityTypeId = (int) EntityType.Appartment }
         ///                                          equals new { EntityId = review.EntityId, EntityTypeId = review.EntityTypeId }
@@ -220,15 +155,12 @@ namespace DevTeam.QueryMappings.Helpers
         ///     });
         /// </code>
         /// </example>
-        public void Add<TFrom, TTo, TContext>(Func<IQueryable<TFrom>, TContext, IQueryable<TTo>> expression)
-        {
-            Add(null, expression);
-        }
+        void Add<TFrom, TTo, TContext>(Func<IQueryable<TFrom>, TContext, IQueryable<TTo>> expression);
 
         /// <summary>
         /// Adds Named <see cref="QueryMapping{TFrom, TTo, TContext}"/> into Storage with direction From -> To and explicitly specified name.
         /// Expression of this mapping contains EF Context as input parameter. EF Context will be injected into mapping expression.
-        /// This mapping can be found only if name is specified explicitly into AsQuery method.
+        /// This mapping can be found only if name is specified explicitly into Map() method.
         /// </summary>
         /// <typeparam name="TFrom">Source type of mapping.</typeparam>
         /// <typeparam name="TTo">Destination type of mapping.</typeparam>
@@ -237,7 +169,7 @@ namespace DevTeam.QueryMappings.Helpers
         /// <param name="expression">Mapping expression that will be applied on <see cref="IQueryable{T}"/> instance. Input parameters contain EF Context that can be used inside of mapping.</param>
         /// <example>
         /// <code>
-        /// MappingsList.Add&lt;Appartment, AppartmentReviewsModel, IDbContext&gt;("Mapping_2", (query, context) =>
+        /// mappings.Add&lt;Appartment, AppartmentReviewsModel, IDbContext&gt;("Mapping_2", (query, context) =>
         ///     from appartment in query
         ///     join review in context.Set&lt;Review&gt;() on new { EntityId = appartment.Id, EntityTypeId = (int) EntityType.Appartment }
         ///                                          equals new { EntityId = review.EntityId, EntityTypeId = review.EntityTypeId }
@@ -257,11 +189,7 @@ namespace DevTeam.QueryMappings.Helpers
         ///     });
         /// </code>
         /// </example>
-        public void Add<TFrom, TTo, TContext>(string name, Func<IQueryable<TFrom>, TContext, IQueryable<TTo>> expression)
-        {
-            var mapping = new QueryMapping<TFrom, TTo, TContext>(expression, name);
-            Add(mapping);
-        }
+        void Add<TFrom, TTo, TContext>(string name, Func<IQueryable<TFrom>, TContext, IQueryable<TTo>> expression);
 
         /// <summary>
         /// Adds <see cref="ParameterizedQueryMapping{TFrom, TTo, TArgs, TContext}"/> into Storage with direction From -> To.
@@ -275,7 +203,7 @@ namespace DevTeam.QueryMappings.Helpers
         /// <param name="expression">Mapping expression that will be applied on <see cref="IQueryable{T}"/> instance. Input parameters contain arguments and EF Context that can be used inside of mapping.</param>
         /// <example>
         /// <code>
-        /// MappingsList.Add&lt;Building, BuildingStatisticsModel, BuildingArguments, IDbContext&gt;(args =>
+        /// mappings.Add&lt;Building, BuildingStatisticsModel, BuildingArguments, IDbContext&gt;(args =>
         /// {
         ///     return (query, context) =>
         ///         from building in query
@@ -295,16 +223,13 @@ namespace DevTeam.QueryMappings.Helpers
         /// });
         /// </code>
         /// </example>
-        public void Add<TFrom, TTo, TArgs, TContext>(Func<TArgs, Func<IQueryable<TFrom>, TContext, IQueryable<TTo>>> expression)
-        {
-            Add(null, expression);
-        }
+        void Add<TFrom, TTo, TArgs, TContext>(Func<TArgs, Func<IQueryable<TFrom>, TContext, IQueryable<TTo>>> expression);
 
         /// <summary>
         /// Adds Named <see cref="ParameterizedQueryMapping{TFrom, TTo, TArgs, TContext}"/> into Storage with direction From -> To and explicitly specified name.
         /// Expression of this mapping contains imput arguments that can be used inside of mapping expression.
         /// Also expression of this mapping contains EF Context as input parameter. EF Context will be injected into mapping expression.
-        /// This mapping can be found only if name is specified explicitly into AsQuery method.
+        /// This mapping can be found only if name is specified explicitly into Map() method.
         /// </summary>
         /// <typeparam name="TFrom">Source type of mapping.</typeparam>
         /// <typeparam name="TTo">Destination type of mapping.</typeparam>
@@ -314,7 +239,7 @@ namespace DevTeam.QueryMappings.Helpers
         /// <param name="expression">Mapping expression that will be applied on <see cref="IQueryable{T}"/> instance. Input parameters contain arguments and EF Context that can be used inside of mapping.</param>
         /// <example>
         /// <code>
-        /// MappingsList.Add&lt;Building, BuildingStatisticsModel, BuildingArguments, IDbContext&gt;("MappingName", args =>
+        /// mappings.Add&lt;Building, BuildingStatisticsModel, BuildingArguments, IDbContext&gt;("MappingName", args =>
         /// {
         ///     return (query, context) =>
         ///         from building in query
@@ -334,18 +259,11 @@ namespace DevTeam.QueryMappings.Helpers
         /// });
         /// </code>
         /// </example>
-        public void Add<TFrom, TTo, TArgs, TContext>(string name, Func<TArgs, Func<IQueryable<TFrom>, TContext, IQueryable<TTo>>> expression)
-        {
-            var mapping = new ParameterizedQueryMapping<TFrom, TTo, TArgs, TContext>(expression, name);
-            Add(mapping);
-        }
+        void Add<TFrom, TTo, TArgs, TContext>(string name, Func<TArgs, Func<IQueryable<TFrom>, TContext, IQueryable<TTo>>> expression);
 
         /// <summary>
         /// Removes all mappings from In-Memory storage.
         /// </summary>
-        public void Clear()
-        {
-            Mappings.Clear();
-        }
+        void Clear();
     }
 }

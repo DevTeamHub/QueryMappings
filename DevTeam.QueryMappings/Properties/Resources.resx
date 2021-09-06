@@ -122,34 +122,32 @@
     <comment>Exception describes some general exception on attempt to apply Select statement to IQueryable</comment>
   </data>
   <data name="ArgumentsAreNotNeeded" xml:space="preserve">
-    <value>The mapping doesn't need the arguments as an input, but you are passing it in AsQuery() method. </value>
+    <value>The mapping doesn't need the arguments as an input, but you are passing it in Map() method. </value>
+    <comment>Exception that happens when user passes arguments, but mapping doesn't require them.</comment>
   </data>
   <data name="ArgumentsAreRequiredException" xml:space="preserve">
-    <value>Arguments can't be null for this overload of AsQuery method</value>
-    <comment>Exception will happen if args are null for one of overloads of AsQuery method where args are required</comment>
+    <value>Arguments can't be null for this overload of Map() method</value>
+    <comment>Exception will happen if args are null for one of overloads of Map method where args are required</comment>
   </data>
   <data name="ArgumentsHaventBeenPassed" xml:space="preserve">
-    <value>The mapping uses arguments as its input, so you need to pass the arguments into AsQuery() method. </value>
+    <value>The mapping uses arguments as its input, so you need to pass the arguments into Map() method. </value>
+    <comment>Exception that happens when user forgot to pass arguments into Map method and mapping expression requires the arguments.</comment>
   </data>
   <data name="ArgumentsOfIncorrectType" xml:space="preserve">
     <value>Mapping from type {0} to type {1} was found. But arguments of the mapping has different type from what has been provided: expected arguments of type {2}, but was {3}. </value>
+    <comment>Exception that happens when user passes arguments to Map() method, but mapping expects different type of arguments.</comment>
   </data>
   <data name="ContextHaventBeenInjected" xml:space="preserve">
     <value>The mapping requires an instance of Database Context to be injected, so you need to use generic version of QueryMappingService&lt;&gt; and provide the interface of the Database Context. </value>
-  </data>
-  <data name="ContextKeyIsRequredException" xml:space="preserve">
-    <value>Context Key was null. In Current version Context Key is required parameter.</value>
-    <comment>Exception will be thrown if used AsQuery method with context key argument and context key will be passed as null</comment>
+    <comment>Exception that happens when mapping expects the Database Context to be injected, but user uses non-generic version of QueryMappingService that doesn't provide context.</comment>
   </data>
   <data name="ContextOfIncorrectType" xml:space="preserve">
     <value>Mapping from type {0} to type {1} was found. But Database Context of the mapping has different type from what has been provided: expected Database Context of type {2}, but was {3}. </value>
-  </data>
-  <data name="ContextResolverIsntRegisteredException" xml:space="preserve">
-    <value>Context Resolver wasn't registered for type {0}. To use Query Mappings you need to register context resolver function.</value>
-    <comment>Exception will be thrown if context resolver function isn't registered</comment>
+    <comment>Exception that happens when mapping expects the Database Context to be injected, but user uses incorrect generic version of QueryMappingService&lt;&gt; with the Database Context of incorrect type.</comment>
   </data>
   <data name="ContextTypeIsDifferent" xml:space="preserve">
     <value>The mapping uses another version of Database Context from what you povided as a Generic Parameter for QueryMappingService&lt;&gt; </value>
+    <comment>Exception that happens when mapping expects the Database Context to be injected, but user uses incorrect generic version of QueryMappingService&lt;&gt; with the Database Context of incorrect type.</comment>
   </data>
   <data name="GeneralInitializationException" xml:space="preserve">
     <value>Exception has happened during mappings initialization. Please see Inner Exception to find more details.</value>
@@ -161,7 +159,7 @@
   </data>
   <data name="InvalidCastMappingException" xml:space="preserve">
     <value>Mapping from type {0} to type {1} was found. But the mapping's structure requires different input arguments from what have been passed into QueryMappingService.  </value>
-    <comment>AsQuery method has 4 different overloads: mapping without paramteres, mapping with parameters, mapping with EF context available in it and mapping with both parameters and EF context. This exception will happen when incorrect version is used</comment>
+    <comment>Map() method has 4 different overloads: mapping without paramteres, mapping with parameters, mapping with EF context available in it and mapping with both parameters and EF context. This exception will happen when incorrect version is used</comment>
   </data>
   <data name="MappingNotFoundException" xml:space="preserve">
     <value>Mapping from {0} to {1} was not found</value>

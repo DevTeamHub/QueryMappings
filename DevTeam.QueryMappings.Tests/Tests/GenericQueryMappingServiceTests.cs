@@ -53,7 +53,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
             var entities = _context.Addresses.ToList();
             var query = entities.AsQueryable();
 
-            var modelsQuery = _service.AsQuery<Address, AddressModel>(query);
+            var modelsQuery = _service.Map<Address, AddressModel>(query);
 
             Assert.IsNotNull(modelsQuery);
             Assert.IsInstanceOf<IQueryable<AddressModel>>(modelsQuery);
@@ -83,12 +83,12 @@ namespace DevTeam.QueryMappings.Tests.Tests
             var entities = _context.Addresses.ToList();
             var query = entities.AsQueryable();
 
-            var shortModelsQuery = _service.AsQuery<Address, AddressSummaryModel>(query, MappingsNames.ShortAddressFormat);
+            var shortModelsQuery = _service.Map<Address, AddressSummaryModel>(query, MappingsNames.ShortAddressFormat);
 
             Assert.IsNotNull(shortModelsQuery);
             Assert.IsInstanceOf<IQueryable<AddressSummaryModel>>(shortModelsQuery);
 
-            var extendedModelsQuery = _service.AsQuery<Address, AddressSummaryModel>(query, MappingsNames.ExtendedAddressFormat);
+            var extendedModelsQuery = _service.Map<Address, AddressSummaryModel>(query, MappingsNames.ExtendedAddressFormat);
 
             Assert.IsNotNull(extendedModelsQuery);
             Assert.IsInstanceOf<IQueryable<AddressSummaryModel>>(extendedModelsQuery);
@@ -122,7 +122,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
             var query = entities.AsQueryable();
 
             var arguments = new ApartmentsArguments { UnitOfMeasure = "sq ft" };
-            var modelsQuery = _service.AsQuery<Apartment, ApartmentShortModel, ApartmentsArguments>(query, arguments); 
+            var modelsQuery = _service.Map<Apartment, ApartmentShortModel, ApartmentsArguments>(query, arguments); 
 
             Assert.IsNotNull(modelsQuery);
             Assert.IsInstanceOf<IQueryable<ApartmentShortModel>>(modelsQuery);
@@ -151,7 +151,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
             var query = entities.AsQueryable();
 
             var arguments = new ApartmentsArguments { UnitOfMeasure = "sq meters" };
-            var modelsQuery = _service.AsQuery<Apartment, ApartmentModel, ApartmentsArguments>(query, arguments, MappingsNames.AppartmentsWithBuilding);  
+            var modelsQuery = _service.Map<Apartment, ApartmentModel, ApartmentsArguments>(query, arguments, MappingsNames.AppartmentsWithBuilding);  
 
             Assert.IsNotNull(modelsQuery);
             Assert.IsInstanceOf<IQueryable<ApartmentModel>>(modelsQuery);
@@ -192,7 +192,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
             var entities = _context.Apartments.ToList();
             var query = entities.AsQueryable();
 
-            var modelsQuery = _service.AsQuery<Apartment, ApartmentReviewsModel>(query);  
+            var modelsQuery = _service.Map<Apartment, ApartmentReviewsModel>(query);  
 
             Assert.IsNotNull(modelsQuery);
             Assert.IsInstanceOf<IQueryable<ApartmentReviewsModel>>(modelsQuery);
@@ -235,7 +235,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
             var entities = _context.Buildings.ToList();
             var query = entities.AsQueryable();
 
-            var modelsQuery = _service.AsQuery<Building, BuildingModel>(query, MappingsNames.BuildingWithReviews);
+            var modelsQuery = _service.Map<Building, BuildingModel>(query, MappingsNames.BuildingWithReviews);
 
             Assert.IsNotNull(modelsQuery);
             Assert.IsInstanceOf<IQueryable<BuildingModel>>(modelsQuery);
@@ -313,7 +313,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
             var query = entities.AsQueryable();
 
             var arguments = new BuildingArguments { TargetResidentsAge = 18 };
-            var modelsQuery = _service.AsQuery<Building, BuildingStatisticsModel, BuildingArguments>(query, arguments); 
+            var modelsQuery = _service.Map<Building, BuildingStatisticsModel, BuildingArguments>(query, arguments); 
 
             Assert.IsNotNull(modelsQuery);
             Assert.IsInstanceOf<IQueryable<BuildingStatisticsModel>>(modelsQuery);

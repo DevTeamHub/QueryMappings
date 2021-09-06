@@ -56,7 +56,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
         public void Should_Throw_Exception_If_Mapping_Requires_Arguments_But_Non_Has_Been_Passed()
         {
             var query = _context.Apartments.AsQueryable();
-            var method = new TestDelegate(delegate { _service.AsQuery<Apartment, ApartmentShortModel>(query); });
+            var method = new TestDelegate(delegate { _service.Map<Apartment, ApartmentShortModel>(query); });
             var exceptionMessage = string.Format(Resources.InvalidCastMappingException, typeof(Apartment).Name, typeof(ApartmentShortModel).Name);
             exceptionMessage += Resources.ArgumentsHaventBeenPassed;
 
@@ -73,7 +73,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
         {
             var query = _context.Apartments.AsQueryable();
             var arguments = new BuildingArguments { TargetResidentsAge = 18 };
-            var method = new TestDelegate(delegate { _service.AsQuery<Apartment, ApartmentShortModel, BuildingArguments>(query, arguments); });
+            var method = new TestDelegate(delegate { _service.Map<Apartment, ApartmentShortModel, BuildingArguments>(query, arguments); });
             var exceptionMessage = string.Format(Resources.ArgumentsOfIncorrectType, typeof(Apartment).Name, typeof(ApartmentShortModel).Name, typeof(ApartmentsArguments), typeof(BuildingArguments));
 
             var exception = Assert.Throws<MappingException>(method);
@@ -88,7 +88,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
         public void Should_Throw_Exception_When_Mapping_Expects_Database_Context_But_Its_Not_Injected()
         {
             var query = _context.Apartments.AsQueryable();
-            var method = new TestDelegate(delegate { _service.AsQuery<Apartment, ApartmentReviewsModel>(query); });
+            var method = new TestDelegate(delegate { _service.Map<Apartment, ApartmentReviewsModel>(query); });
             var exceptionMessage = string.Format(Resources.InvalidCastMappingException, typeof(Apartment).Name, typeof(ApartmentReviewsModel).Name);
             exceptionMessage += Resources.ContextHaventBeenInjected;
 
@@ -104,7 +104,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
         public void Should_Throw_Exception_When_Arguments_And_Context_Are_Required_But_Not_Provided()
         {
             var query = _context.Buildings.AsQueryable();
-            var method = new TestDelegate(delegate { _service.AsQuery<Building, BuildingStatisticsModel>(query); });
+            var method = new TestDelegate(delegate { _service.Map<Building, BuildingStatisticsModel>(query); });
             var exceptionMessage = string.Format(Resources.InvalidCastMappingException, typeof(Building).Name, typeof(BuildingStatisticsModel).Name);
             exceptionMessage += Resources.ArgumentsHaventBeenPassed;
             exceptionMessage += Resources.ContextHaventBeenInjected;
@@ -122,7 +122,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
         {
             var query = _context.Addresses.AsQueryable();
             var arguments = new BuildingArguments { TargetResidentsAge = 18 };
-            var method = new TestDelegate(delegate { _service.AsQuery<Address, AddressModel, BuildingArguments>(query, arguments); });
+            var method = new TestDelegate(delegate { _service.Map<Address, AddressModel, BuildingArguments>(query, arguments); });
             var exceptionMessage = string.Format(Resources.InvalidCastMappingException, typeof(Address).Name, typeof(AddressModel).Name);
             exceptionMessage += Resources.ArgumentsAreNotNeeded;
 
@@ -139,7 +139,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
         {
             var query = _context.Buildings.AsQueryable();
             var arguments = new BuildingArguments { TargetResidentsAge = 18 };
-            var method = new TestDelegate(delegate { _service.AsQuery<Building, BuildingStatisticsModel, BuildingArguments>(query, arguments); });
+            var method = new TestDelegate(delegate { _service.Map<Building, BuildingStatisticsModel, BuildingArguments>(query, arguments); });
             var exceptionMessage = string.Format(Resources.InvalidCastMappingException, typeof(Building).Name, typeof(BuildingStatisticsModel).Name);
             exceptionMessage += Resources.ContextHaventBeenInjected;
 

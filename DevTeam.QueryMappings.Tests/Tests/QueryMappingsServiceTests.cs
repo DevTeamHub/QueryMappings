@@ -53,7 +53,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
             var entities = _context.Addresses.ToList();
             var query = entities.AsQueryable();
 
-            var modelsQuery = _service.AsQuery<Address, AddressModel>(query);
+            var modelsQuery = _service.Map<Address, AddressModel>(query);
 
             Assert.IsNotNull(modelsQuery);
             Assert.IsInstanceOf<IQueryable<AddressModel>>(modelsQuery);
@@ -83,12 +83,12 @@ namespace DevTeam.QueryMappings.Tests.Tests
             var entities = _context.Addresses.ToList();
             var query = entities.AsQueryable();
 
-            var shortModelsQuery = _service.AsQuery<Address, AddressSummaryModel>(query, MappingsNames.ShortAddressFormat);
+            var shortModelsQuery = _service.Map<Address, AddressSummaryModel>(query, MappingsNames.ShortAddressFormat);
 
             Assert.IsNotNull(shortModelsQuery);
             Assert.IsInstanceOf<IQueryable<AddressSummaryModel>>(shortModelsQuery);
 
-            var extendedModelsQuery = _service.AsQuery<Address, AddressSummaryModel>(query, MappingsNames.ExtendedAddressFormat);
+            var extendedModelsQuery = _service.Map<Address, AddressSummaryModel>(query, MappingsNames.ExtendedAddressFormat);
 
             Assert.IsNotNull(extendedModelsQuery);
             Assert.IsInstanceOf<IQueryable<AddressSummaryModel>>(extendedModelsQuery);
@@ -122,7 +122,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
             var query = entities.AsQueryable();
 
             var arguments = new ApartmentsArguments { UnitOfMeasure = "sq ft" };
-            var modelsQuery = _service.AsQuery<Apartment, ApartmentShortModel, ApartmentsArguments>(query, arguments);
+            var modelsQuery = _service.Map<Apartment, ApartmentShortModel, ApartmentsArguments>(query, arguments);
 
             Assert.IsNotNull(modelsQuery);
             Assert.IsInstanceOf<IQueryable<ApartmentShortModel>>(modelsQuery);
@@ -151,7 +151,7 @@ namespace DevTeam.QueryMappings.Tests.Tests
             var query = entities.AsQueryable();
 
             var arguments = new ApartmentsArguments { UnitOfMeasure = "sq meters" };
-            var modelsQuery = _service.AsQuery<Apartment, ApartmentModel, ApartmentsArguments>(query, arguments, MappingsNames.AppartmentsWithBuilding);
+            var modelsQuery = _service.Map<Apartment, ApartmentModel, ApartmentsArguments>(query, arguments, MappingsNames.AppartmentsWithBuilding);
 
             Assert.IsNotNull(modelsQuery);
             Assert.IsInstanceOf<IQueryable<ApartmentModel>>(modelsQuery);
