@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>3.3.0</Version>
+    <Version>3.5.0</Version>
     <Authors>dimabezzubenkov, dev-team</Authors>
     <Company>Dev Team, Inc</Company>
     <Description>Simple strongly typed interface for IQueryable-to-object mappings optimized for Entity Framework without reflection usages.</Description>
@@ -15,7 +15,8 @@
 	<PackageIcon>icon.png</PackageIcon>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
 	<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
-	<Copyright>Copyright (c) Dev Team, Inc 2021.</Copyright>
+	<Copyright>Copyright (c) Dev Team, Inc 2023.</Copyright>
+	<LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

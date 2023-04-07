@@ -1,4 +1,4 @@
-﻿using DevTeam.EntityFrameworkExtensions.DbContext;
+﻿using DevTeam.Extensions.EntityFramework;
 using DevTeam.QueryMappings.AspNetCore;
 using DevTeam.QueryMappings.Base;
 using DevTeam.QueryMappings.Helpers;

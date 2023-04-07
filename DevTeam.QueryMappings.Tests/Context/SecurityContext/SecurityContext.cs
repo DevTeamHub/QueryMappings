@@ -1,4 +1,4 @@
-﻿using DevTeam.EntityFrameworkExtensions.DbContext;
+﻿using DevTeam.Extensions.EntityFramework;
 using DevTeam.QueryMappings.Tests.Context.SecurityContext.Entities;
 using DevTeam.QueryMappings.Tests.Tests;
 using Microsoft.EntityFrameworkCore;
