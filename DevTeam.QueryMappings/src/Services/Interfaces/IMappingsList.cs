@@ -102,8 +102,7 @@ public interface IMappingsList
     /// });
     /// </code>
     /// </example>
-    void Add<TFrom, TTo, TArgs>(Func<TArgs, Expression<Func<TFrom, TTo>>> expression)
-        where TArgs : class;
+    void Add<TFrom, TTo, TArgs>(Func<TArgs, Expression<Func<TFrom, TTo>>> expression);
 
     /// <summary>
     /// Adds Named <see cref="ParameterizedMapping{TFrom, TTo, TArgs}"/> into Storage with direction From -> To and explicitly specified name.
@@ -132,8 +131,7 @@ public interface IMappingsList
     /// });
     /// </code>
     /// </example>
-    void Add<TFrom, TTo, TArgs>(string name, Func<TArgs, Expression<Func<TFrom, TTo>>> expression)
-        where TArgs : class;
+    void Add<TFrom, TTo, TArgs>(string name, Func<TArgs, Expression<Func<TFrom, TTo>>> expression);
 
     /// <summary>
     /// Adds Named <see cref="QueryMapping{TFrom, TTo, TContext}"/> into Storage with direction From -> To.

@@ -157,7 +157,6 @@ public class MappingService : IMappingService
     /// <returns>Result of mapping. Instance of <see cref="IQueryable{T}"/> object with applied mapping.</returns>
     /// <exception cref="MappingException">Thrown if args are null or if we are using incorrect version of Map() method or if mapping wasn't found.</exception>
     public virtual IQueryable<TModel> Map<TEntity, TModel, TArgs>(IQueryable<TEntity> query, TArgs args, string name = null)
-        where TArgs : class
     {
         return Map<TEntity, TModel, TArgs>(query, MappingType.Parameterized, args, name);
     }
@@ -176,7 +175,6 @@ public class MappingService : IMappingService
     /// <returns>Result of mapping. Instance of <see cref="IQueryable{T}"/> object with applied mapping.</returns>
     /// <exception cref="MappingException">Thrown if args are null or if we are using incorrect version of Map() method or if mapping wasn't found.</exception>
     protected IQueryable<TModel> Map<TEntity, TModel, TArgs>(IQueryable<TEntity> query, MappingType mappingType, TArgs args, string name = null)
-        where TArgs : class
     {
         if (args == null)
             throw new MappingException(Resources.ArgumentsAreRequiredException);
@@ -201,7 +199,6 @@ public class MappingService : IMappingService
     /// <returns>Result of mapping. Instance of <see cref="IQueryable{T}"/> object with applied mapping.</returns>
     /// <exception cref="MappingException">Thrown if we are using incorrect version of Map method or if mapping wasn't found.</exception>
     protected virtual IQueryable<TModel> Map<TEntity, TModel, TArgs>(IQueryable<TEntity> query, TArgs args, Mapping mapping)
-        where TArgs : class
     {
         mapping.ValidateArguments<TArgs>();
         var parameterizedMapping = (ParameterizedMapping<TEntity, TModel, TArgs>)mapping;
@@ -224,7 +221,6 @@ public class MappingService : IMappingService
     /// <returns>Result of mapping. Instance of destination object.</returns>
     /// <exception cref="MappingException">Thrown if we are using incorrect version of Map() method or if mapping wasn't found.</exception>
     public virtual TTo Map<TFrom, TTo, TArgs>(TFrom model, TArgs args, string name = null)
-        where TArgs : class
     {
         return Map<TFrom, TTo, TArgs>(model, MappingType.Parameterized, args, name);
     }
@@ -242,7 +238,6 @@ public class MappingService : IMappingService
     /// <returns>Result of mapping. Instance of destination object.</returns>
     /// <exception cref="MappingException">Thrown if we are using incorrect version of Map() method or if mapping wasn't found.</exception>
     protected virtual TTo Map<TFrom, TTo, TArgs>(TFrom model, MappingType mappingType, TArgs args, string name = null)
-        where TArgs : class
     {
         if (args == null)
             throw new MappingException(Resources.ArgumentsAreRequiredException);
@@ -267,7 +262,6 @@ public class MappingService : IMappingService
     /// <returns>Result of mapping. Instance of destination object.</returns>
     /// <exception cref="MappingException">Thrown if we are using incorrect version of Map() method or if mapping wasn't found.</exception>
     protected virtual TTo Map<TFrom, TTo, TArgs>(TFrom model, TArgs args, Mapping mapping)
-        where TArgs : class
     {
         mapping.ValidateArguments<TArgs>();
         var parameterizedMapping = (ParameterizedMapping<TFrom, TTo, TArgs>)mapping;
@@ -287,7 +281,6 @@ public class MappingService : IMappingService
     /// <returns>Result of mapping. List of instances of destination objects.</returns>
     /// <exception cref="MappingException">Thrown if args are null or if we are using incorrect version of Map() method or if mapping wasn't found.</exception>
     public virtual List<TTo> Map<TFrom, TTo, TArgs>(List<TFrom> models, TArgs args, string name = null)
-        where TArgs : class
     {
         return models.Select(item => Map<TFrom, TTo, TArgs>(item, args, name)).ToList();
     }
@@ -397,7 +390,6 @@ public class MappingService<TContext> : MappingService, IMappingService<TContext
     /// <returns>Result of mapping. Instance of <see cref="IQueryable{T}"/> object with applied mapping.</returns>
     /// <exception cref="MappingException">Thrown if args are null or if we are using incorrect version of Map method or if mapping wasn't found.</exception>
     public override IQueryable<TModel> Map<TEntity, TModel, TArgs>(IQueryable<TEntity> query, TArgs args, string name = null)
-        where TArgs : class
     {
         return Map<TEntity, TModel, TArgs>(query, MappingType.ParemeterizedQuery, args, name);
     }
@@ -416,7 +408,6 @@ public class MappingService<TContext> : MappingService, IMappingService<TContext
     /// <returns>Result of mapping. Instance of <see cref="IQueryable{T}"/> object with applied mapping.</returns>
     /// <exception cref="MappingException">Thrown if we are using incorrect version of Map method or if mapping wasn't found.</exception>
     protected override IQueryable<TModel> Map<TEntity, TModel, TArgs>(IQueryable<TEntity> query, TArgs args, Mapping mapping)
-        where TArgs : class
     {
         if (mapping.MappingType == MappingType.ParemeterizedQuery)
         {

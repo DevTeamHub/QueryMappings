@@ -177,7 +177,6 @@ public class MappingsList : IMappingsList
     /// </code>
     /// </example>
     public void Add<TFrom, TTo, TArgs>(Func<TArgs, Expression<Func<TFrom, TTo>>> expression)
-        where TArgs : class
     {
         Add(null, expression);
     }
@@ -210,7 +209,6 @@ public class MappingsList : IMappingsList
     /// </code>
     /// </example>
     public void Add<TFrom, TTo, TArgs>(string name, Func<TArgs, Expression<Func<TFrom, TTo>>> expression)
-        where TArgs : class
     {
         var mapping = new ParameterizedMapping<TFrom, TTo, TArgs>(expression, name);
         Add(mapping);

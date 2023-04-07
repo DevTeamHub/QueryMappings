@@ -12,7 +12,6 @@ namespace DevTeam.QueryMappings.Mappings;
 /// <typeparam name="TTo">Destination type of mapping.</typeparam>
 /// <typeparam name="TArgs">Type of arguments that we pass into mapping expression.</typeparam>
 public class ParameterizedMapping<TFrom, TTo, TArgs> : Mapping
-    where TArgs : class
 {
     /// <summary>
     /// Creates instance of <see cref="ParameterizedMapping{TFrom, TTo, TArgs}"/> class.
