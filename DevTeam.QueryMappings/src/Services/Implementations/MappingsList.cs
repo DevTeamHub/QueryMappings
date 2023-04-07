@@ -24,6 +24,38 @@ namespace DevTeam.QueryMappings.Helpers
         }
 
         /// <summary>
+        /// Check for the presence of a mapping with described direction.
+        /// </summary>
+        /// <typeparam name="TFrom">Source type of mapping.</typeparam>
+        /// <typeparam name="TTo">Destination type of mapping.</typeparam>
+        /// <param name="name">Name of the mapping, if we want to check for the presence of a mapping registered with some specific name. Should be null if we want to check mapping without name.</param>
+        /// <returns>Result of check for the presence of a mapping.</returns>
+        /// <exception cref="MappingException">Thrown if more than one mapping found and wasn't enough information to resolve which exactly is correct one.</exception>
+        public bool Exist<TFrom, TTo>(string name = null)
+        {
+            try
+            {
+                return Mappings.SingleOrDefault(m => m.Is<TFrom, TTo>(name)) != null;
+            }
+            catch (InvalidOperationException ioeException)
+            {
+                var exceptionMessage = string.Empty;
+                var namedMappings = Mappings.Where(m => m.Is<TFrom, TTo>() && !string.IsNullOrEmpty(m.Name)).ToList();
+
+                if (namedMappings.Count > 0 && string.IsNullOrEmpty(name))
+                {
+                    exceptionMessage = string.Format(Resources.NameIsNullWhenSearchForNamedMappingException, typeof(TFrom).Name, typeof(TTo).Name);
+                }
+                else if (namedMappings.Count == 0)
+                {
+                    exceptionMessage = string.Format(Resources.MoreThanOneMappingFoundException, typeof(TFrom).Name, typeof(TTo).Name);
+                }
+
+                throw new MappingException(exceptionMessage, ioeException);
+            }
+        }
+
+        /// <summary>
         /// Searches for a mapping with described direction.
         /// </summary>
         /// <typeparam name="TFrom">Source type of mapping.</typeparam>
