@@ -188,5 +188,103 @@ namespace DevTeam.QueryMappings.Tests.Tests
             Assert.AreEqual(mapping.To, typeof(BuildingStatisticsModel));
             Assert.IsNull(mapping.Name);
         }
+
+        [Test]
+        public void Shound_Exist_Address_Expression_Mapping_In_Storage()
+        {
+            var mappingExist = _mappings.Exist<Address, AddressModel>();
+
+            Assert.IsTrue(mappingExist);
+        }
+
+        [Test]
+        public void Shound_Return_False_If_Mapping_Doesnt_Exist()
+        {
+            var mappingExist = _mappings.Exist<Address, BuildingModel>();
+
+            Assert.IsFalse(mappingExist);
+        }
+
+        [Test]
+        public void Shound_Throw_Exception_If_We_Try_To_Check_Existence_Named_Mapping_Without_Explicit_Name_Argument()
+        {
+            var method = new TestDelegate(delegate { _mappings.Exist<Address, AddressSummaryModel>(); });
+            var exceptionMessage = string.Format(Resources.NameIsNullWhenSearchForNamedMappingException, typeof(Address).Name, typeof(AddressSummaryModel).Name);
+
+            var exception = Assert.Throws<MappingException>(method);
+            Assert.AreEqual(exception.Message, exceptionMessage);
+        }
+
+        [Test]
+        public void Shound_Throw_Exception_If_We_Try_To_Check_Existence_And_The_Same_Not_Named_Mapping_Registered_Twice()
+        {
+            var method = new TestDelegate(delegate { _mappings.Exist<Address, InvalidAddressMapping>(); });
+            var exceptionMessage = string.Format(Resources.MoreThanOneMappingFoundException, typeof(Address).Name, typeof(InvalidAddressMapping).Name);
+
+            var exception = Assert.Throws<MappingException>(method);
+            Assert.AreEqual(exception.Message, exceptionMessage);
+        }
+
+        [Test]
+        public void Shound_Throw_Exception_When_Check_Existence_If_Name_For_Named_Mapping_Is_Doesnt_Exist()
+        {
+            var mappingExist = _mappings.Exist<Address, AddressSummaryModel>("SomeInvalidName");
+
+            Assert.False(mappingExist);
+        }
+
+        [Test]
+        public void Shound_Exist_Expression_Named_Mapping_By_Name()
+        {
+            var mappingName = MappingsNames.ExtendedAddressFormat;
+
+            var namedMappingExist = _mappings.Exist<Address, AddressSummaryModel>(mappingName);
+
+            Assert.IsTrue(namedMappingExist);
+        }
+
+        [Test]
+        public void Shound_Exist_Parameterized_Mapping_Without_Name()
+        {
+            var parameterizedMappingExist = _mappings.Exist<Apartment, ApartmentShortModel>();
+
+            Assert.IsTrue(parameterizedMappingExist);
+        }
+
+        [Test]
+        public void Shound_Exist_Parameterized_Mapping_By_Name()
+        {
+            var mappingName = MappingsNames.AppartmentsWithoutBuilding;
+
+            var parameterizedMappingExist = _mappings.Exist<Apartment, ApartmentModel>(mappingName);
+
+            Assert.IsTrue(parameterizedMappingExist);
+        }
+
+        [Test]
+        public void Shound_Exist_Query_Mapping_Without_Name()
+        {
+            var queryMappingExist = _mappings.Exist<Apartment, ApartmentReviewsModel>();
+
+            Assert.IsTrue(queryMappingExist);
+        }
+
+        [Test]
+        public void Shound_Exist_Query_Mapping_By_Name()
+        {
+            var mappingName = MappingsNames.BuildingWithReviews;
+
+            var queryMappingExist = _mappings.Exist<Building, BuildingModel>(mappingName);
+
+            Assert.IsTrue(queryMappingExist);
+        }
+
+        [Test]
+        public void Shound_Exist_Parameterized_Query_Mapping()
+        {
+            var mappingExist = _mappings.Exist<Building, BuildingStatisticsModel>();
+
+            Assert.IsTrue(mappingExist);
+        }
     }
 }
