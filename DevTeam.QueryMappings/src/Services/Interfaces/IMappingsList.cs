@@ -12,6 +12,16 @@ namespace DevTeam.QueryMappings.Helpers
     public interface IMappingsList
     {
         /// <summary>
+        /// Check for the presence of a mapping with described direction.
+        /// </summary>
+        /// <typeparam name="TFrom">Source type of mapping.</typeparam>
+        /// <typeparam name="TTo">Destination type of mapping.</typeparam>
+        /// <param name="name">Name of the mapping, if we want to check for the presence of a mapping registered with some specific name. Should be null if we want to check mapping without name.</param>
+        /// <returns>Result of check for the presence of a mapping.</returns>
+        /// <exception cref="MappingException">Thrown if more than one mapping found and wasn't enough information to resolve which exactly is correct one.</exception>
+        bool Exist<TFrom, TTo>(string name = null);
+
+        /// <summary>
         /// Searches for a mapping with described direction.
         /// </summary>
         /// <typeparam name="TFrom">Source type of mapping.</typeparam>
