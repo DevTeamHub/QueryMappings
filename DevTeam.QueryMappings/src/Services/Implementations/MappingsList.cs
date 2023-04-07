@@ -33,26 +33,7 @@ namespace DevTeam.QueryMappings.Helpers
         /// <exception cref="MappingException">Thrown if more than one mapping found and wasn't enough information to resolve which exactly is correct one.</exception>
         public bool Exist<TFrom, TTo>(string name = null)
         {
-            try
-            {
-                return Mappings.SingleOrDefault(m => m.Is<TFrom, TTo>(name)) != null;
-            }
-            catch (InvalidOperationException ioeException)
-            {
-                var exceptionMessage = string.Empty;
-                var namedMappings = Mappings.Where(m => m.Is<TFrom, TTo>() && !string.IsNullOrEmpty(m.Name)).ToList();
-
-                if (namedMappings.Count > 0 && string.IsNullOrEmpty(name))
-                {
-                    exceptionMessage = string.Format(Resources.NameIsNullWhenSearchForNamedMappingException, typeof(TFrom).Name, typeof(TTo).Name);
-                }
-                else if (namedMappings.Count == 0)
-                {
-                    exceptionMessage = string.Format(Resources.MoreThanOneMappingFoundException, typeof(TFrom).Name, typeof(TTo).Name);
-                }
-
-                throw new MappingException(exceptionMessage, ioeException);
-            }
+            return GetMapping<TFrom, TTo>(name) != null;
         }
 
         /// <summary>
@@ -65,17 +46,30 @@ namespace DevTeam.QueryMappings.Helpers
         /// <exception cref="MappingException">Thrown if mapping wasn't found or if more than one mapping found and wasn't enough information to resolve which exactly is correct one.</exception>
         public Mapping Get<TFrom, TTo>(string name = null)
         {
+            var mapping = GetMapping<TFrom, TTo>(name);
+
+            if (mapping == null)
+            {
+                var exceptionMessage = string.Format(Resources.MappingNotFoundException, typeof(TFrom).Name, typeof(TTo).Name);
+                throw new MappingException(exceptionMessage);
+            }
+
+            return mapping;
+        }
+
+        /// <summary>
+        /// Get mapping with described direction.
+        /// </summary>
+        /// <typeparam name="TFrom">Source type of mapping.</typeparam>
+        /// <typeparam name="TTo">Destination type of mapping.</typeparam>
+        /// <param name="name">Name of the mapping, if we want to get mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
+        /// <returns>Instance of mapping with described direction. Null if mapping not found</returns>
+        /// <exception cref="MappingException">Thrown if more than one mapping found and wasn't enough information to resolve which exactly is correct one.</exception>
+        private Mapping GetMapping<TFrom, TTo>(string name = null)
+        {
             try
             {
-                var mapping = Mappings.SingleOrDefault(m => m.Is<TFrom, TTo>(name));
-
-                if (mapping == null)
-                {
-                    var exceptionMessage = string.Format(Resources.MappingNotFoundException, typeof(TFrom).Name, typeof(TTo).Name);
-                    throw new MappingException(exceptionMessage);
-                }
-
-                return mapping;
+                return Mappings.SingleOrDefault(m => m.Is<TFrom, TTo>(name));
             }
             catch (InvalidOperationException ioeException)
             {
