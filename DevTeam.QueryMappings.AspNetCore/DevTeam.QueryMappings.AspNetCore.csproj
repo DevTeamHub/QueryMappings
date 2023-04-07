@@ -8,18 +8,19 @@
     <Authors>dbezzubenkov, dev-team</Authors>
     <Company>Dev Team, Inc</Company>
     <Description>The package helps to integrate DevTeam.QueryMappings into ASP.NET Core project.</Description>
-    <Copyright>Copyright (c) Dev Team, Inc 2021.</Copyright>
+    <Copyright>Copyright (c) Dev Team, Inc 2023</Copyright>
     <PackageIcon>icon.png</PackageIcon>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/DevTeamHub/QueryMappings</RepositoryUrl>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
-    <Version>3.3.0</Version>
+    <Version>3.5.0</Version>
+	<LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DevTeam.QueryMappings" Version="3.3.0" />
+    <PackageReference Include="DevTeam.QueryMappings" Version="3.5.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
