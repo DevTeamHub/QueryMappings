@@ -19,7 +19,7 @@ public interface IMappingsList
     /// <param name="name">Name of the mapping, if we want to check for the presence of a mapping registered with some specific name. Should be null if we want to check mapping without name.</param>
     /// <returns>Result of check for the presence of a mapping.</returns>
     /// <exception cref="MappingException">Thrown if more than one mapping found and wasn't enough information to resolve which exactly is correct one.</exception>
-    bool Exist<TFrom, TTo>(string name = null);
+    bool Exist<TFrom, TTo>(string? name = null);
 
     /// <summary>
     /// Searches for a mapping with described direction.
@@ -29,7 +29,7 @@ public interface IMappingsList
     /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
     /// <returns>Instance of mapping with described direction.</returns>
     /// <exception cref="MappingException">Thrown if mapping wasn't found or if more than one mapping found and wasn't enough information to resolve which exactly is correct one.</exception>
-    Mapping Get<TFrom, TTo>(string name = null);
+    Mapping Get<TFrom, TTo>(string? name = null);
 
     /// <summary>
     /// Adds <see cref="ExpressionMapping{TFrom, TTo}"/> into Storage with direction From -> To.
@@ -75,7 +75,7 @@ public interface IMappingsList
     /// });
     /// </code>
     /// </example>
-    void Add<TFrom, TTo>(string name, Expression<Func<TFrom, TTo>> expression);
+    void Add<TFrom, TTo>(string? name, Expression<Func<TFrom, TTo>> expression);
 
     /// <summary>
     /// Adds <see cref="ParameterizedMapping{TFrom, TTo, TArgs}"/> into Storage with direction From -> To.
@@ -131,7 +131,7 @@ public interface IMappingsList
     /// });
     /// </code>
     /// </example>
-    void Add<TFrom, TTo, TArgs>(string name, Func<TArgs, Expression<Func<TFrom, TTo>>> expression);
+    void Add<TFrom, TTo, TArgs>(string? name, Func<TArgs, Expression<Func<TFrom, TTo>>> expression);
 
     /// <summary>
     /// Adds Named <see cref="QueryMapping{TFrom, TTo, TContext}"/> into Storage with direction From -> To.
@@ -197,7 +197,7 @@ public interface IMappingsList
     ///     });
     /// </code>
     /// </example>
-    void Add<TFrom, TTo, TContext>(string name, Func<IQueryable<TFrom>, TContext, IQueryable<TTo>> expression);
+    void Add<TFrom, TTo, TContext>(string? name, Func<IQueryable<TFrom>, TContext, IQueryable<TTo>> expression);
 
     /// <summary>
     /// Adds <see cref="ParameterizedQueryMapping{TFrom, TTo, TArgs, TContext}"/> into Storage with direction From -> To.
@@ -267,7 +267,7 @@ public interface IMappingsList
     /// });
     /// </code>
     /// </example>
-    void Add<TFrom, TTo, TArgs, TContext>(string name, Func<TArgs, Func<IQueryable<TFrom>, TContext, IQueryable<TTo>>> expression);
+    void Add<TFrom, TTo, TArgs, TContext>(string? name, Func<TArgs, Func<IQueryable<TFrom>, TContext, IQueryable<TTo>>> expression);
 
     /// <summary>
     /// Removes all mappings from In-Memory storage.

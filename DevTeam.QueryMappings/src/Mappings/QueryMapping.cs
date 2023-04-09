@@ -10,20 +10,17 @@ namespace DevTeam.QueryMappings.Mappings;
 /// <typeparam name="TFrom">Source type of mapping.</typeparam>
 /// <typeparam name="TTo">Destination type of mapping.</typeparam>
 /// <typeparam name="TContext">Entity Framework Context type.</typeparam>
-public class QueryMapping<TFrom, TTo, TContext> : Mapping
+public class QueryMapping<TFrom, TTo, TContext> : Mapping<TTo>
 {
-    private readonly Type _contextType;
-
     /// <summary>
     /// Creates instance of <see cref="QueryMapping{TFrom, TTo, TContext}"/> class.
     /// </summary>
     /// <param name="mapping">Mapping expression that will be applied on <see cref="IQueryable{T}"/> instance. Input parameters contain EF Context that can be used inside of mapping.</param>
     /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
-    public QueryMapping(Func<IQueryable<TFrom>, TContext, IQueryable<TTo>> mapping, string name = null)
+    public QueryMapping(Func<IQueryable<TFrom>, TContext, IQueryable<TTo>> mapping, string? name = null)
         : base(typeof(TFrom), typeof(TTo), null, typeof(TContext), MappingType.Query, name)
     {
         _mapping = mapping;
-        _contextType = typeof(TContext);
     }
 
     private readonly Func<IQueryable<TFrom>, TContext, IQueryable<TTo>> _mapping;

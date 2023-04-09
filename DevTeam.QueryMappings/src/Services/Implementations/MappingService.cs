@@ -35,7 +35,7 @@ public class MappingService : IMappingService
     /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
     /// <returns>Result of mapping. Instance of <see cref="IQueryable{T}"/> object with applied mapping.</returns>
     /// <exception cref="MappingException">Thrown if we are using incorrect version of Map() method or if mapping wasn't found.</exception>
-    public virtual IQueryable<TModel> Map<TEntity, TModel>(IQueryable<TEntity> query, string name = null)
+    public virtual IQueryable<TModel> Map<TEntity, TModel>(IQueryable<TEntity> query, string? name = null)
     {
         return Map<TEntity, TModel>(query, MappingType.Expression, name);
     }
@@ -50,7 +50,7 @@ public class MappingService : IMappingService
     /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
     /// <returns>Result of mapping. Instance of <see cref="IQueryable{T}"/> object with applied mapping.</returns>
     /// <exception cref="MappingException">Thrown if we are using incorrect version of Map() method or if mapping wasn't found.</exception>
-    protected virtual IQueryable<TModel> Map<TEntity, TModel>(IQueryable<TEntity> query, MappingType mappingType, string name = null)
+    protected virtual IQueryable<TModel> Map<TEntity, TModel>(IQueryable<TEntity> query, MappingType mappingType, string? name = null)
     {
         return ApplyMapping<TEntity, TModel, IQueryable<TModel>>(
             mapping => Map<TEntity, TModel>(query, mapping),
@@ -87,7 +87,7 @@ public class MappingService : IMappingService
     /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
     /// <returns>Result of mapping. Instance of destination object.</returns>
     /// <exception cref="MappingException">Thrown if we are using incorrect version of Map() method or if mapping wasn't found.</exception>
-    public virtual TTo Map<TFrom, TTo>(TFrom model, string name = null)
+    public virtual TTo Map<TFrom, TTo>(TFrom model, string? name = null)
     {
         return Map<TFrom, TTo>(model, MappingType.Expression, name);
     }
@@ -102,7 +102,7 @@ public class MappingService : IMappingService
     /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
     /// <returns>Result of mapping. Instance of destination object.</returns>
     /// <exception cref="MappingException">Thrown if we are using incorrect version of Map() method or if mapping wasn't found.</exception>
-    protected virtual TTo Map<TFrom, TTo>(TFrom model, MappingType mappingType, string name = null)
+    protected virtual TTo Map<TFrom, TTo>(TFrom model, MappingType mappingType, string? name = null)
     {
         return ApplyMapping<TFrom, TTo, TTo>(
             mapping => Map<TFrom, TTo>(model, mapping),
@@ -135,7 +135,7 @@ public class MappingService : IMappingService
     /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
     /// <returns>Result of mapping. List of instances of destination objects.</returns>
     /// <exception cref="MappingException">Thrown if args are null or if we are using incorrect version of Map() method or if mapping wasn't found.</exception>
-    public virtual List<TTo> Map<TFrom, TTo>(List<TFrom> models, string name = null)
+    public virtual List<TTo> Map<TFrom, TTo>(List<TFrom> models, string? name = null)
     {
         return models.Select(item => Map<TFrom, TTo>(item, name)).ToList();
     }
@@ -156,7 +156,7 @@ public class MappingService : IMappingService
     /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
     /// <returns>Result of mapping. Instance of <see cref="IQueryable{T}"/> object with applied mapping.</returns>
     /// <exception cref="MappingException">Thrown if args are null or if we are using incorrect version of Map() method or if mapping wasn't found.</exception>
-    public virtual IQueryable<TModel> Map<TEntity, TModel, TArgs>(IQueryable<TEntity> query, TArgs args, string name = null)
+    public virtual IQueryable<TModel> Map<TEntity, TModel, TArgs>(IQueryable<TEntity> query, TArgs args, string? name = null)
     {
         return Map<TEntity, TModel, TArgs>(query, MappingType.Parameterized, args, name);
     }
@@ -174,7 +174,7 @@ public class MappingService : IMappingService
     /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
     /// <returns>Result of mapping. Instance of <see cref="IQueryable{T}"/> object with applied mapping.</returns>
     /// <exception cref="MappingException">Thrown if args are null or if we are using incorrect version of Map() method or if mapping wasn't found.</exception>
-    protected IQueryable<TModel> Map<TEntity, TModel, TArgs>(IQueryable<TEntity> query, MappingType mappingType, TArgs args, string name = null)
+    protected IQueryable<TModel> Map<TEntity, TModel, TArgs>(IQueryable<TEntity> query, MappingType mappingType, TArgs args, string? name = null)
     {
         if (args == null)
             throw new MappingException(Resources.ArgumentsAreRequiredException);
@@ -220,7 +220,7 @@ public class MappingService : IMappingService
     /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
     /// <returns>Result of mapping. Instance of destination object.</returns>
     /// <exception cref="MappingException">Thrown if we are using incorrect version of Map() method or if mapping wasn't found.</exception>
-    public virtual TTo Map<TFrom, TTo, TArgs>(TFrom model, TArgs args, string name = null)
+    public virtual TTo Map<TFrom, TTo, TArgs>(TFrom model, TArgs args, string? name = null)
     {
         return Map<TFrom, TTo, TArgs>(model, MappingType.Parameterized, args, name);
     }
@@ -237,7 +237,7 @@ public class MappingService : IMappingService
     /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
     /// <returns>Result of mapping. Instance of destination object.</returns>
     /// <exception cref="MappingException">Thrown if we are using incorrect version of Map() method or if mapping wasn't found.</exception>
-    protected virtual TTo Map<TFrom, TTo, TArgs>(TFrom model, MappingType mappingType, TArgs args, string name = null)
+    protected virtual TTo Map<TFrom, TTo, TArgs>(TFrom model, MappingType mappingType, TArgs args, string? name = null)
     {
         if (args == null)
             throw new MappingException(Resources.ArgumentsAreRequiredException);
@@ -280,7 +280,7 @@ public class MappingService : IMappingService
     /// <param name="args">Arguments that we want to pass into mapping to use them inside of mapping expression.</param>
     /// <returns>Result of mapping. List of instances of destination objects.</returns>
     /// <exception cref="MappingException">Thrown if args are null or if we are using incorrect version of Map() method or if mapping wasn't found.</exception>
-    public virtual List<TTo> Map<TFrom, TTo, TArgs>(List<TFrom> models, TArgs args, string name = null)
+    public virtual List<TTo> Map<TFrom, TTo, TArgs>(List<TFrom> models, TArgs args, string? name = null)
     {
         return models.Select(item => Map<TFrom, TTo, TArgs>(item, args, name)).ToList();
     }
@@ -298,7 +298,7 @@ public class MappingService : IMappingService
     /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
     /// <returns>Instance of the result of the mapping.</returns>
     /// <exception cref="MappingException">Thrown if we are using incorrect version of Map method or if mapping wasn't found.</exception>
-    protected internal TResult ApplyMapping<TEntity, TModel, TResult>(Func<Mapping, TResult> applyFunction, MappingType mappingType, string name = null)
+    protected internal TResult ApplyMapping<TEntity, TModel, TResult>(Func<Mapping, TResult> applyFunction, MappingType mappingType, string? name = null)
     {
         var mapping = _mappingsList.Get<TEntity, TModel>(name);
 
@@ -349,7 +349,7 @@ public class MappingService<TContext> : MappingService, IMappingService<TContext
     /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
     /// <returns>Result of mapping. Instance of <see cref="IQueryable{T}"/> object with applied mapping.</returns>
     /// <exception cref="MappingException">Thrown if we are using incorrect version of Map method or if mapping wasn't found.</exception>
-    public override IQueryable<TModel> Map<TEntity, TModel>(IQueryable<TEntity> query, string name = null)
+    public override IQueryable<TModel> Map<TEntity, TModel>(IQueryable<TEntity> query, string? name = null)
     {
         return Map<TEntity, TModel>(query, MappingType.Query, name);
     }
@@ -389,7 +389,7 @@ public class MappingService<TContext> : MappingService, IMappingService<TContext
     /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
     /// <returns>Result of mapping. Instance of <see cref="IQueryable{T}"/> object with applied mapping.</returns>
     /// <exception cref="MappingException">Thrown if args are null or if we are using incorrect version of Map method or if mapping wasn't found.</exception>
-    public override IQueryable<TModel> Map<TEntity, TModel, TArgs>(IQueryable<TEntity> query, TArgs args, string name = null)
+    public override IQueryable<TModel> Map<TEntity, TModel, TArgs>(IQueryable<TEntity> query, TArgs args, string? name = null)
     {
         return Map<TEntity, TModel, TArgs>(query, MappingType.ParemeterizedQuery, args, name);
     }

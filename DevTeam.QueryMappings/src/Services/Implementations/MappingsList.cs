@@ -31,7 +31,7 @@ public class MappingsList : IMappingsList
     /// <param name="name">Name of the mapping, if we want to check for the presence of a mapping registered with some specific name. Should be null if we want to check mapping without name.</param>
     /// <returns>Result of check for the presence of a mapping.</returns>
     /// <exception cref="MappingException">Thrown if more than one mapping found and wasn't enough information to resolve which exactly is correct one.</exception>
-    public bool Exist<TFrom, TTo>(string name = null)
+    public bool Exist<TFrom, TTo>(string? name = null)
     {
         return GetMapping<TFrom, TTo>(name) != null;
     }
@@ -44,7 +44,7 @@ public class MappingsList : IMappingsList
     /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
     /// <returns>Instance of mapping with described direction.</returns>
     /// <exception cref="MappingException">Thrown if mapping wasn't found or if more than one mapping found and wasn't enough information to resolve which exactly is correct one.</exception>
-    public Mapping Get<TFrom, TTo>(string name = null)
+    public Mapping Get<TFrom, TTo>(string? name = null)
     {
         var mapping = GetMapping<TFrom, TTo>(name);
 
@@ -65,7 +65,7 @@ public class MappingsList : IMappingsList
     /// <param name="name">Name of the mapping, if we want to get mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
     /// <returns>Instance of mapping with described direction. Null if mapping not found</returns>
     /// <exception cref="MappingException">Thrown if more than one mapping found and wasn't enough information to resolve which exactly is correct one.</exception>
-    private Mapping GetMapping<TFrom, TTo>(string name = null)
+    private Mapping GetMapping<TFrom, TTo>(string? name = null)
     {
         try
         {
@@ -145,7 +145,7 @@ public class MappingsList : IMappingsList
     /// });
     /// </code>
     /// </example>
-    public void Add<TFrom, TTo>(string name, Expression<Func<TFrom, TTo>> expression)
+    public void Add<TFrom, TTo>(string? name, Expression<Func<TFrom, TTo>> expression)
     {
         var mapping = new ExpressionMapping<TFrom, TTo>(expression, name);
         Add(mapping);
@@ -208,7 +208,7 @@ public class MappingsList : IMappingsList
     /// });
     /// </code>
     /// </example>
-    public void Add<TFrom, TTo, TArgs>(string name, Func<TArgs, Expression<Func<TFrom, TTo>>> expression)
+    public void Add<TFrom, TTo, TArgs>(string? name, Func<TArgs, Expression<Func<TFrom, TTo>>> expression)
     {
         var mapping = new ParameterizedMapping<TFrom, TTo, TArgs>(expression, name);
         Add(mapping);
@@ -281,7 +281,7 @@ public class MappingsList : IMappingsList
     ///     });
     /// </code>
     /// </example>
-    public void Add<TFrom, TTo, TContext>(string name, Func<IQueryable<TFrom>, TContext, IQueryable<TTo>> expression)
+    public void Add<TFrom, TTo, TContext>(string? name, Func<IQueryable<TFrom>, TContext, IQueryable<TTo>> expression)
     {
         var mapping = new QueryMapping<TFrom, TTo, TContext>(expression, name);
         Add(mapping);
@@ -358,7 +358,7 @@ public class MappingsList : IMappingsList
     /// });
     /// </code>
     /// </example>
-    public void Add<TFrom, TTo, TArgs, TContext>(string name, Func<TArgs, Func<IQueryable<TFrom>, TContext, IQueryable<TTo>>> expression)
+    public void Add<TFrom, TTo, TArgs, TContext>(string? name, Func<TArgs, Func<IQueryable<TFrom>, TContext, IQueryable<TTo>>> expression)
     {
         var mapping = new ParameterizedQueryMapping<TFrom, TTo, TArgs, TContext>(expression, name);
         Add(mapping);

@@ -19,7 +19,7 @@ public interface IMappingService
     /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
     /// <returns>Result of mapping. Instance of <see cref="IQueryable{T}"/> object with applied mapping.</returns>
     /// <exception cref="MappingException">Thrown if we are using incorrect version of Map() method or if mapping wasn't found.</exception>
-    IQueryable<TModel> Map<TEntity, TModel>(IQueryable<TEntity> query, string name = null);
+    IQueryable<TModel> Map<TEntity, TModel>(IQueryable<TEntity> query, string? name = null);
 
     /// <summary>
     /// Searches for <see cref="ParameterizedMapping{TFrom, TTo, TArgs}"/> in the Storage and applies mapping on <see cref="IQueryable{T}"/>.
@@ -33,7 +33,7 @@ public interface IMappingService
     /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
     /// <returns>Result of mapping. Instance of <see cref="IQueryable{T}"/> object with applied mapping.</returns>
     /// <exception cref="MappingException">Thrown if args are null or if we are using incorrect version of Map() method or if mapping wasn't found.</exception>
-    IQueryable<TModel> Map<TEntity, TModel, TArgs>(IQueryable<TEntity> query, TArgs args, string name = null);
+    IQueryable<TModel> Map<TEntity, TModel, TArgs>(IQueryable<TEntity> query, TArgs args, string? name = null);
 
     /// <summary>
     /// Searches for the mapping in the Storage and applies mapping to the provided model.
@@ -44,7 +44,7 @@ public interface IMappingService
     /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
     /// <returns>Result of mapping. Instance of destination object.</returns>
     /// <exception cref="MappingException">Thrown if args are null or if we are using incorrect version of Map() method or if mapping wasn't found.</exception>
-    TTo Map<TFrom, TTo>(TFrom model, string name = null);
+    TTo Map<TFrom, TTo>(TFrom model, string? name = null);
 
     /// <summary>
     /// Searches for the mapping in the Storage and applies mapping to the every model in the provided list.
@@ -55,7 +55,7 @@ public interface IMappingService
     /// <param name="name">Name of the mapping, if we want to search for mapping registered with some specific name. Should be null if we want to find mapping without name.</param>
     /// <returns>Result of mapping. List of instances of destination objects.</returns>
     /// <exception cref="MappingException">Thrown if args are null or if we are using incorrect version of Map() method or if mapping wasn't found.</exception>
-    List<TTo> Map<TFrom, TTo>(List<TFrom> models, string name = null);
+    List<TTo> Map<TFrom, TTo>(List<TFrom> models, string? name = null);
 
     /// <summary>
     /// Searches for the mapping in the Storage and applies mapping to the provided model.
@@ -69,7 +69,7 @@ public interface IMappingService
     /// <param name="args">Arguments that we want to pass into mapping to use them inside of mapping expression.</param>
     /// <returns>Result of mapping. Instance of destination object.</returns>
     /// <exception cref="MappingException">Thrown if args are null or if we are using incorrect version of Map() method or if mapping wasn't found.</exception>
-    TTo Map<TFrom, TTo, TArgs>(TFrom model, TArgs args, string name = null);
+    TTo Map<TFrom, TTo, TArgs>(TFrom model, TArgs args, string? name = null);
 
     /// <summary>
     /// Searches for the mapping in the Storage and applies mapping to the every model in the provided list.
@@ -83,7 +83,7 @@ public interface IMappingService
     /// <param name="args">Arguments that we want to pass into mapping to use them inside of mapping expression.</param>
     /// <returns>Result of mapping. List of instances of destination objects.</returns>
     /// <exception cref="MappingException">Thrown if args are null or if we are using incorrect version of Map() method or if mapping wasn't found.</exception>
-    List<TTo> Map<TFrom, TTo, TArgs>(List<TFrom> models, TArgs args, string name = null);
+    List<TTo> Map<TFrom, TTo, TArgs>(List<TFrom> models, TArgs args, string? name = null);
 }
 
 /// <summary>
